@@ -1,25 +1,17 @@
-# Welcome to GitHub
+## KoPI 로고
 
-캡스톤 팀 생성을 축하합니다.
-
-## 팀소개 및 페이지를 꾸며주세요.
+## 팀페이지 주소
+https://kookmin-sw.github.io/capstone-2020-9/
 
 - 프로젝트 소개
+본 프로젝트는 텍스트로 표현된 사용자의 생각을 이미지화 하는데 목표를 둔다.
+단순히 단어를 입력하면 이미지를 생성하는 것을 넘어서 문장 수준의 텍스트를 입력받고, 그것을 인식해서 이미지를 생성한다. 이는 그림 실력이 없는 사용자도 만들고 싶은 이미지에 대한 구상만 있다면, 학습된 AI를 통해 이미지를 만들 수 있다는 희망을 줄 것이다.
+
   - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
   - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
 
-- 팀페이지 꾸미기
-  - 프로젝트 소개 및 팀원 소개
-  - index.md 예시보고 수정.
+**팀페이지 주소** -> https://kookmin-sw.github.io/capstone-2020-9/
 
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
-  - Source를 marster branch
-  - Theme Chooser에서 태마선택
-  - 수정후 팀페이지 확인하여 점검.
-
-**팀페이지 주소** -> https://kookmin-sw.github.io/ '{{자신의 리파지토리 아이디}}'
-
-**예시)** 2020년 0조  https://kookmin-sw.github.io/capstone-2020-0/
 
 
 ## 내용에 아래와 같은 내용들을 추가하세요.
@@ -34,17 +26,21 @@
 
 ### 3. 팀 소개
 
-팀을 소개하세요.
-
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
-
-### 4. 사용법
-
-소스코드제출시 설치법이나 사용법을 작성하세요.
-
-### 5. 기타
-
-추가적인 내용은 자유롭게 작성하세요.
+    - 정형섭(팀장)
+      20153229
+      bluesky096049@gmail.com
+    - 심유정
+      20153192
+      beanwolf@kookmin.ac.kr
+    - 유성훈
+      20153199
+      ysg03004@kookmin.ac.kr
+    - 이규한
+      20153206
+      qr96@kookmin.ac.kr
+    - 조정근
+      20153235
+      barunpuri@kookmin.ac.kr
 
 
 ## Markdown을 사용하여 내용꾸미기

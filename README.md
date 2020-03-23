@@ -1,5 +1,5 @@
 ## KoPI 로고
-<img src="https://user-images.githubusercontent.com/20828492/77301470-13225c00-6d33-11ea-814f-7e4d129d2891.png" width="48" height="48">
+<img src="https://user-images.githubusercontent.com/20828492/77301470-13225c00-6d33-11ea-814f-7e4d129d2891.png" width="200" height="200">
 
 ### 팀페이지 주소
 https://kookmin-sw.github.io/capstone-2020-9/

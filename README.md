@@ -1,5 +1,5 @@
 ## KoPI 로고
-![KakaoTalk_20200323_172510063](https://user-images.githubusercontent.com/20828492/77301470-13225c00-6d33-11ea-814f-7e4d129d2891.png)
+![KakaoTalk_20200323_172510063](https://user-images.githubusercontent.com/20828492/77301470-13225c00-6d33-11ea-814f-7e4d129d2891.png){: width="30%" height="30%"}
 
 
 ### 팀페이지 주소

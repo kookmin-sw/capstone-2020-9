@@ -34,7 +34,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
     - 유성훈
       20153199
       ysg03004@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="150" height="200">
+   <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
       
       
     - 이규한

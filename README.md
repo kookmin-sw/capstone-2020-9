@@ -14,10 +14,10 @@ Simply typing a word goes creating an image, This project gets text at the sente
 
 
 ## 3. 소개 영상
-
+ - 추후공개
 
 ## 4. 실행 방법
-
+ - 
 
 ## 5. 팀 소개
 
@@ -49,7 +49,6 @@ Simply typing a word goes creating an image, This project gets text at the sente
    <img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="150" height="200">
       
 
-## 6. 기타 
 
 <!--
 ## Markdown을 사용하여 내용꾸미기

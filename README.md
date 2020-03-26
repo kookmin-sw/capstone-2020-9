@@ -24,7 +24,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
     - 정형섭(팀장)
       20153229
       bluesky096049@gmail.com
- <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="150" height="200">
+ <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="175" height="200">
     
     - 심유정
       20153192
@@ -46,7 +46,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
     - 조정근
       20153235
       barunpuri@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="150" height="200">
+   <img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="175" height="200">
       
 
 

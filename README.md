@@ -29,7 +29,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
-      
+   <img src="https://user-images.githubusercontent.com/20828492/77652703-03fd1180-6fb2-11ea-95b8-fe1abd59f51f.jpg" width="160" height="200">
       
     - 유성훈
       20153199

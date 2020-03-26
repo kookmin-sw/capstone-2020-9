@@ -17,7 +17,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
  - 추후공개
 
 ## 4. 실행 방법
- - 
+ - 추후공개
 
 ## 5. 팀 소개
 

@@ -1,4 +1,4 @@
-## KoPI 로고
+## KoPI
 <img src="https://user-images.githubusercontent.com/20828492/77301470-13225c00-6d33-11ea-814f-7e4d129d2891.png" width="200" height="200">
 
 ### 팀페이지 주소

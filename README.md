@@ -24,18 +24,22 @@ Simply typing a word goes creating an image, This project gets text at the sente
     - 정형섭(팀장)
       20153229
       bluesky096049@gmail.com
+      <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="200" height="200">
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
     - 유성훈
       20153199
       ysg03004@kookmin.ac.kr
+      <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="200" height="200">
     - 이규한
       20153206
       qr96@kookmin.ac.kr
+      <img src="https://user-images.githubusercontent.com/20828492/77650650-24779c80-6faf-11ea-9e66-68652b3252ef.jpg" width="200" height="200">
     - 조정근
       20153235
       barunpuri@kookmin.ac.kr
+      <img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="200" height="200">
       
 
 ## 6. 기타 

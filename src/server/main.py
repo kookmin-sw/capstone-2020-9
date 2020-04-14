@@ -18,11 +18,13 @@ def receive(source_sock, target_id):
     target_sock = connected_com[target_id]
     while True:
         try:
-            recvData = source_sock.recv(1024)
+            recvData = source_sock.recv(1024)#source 살아있는지 확인
+            if not recvData:    
+                source_sock.close()
+                break
             target_sock.send(recvData)
         except:
             target_sock.send('disconnected with other device'.encode('utf-8'))
-            source_sock.close()
             break
    
 
@@ -33,19 +35,24 @@ def check(source_sock, target_id):
 
     try:
         while True:
-            target_sock.send('test'.encode('utf-8'))
-            time.sleep(1)
-    except OSError as msg:
-        print(msg)
+            recvData = target_sock.recv() # target 살아있는지 확인
+            if not recvData:
+                lock.acquire()
+                del connected_com[target_id]
+                lock.release()
+                target_sock.close()
+
+    except OSError :
         lock.acquire()
         del connected_com[target_id]
         lock.release()
         target_sock.close()
         source_sock.send('disconnected with other device'.encode('utf-8'))
-        #source_sock.close() ## 종료시켜? 아니면 재접속? 
+        time.sleep(0.5)
+        source_sock.close() ## 종료시켜? 아니면 재접속? 
      
 
-def dist(sock, addr):
+def dist(sock):
     while True:
         recvData = sock.recv(1024).decode('utf-8')
         if( recvData == 'com' ): # from com 
@@ -84,10 +91,6 @@ def dist(sock, addr):
                 lock.release()
 
 
-            
-                
-
-
 port = 8081
 
 serverSock = socket(AF_INET, SOCK_STREAM)
@@ -107,7 +110,7 @@ while True:
 
     print(str(addr), '에서 접속되었습니다.')
 
-    disting = threading.Thread(target=dist, args=(connectionSock, addr))
+    disting = threading.Thread(target=dist, args=(connectionSock, ))
 
     disting.start()
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -31,6 +32,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private DataOutputStream os;
     private String ip = "127.0.0.1";
     private  int port = 8081;
+    boolean isConnected=true;
+    String message = "";
 
 
     @Override
@@ -52,6 +55,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }catch (IOException e1){
                     Log.w("Fail", "Fail");
                     e1.printStackTrace();
+                }
+                //연결되있는 동안 계속 서버로부터 메시지 수신
+                while(isConnected){
+                    try{
+                        //서버로부터 수신한 메시지 string 으로 리턴
+                        message = is.readUTF();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
@@ -135,9 +147,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.sendbutton:
                 sendMsg();
+                //비밀번호 틀렸을 때
+                if (message=="Invalid Password") {
 
-                break;
-            default:;
+                    Toast.makeText(MainActivity.this, "Invalid Password!", Toast.LENGTH_SHORT).show();
+                    // 비밀번호 입력한 거 클리어
+                    userinput = (EditText)findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                    break;
+                }else {
+                    //비밀번호 맞았을때
+                    // 다음액티비티로 전환
+                    break;
+                }
+
 
         }
     }

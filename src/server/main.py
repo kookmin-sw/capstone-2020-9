@@ -34,9 +34,9 @@ def dist(sock, addr):
         else : # from mobile, data : password 
             if(connected_com.get(recvData,0) != 0):
 
-                sendData = 'Connected'
-                sock.send(sendData.encode('utf-8'))
-
+                sendData = 'Connected'.encode('utf-8')
+                sock.send(sendData)
+                connected_com[recvData].send(sendData)
 
                 receiver = threading.Thread(target=receive, args=(sock, connected_com[recvData]))
                 receiver.start()

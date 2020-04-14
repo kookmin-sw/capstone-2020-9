@@ -8,11 +8,42 @@ lock = threading.Lock()
 
 connected_com = dict()
 
-def receive(source_sock, target_sock):
+def run():
     while True:
-        recvData = source_sock.recv(1024)
-        target_sock.send(recvData)
-        
+        s = input()
+        exec(s)
+
+
+def receive(source_sock, target_id):
+    target_sock = connected_com[target_id]
+    while True:
+        try:
+            recvData = source_sock.recv(1024)
+            target_sock.send(recvData)
+        except:
+            target_sock.send('disconnected with other device'.encode('utf-8'))
+            source_sock.close()
+            break
+   
+
+def check(source_sock, target_id):
+    target_sock = connected_com[target_id]
+    receiver = threading.Thread(target=receive, args=(source_sock, target_id), daemon=True)
+    receiver.start()
+
+    try:
+        while True:
+            target_sock.send('test'.encode('utf-8'))
+            time.sleep(1)
+    except OSError as msg:
+        print(msg)
+        lock.acquire()
+        del connected_com[target_id]
+        lock.release()
+        target_sock.close()
+        source_sock.send('disconnected with other device'.encode('utf-8'))
+        #source_sock.close() ## 종료시켜? 아니면 재접속? 
+     
 
 def dist(sock, addr):
     while True:
@@ -32,18 +63,28 @@ def dist(sock, addr):
             break
 
         else : # from mobile, data : password 
-            if(connected_com.get(recvData,0) != 0):
-
+            try:
                 sendData = 'Connected'.encode('utf-8')
-                sock.send(sendData)
                 connected_com[recvData].send(sendData)
+                sock.send(sendData)
 
-                receiver = threading.Thread(target=receive, args=(sock, connected_com[recvData]))
-                receiver.start()
+                checking = threading.Thread(target=check, args=(sock, recvData))
+                checking.start()
                 break 
-            else: #
+
+            except KeyError:
                 sendData = 'Invalid Password'
                 sock.send(sendData.encode('utf-8'))
+
+            except OSError: 
+                sendData = 'Invalid Password'
+                sock.send(sendData.encode('utf-8'))
+                lock.acquire()
+                del connected_com[recvData]
+                lock.release()
+
+
+            
                 
 
 
@@ -53,9 +94,14 @@ serverSock = socket(AF_INET, SOCK_STREAM)
 serverSock.bind(('', port))
 serverSock.listen(1)
 
+exe = threading.Thread(target= run)
+exe.start()
+
+
 while True:
     
     print('%d번 포트로 접속 대기중...'%port)
+    print( connected_com)
 
     connectionSock, addr = serverSock.accept()
 

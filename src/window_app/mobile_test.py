@@ -12,7 +12,7 @@ def send(sock):
 def receive(sock):
     while True:
         recvData = sock.recv(1024)
-        print('pw :', recvData.decode('utf-8'))
+        print('ans :', recvData.decode('utf-8'))
 
 
 port = 8081

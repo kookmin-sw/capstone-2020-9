@@ -46,7 +46,8 @@ while True:
     if( recvData == 'test' ) :
         continue
     elif( recvData == 'disconnected with other device'):
-        break 
+        clientSock.close()
+        break # 재접속 여부 확인 
 
     print('좌표', recvData)  # '(12.3, 3.5), (5.4, 2.8)'
     

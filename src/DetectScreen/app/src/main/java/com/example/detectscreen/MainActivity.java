@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
         ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr());
 
-        return matResult;
+        return matInput;
     }
 
 

@@ -100,19 +100,19 @@ serverSock.listen(1)
 exe = threading.Thread(target= run)
 exe.start()
 
+if __name__ == '__main__' :
+    while True:
+        
+        print('%d번 포트로 접속 대기중...'%port)
+        print( connected_com)
 
-while True:
-    
-    print('%d번 포트로 접속 대기중...'%port)
-    print( connected_com)
+        connectionSock, addr = serverSock.accept()
 
-    connectionSock, addr = serverSock.accept()
+        print(str(addr), '에서 접속되었습니다.')
 
-    print(str(addr), '에서 접속되었습니다.')
+        disting = threading.Thread(target=dist, args=(connectionSock, ))
 
-    disting = threading.Thread(target=dist, args=(connectionSock, ))
+        disting.start()
 
-    disting.start()
-
-    time.sleep(1)
-    pass
+        time.sleep(1)
+        pass

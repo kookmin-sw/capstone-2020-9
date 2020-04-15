@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>620</height>
+    <height>692</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,12 +47,12 @@
      <string>인증 번호 생성</string>
     </property>
    </widget>
-   <widget class="QLabel" name="pw_show">
+   <widget class="QLabel" name="pw_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>40</y>
-      <width>291</width>
+      <width>301</width>
       <height>151</height>
      </rect>
     </property>
@@ -71,7 +71,7 @@ background-color: rgb(255, 255, 255);</string>
      <string/>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="how_to_btn">
@@ -100,10 +100,27 @@ background-color: rgb(255, 255, 255);</string>
      <string>로그인</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>연결할 장비에 아래 비밀번호를 입력하세요</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>generate_num_btn</zorder>
    <zorder>how_to_btn</zorder>
    <zorder>pushButton_3</zorder>
-   <zorder>pw_show</zorder>
+   <zorder>pw_label</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QWidget" name="login_widget" native="true">
    <property name="geometry">
@@ -255,41 +272,36 @@ background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="pw_label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>380</y>
+     <width>301</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 48pt &quot;HY견명조&quot;;
+border-color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>main_widget</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>175</x>
-     <y>276</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>298</x>
-     <y>288</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>login_widget</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>150</x>
-     <y>277</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>668</x>
-     <y>289</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton_11</sender>
    <signal>clicked()</signal>
@@ -399,6 +411,38 @@ background-color: rgb(255, 255, 255);</string>
     <hint type="destinationlabel">
      <x>708</x>
      <y>388</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>login_widget</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>668</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>main_widget</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>288</y>
     </hint>
    </hints>
   </connection>

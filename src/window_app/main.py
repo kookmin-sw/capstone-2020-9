@@ -3,9 +3,13 @@ import threading
 import time
 import pyautogui 
 from ast import literal_eval
-
-WIDTH, HEIGHT = pyautogui.size()  
-print('width={0}, height={1}'.format(WIDTH, HEIGHT))
+import sys
+from PyQt5 import QtWidgets
+from PyQt5 import QtGui
+from PyQt5 import uic
+from PyQt5 import QtCore
+from PyQt5.QtCore import pyqtSlot
+ 
 
 def point_on_screen(recvData):
     try:
@@ -57,37 +61,60 @@ def pointing_start(sock):
     
     return recvData
 
-
-def start():
+def connectionStart(sock):
+    #연결 성공 
     while True:
-        # 입력 들어오면 gui
-        pw, sock = make_connection()
-
-
-        #화면에 pw 보여주기 gui
-        #print(pw)
-
-
-        #연결 성공 
-        while True:
-            recvData = sock.recv(1024).decode('utf-8')
-            if( recvData == 'Connected' ):
-                print(recvData)
-                break
-
-        
-        res = pointing_start(sock)
-
-        # 종료 / 재접속 gui
-        # print( res )
-        ''' 
-        if( 재접속 ):
-            continue
-        elif( 종료 ):
+        recvData = sock.recv(1024).decode('utf-8')
+        if( recvData == 'Connected' ):
+            print(recvData)
             break
-        '''
 
+    res = pointing_start(sock)
+
+    # 종료 / 재접속 gui
+    # print( res )
+    ''' 
+    if( 재접속 ):
+        continue
+    elif( 종료 ):
+        break
+    '''
+    
+
+
+class Form(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+        QtWidgets.QDialog.__init__(self, parent)
+        self.ui = uic.loadUi("tos.ui", self)
+        self.ui.setWindowTitle('Touch On Screen')
+        self.ui.login_widget.hide()
+        self.ui.how_to_widget.hide()
+        self.ui.show()
+        
+
+    # make connection & generate number
+    # 입력 들어오면 gui
+    @pyqtSlot()
+    def generate_num(self): # btn 
+        #self.ui.pw_show.setText("1234")
+
+        pw, sock = make_connection()
+        #화면에 pw 보여주기 gui
+        self.ui.pw_label_2.setText(pw)
+
+        waiting = threading.Thread(target=connectionStart, args=(sock,))
+        waiting.start()
+
+            
         
 
 
-start()
+#fixed size = 365 305        
+if __name__ == '__main__':
+    WIDTH, HEIGHT = pyautogui.size()  
+    print('width={0}, height={1}'.format(WIDTH, HEIGHT))
+
+    app = QtWidgets.QApplication(sys.argv)
+    w = Form()
+    sys.exit(app.exec())
+    os._exit

@@ -35,7 +35,7 @@ def check(source_sock, target_id):
 
     try:
         while True:
-            recvData = target_sock.recv() # target 살아있는지 확인
+            recvData = target_sock.recv(1024) # target 살아있는지 확인
             if not recvData:
                 lock.acquire()
                 del connected_com[target_id]

@@ -27,6 +27,8 @@ def make_connection():
 
     clientSock = socket(AF_INET, SOCK_STREAM)
     clientSock.connect(('127.0.0.1', port))
+    #clientSock.connect(('15.164.116.157', port))
+    
 
     print('접속 완료')
 
@@ -114,7 +116,9 @@ if __name__ == '__main__':
     WIDTH, HEIGHT = pyautogui.size()  
     print('width={0}, height={1}'.format(WIDTH, HEIGHT))
 
+    clientSock = socket
     app = QtWidgets.QApplication(sys.argv)
     w = Form()
-    sys.exit(app.exec())
+    app.exec()
+    clientSock.close()
     os._exit

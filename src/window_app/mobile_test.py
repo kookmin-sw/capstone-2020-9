@@ -40,4 +40,14 @@ receiver.start()
 접속 ok일때 
 2. 'disconnected with other device'도착 : socket close 
 -> socket 재 연결 후  재접속 비밀번호 입력
+
+-------------------------------------------
+핸드폰 어플 시나리오
+모바일에서 번호 입력 후 전송
+-> 1. 맞지 않는 번호 : 'Invalid Password' 수신
+-> 2. 맞는 번호 : 'Connected' 수신
+맞는 번호로 진입
+-> 송신 : 계속?(모션 인식할때마다 좌표값 전송)
+-> 수신 : 대기하다가 'disconnected with other device' 메시지 오면 재접속 필요 
+
 '''

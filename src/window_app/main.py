@@ -9,6 +9,7 @@ from PyQt5 import QtGui
 from PyQt5 import uic
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
+import os
  
 
 def point_on_screen(recvData):
@@ -87,12 +88,29 @@ def connectionStart(sock):
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.ui = uic.loadUi("tos.ui", self)
+        self.ui = uic.loadUi("tos_v1.ui", self) #tos.ui
         self.ui.setWindowTitle('Touch On Screen')
-        self.ui.login_widget.hide()
-        self.ui.how_to_widget.hide()
+        #self.ui.login_widget.hide()
+        #self.ui.how_to_widget.hide()
         self.ui.show()
-        
+
+    def clearCountdownTime(self):
+        self.countdown_time = 5
+
+    def countAndMinimization(self):    
+        time.sleep(1)
+        self.ui.status.setText('\n {}초뒤 최소화 됩니다.'.format(self.countdown_time))
+
+        self.countdown_time -= 1
+        if( self.countdown_time == 0 ):
+            self.ui.pw_label_2.setText('연결되었습니다')
+            self.ui.status.setText('')
+            self.showMinimized()
+            return
+
+        countdown = threading.Thread(target=self.countAndMinimization)
+        countdown.start()
+
 
     # make connection & generate number
     # 입력 들어오면 gui
@@ -103,9 +121,17 @@ class Form(QtWidgets.QDialog):
         pw, sock = make_connection()
         #화면에 pw 보여주기 gui
         self.ui.pw_label_2.setText(pw)
-
+        self.ui.status.setText('연결되었습니다.\n 프로그램을 최소화하여 사용하세요.')
+        self.clearCountdownTime()
         waiting = threading.Thread(target=connectionStart, args=(sock,))
         waiting.start()
+
+        countdown = threading.Thread(target=self.countAndMinimization)
+        countdown.start()
+
+    
+    
+
 
             
         
@@ -120,5 +146,5 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     w = Form()
     app.exec()
-    clientSock.close()
+   # clientSock.close()
     os._exit

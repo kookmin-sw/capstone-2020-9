@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-
 import java.io.DataOutputStream;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -40,8 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, LoadingActivity.class);
-        startActivity(intent);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -72,6 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
         //register the buttons
+
         btn[0] = (Button)findViewById(R.id.button1);
         btn[1] = (Button)findViewById(R.id.button2);
         btn[2] = (Button)findViewById(R.id.button3);
@@ -155,11 +154,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     userinput = (EditText)findViewById(R.id.numberpadtext);
                     userinput.setText("");
                     break;
-                }else {
-                    //비밀번호 맞았을때
+                }else if (message=="Connected"){
+
                     // 다음액티비티로 전환
+                    //startActivity(new Intent(this, kyuhanActivity.class));
                     break;
                 }
+
 
 
         }
@@ -179,6 +180,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
             }
         }).start();
+    }
+    protected void onStop() {
+        super.onStop();
+        try{
+            socket.close(); //소켓 닫는다
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void addtoarray(String no) {

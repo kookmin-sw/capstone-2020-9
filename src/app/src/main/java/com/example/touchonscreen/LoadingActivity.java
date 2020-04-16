@@ -1,35 +1,19 @@
 package com.example.touchonscreen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-
-
-
 
 public class LoadingActivity extends Activity {
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
-        startLoading();
-    }
 
-
-
-    private void startLoading() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 2000);
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
-

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
@@ -29,10 +30,12 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "opencv";
     private Mat matInput;
     private Mat matResult;
+    private Double ScreenSize = 0.0;
+
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
-    public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult);
+    public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult, double ScreenSize);
 
 
     static {
@@ -122,10 +125,11 @@ public class MainActivity extends AppCompatActivity
         matInput = inputFrame.rgba();
 
         if ( matResult == null )
-
             matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
 
-        ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr());
+        if (ScreenSize == null)
+            ScreenSize = 0.0;
+        ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), ScreenSize);
 
         return matInput;
     }

@@ -5,6 +5,10 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4936661c-88a0-40cb-bbed-479015f2c23b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,6 +36,10 @@
   <component name="ProjectId" id="1aXClzKqtYNVi9rPQyg3pLomtwH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="DEBUGGABLE_DEVICE" value="lge-lm_g710n-LMG710N0832e6ec" />
+    <property name="DEBUGGABLE_PROCESS" value="com.example.detectscreen" />
+    <property name="DEBUGGER_ID" value="Auto" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="C:/Android/SDK" />
     <property name="last_opened_file_path" value="C:/opencv-4.3.0-android-sdk/OpenCV-android-sdk/sdk" />
     <property name="project.structure.last.edited" value="Dependencies" />

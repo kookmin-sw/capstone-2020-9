@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
 
     public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult, double ScreenSize);
 
-
     static {
         System.loadLibrary("opencv_java4");
         System.loadLibrary("native-lib");

@@ -4,11 +4,13 @@ import time
 import pyautogui 
 from ast import literal_eval
 import sys
+import platform
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5 import uic
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
+from win10toast import ToastNotifier
 import os
  
 
@@ -83,6 +85,10 @@ def connectionStart(sock):
         break
     '''
     
+def notify():
+    if( platform.system() == 'Windows' and platform.release() == '10'):
+        toaster = ToastNotifier()
+        toaster.show_toast("Touch On Screen", "Program is running in System Tray~")
 
 
 class Form(QtWidgets.QDialog):
@@ -130,7 +136,9 @@ class Form(QtWidgets.QDialog):
 
     def closeEvent(self, QCloseEvent):
         print("WindowCLoseEvent")
-        
+        noti = threading.Thread(target=notify)
+        noti.start()
+
     
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 

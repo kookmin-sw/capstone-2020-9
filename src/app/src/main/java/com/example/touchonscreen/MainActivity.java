@@ -60,6 +60,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     socket = new Socket("15.164.116.157", 8081);
 
                     Log.w("서버 연결됨", "서버 연결됨");
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "Server Connected", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }catch (IOException e1){
                     Log.w("서버 연결실패", "서버 연결실패");
                     e1.printStackTrace();
@@ -73,8 +80,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         byte[] byteAr = new byte[100];
                         int readByteCount = is.read(byteAr);
                         aa = new String(byteAr, 0, readByteCount, "UTF-8");
-
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.w("서버에서 받은 값", "" + aa);
+
                     } catch (IOException e) {
                         e.printStackTrace();
 
@@ -140,19 +153,18 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.sendbutton:
                 sendMsg();
                 //비밀번호 틀렸을 때
-                if (aa=="Connected") {
+                /*if (aa=="Connected") {
 
-                    Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
                     // 비밀번호 입력한 거 클리어
                     // 다음액티비티로 전환
                     //startActivity(new Intent(this, kyuhanActivity.class));
                     break;
                 }else{
-                    Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
                     userinput = (EditText)findViewById(R.id.numberpadtext);
                     userinput.setText("");
                     break;
-                }
+                }*/
+                break;
         }
     }
 

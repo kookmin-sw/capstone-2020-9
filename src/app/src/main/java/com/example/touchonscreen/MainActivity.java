@@ -4,73 +4,34 @@ package com.example.touchonscreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends Activity implements View.OnClickListener{
-
     Button btn[] = new Button[13];
     EditText userinput;
-
     //requirement for socket
+    private Handler mHandler;
     private Socket socket;
-    private DataInputStream is;
-    private DataOutputStream os;
-    private String ip = "127.0.0.1";
-    private  int port = 8081;
-    boolean isConnected=true;
-    String message = "";
-
+    private String aa = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    //소켓 생성
-                    socket = new Socket(ip, port);
-                    //서버랑 주고받을 메 메시지 통로
-                    is = new DataInputStream(socket.getInputStream());
-                    os = new DataOutputStream(socket.getOutputStream());
-                    Log.w("Server Coneected", "Server Connected");
-                }catch (IOException e1){
-                    Log.w("Fail", "Fail");
-                    e1.printStackTrace();
-                }
-                //연결되있는 동안 계속 서버로부터 메시지 수신
-                while(isConnected){
-                    try{
-                        //서버로부터 수신한 메시지 string 으로 리턴
-                        message = is.readUTF();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-
-
-
+        mHandler = new Handler();
 
         //register the buttons
-
         btn[0] = (Button)findViewById(R.id.button1);
         btn[1] = (Button)findViewById(R.id.button2);
         btn[2] = (Button)findViewById(R.id.button3);
@@ -85,10 +46,42 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btn[11] = (Button)findViewById(R.id.clearbutton);
         btn[12] = (Button)findViewById(R.id.sendbutton);
 
+
         //register onClick event
         for(int i=0; i<13;i++){
             btn[i].setOnClickListener(this);
         }
+        mHandler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    //소켓 생성
+                    socket = new Socket("15.164.116.157", 8081);
+
+                    Log.w("서버 연결됨", "서버 연결됨");
+                }catch (IOException e1){
+                    Log.w("서버 연결실패", "서버 연결실패");
+                    e1.printStackTrace();
+                }
+
+                //연결되있는 동안 계속 서버로부터 메시지 수신
+                while(true){
+                    try{
+                        //서버로부터 수신한 메시지 string 으로 리턴
+                        InputStream is = socket.getInputStream();//서버에서 받을거
+                        byte[] byteAr = new byte[100];
+                        int readByteCount = is.read(byteAr);
+                        aa = new String(byteAr, 0, readByteCount, "UTF-8");
+
+                        Log.w("서버에서 받은 값", "" + aa);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -147,40 +140,49 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.sendbutton:
                 sendMsg();
                 //비밀번호 틀렸을 때
-                if (message=="Invalid Password") {
+                if (aa=="Connected") {
 
-                    Toast.makeText(MainActivity.this, "Invalid Password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
                     // 비밀번호 입력한 거 클리어
-                    userinput = (EditText)findViewById(R.id.numberpadtext);
-                    userinput.setText("");
-                    break;
-                }else if (message=="Connected"){
-
                     // 다음액티비티로 전환
                     //startActivity(new Intent(this, kyuhanActivity.class));
                     break;
+                }else{
+                    Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
+                    userinput = (EditText)findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                    break;
                 }
-
-
-
         }
     }
+
     public void sendMsg(){
-        if(os==null) return; //서버와 연결되지 않았다면 전송 불가
+         //서버와 연결되지 않았다면 전송 불가
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String msg = userinput.getText().toString();
+                String data_2= userinput.getText().toString();
+                byte[] byteArr = new byte[100];
+                try {
+                    byteArr = data_2.getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 try{
-                    os.writeUTF(msg);
+                    OutputStream os = socket.getOutputStream();//서버로 보낼거
+                    os.write(byteArr);
                     os.flush();
+                    Log.w("서버로 보냄", "서버로 보냄");
                 } catch (IOException e){
                     e.printStackTrace();
+                    Log.w("서버로 못보냄", "서버로 못보냄");
                 }
             }
         }).start();
     }
+
     protected void onStop() {
         super.onStop();
         try{
@@ -195,6 +197,4 @@ public class MainActivity extends Activity implements View.OnClickListener{
         userinput = (EditText)findViewById(R.id.numberpadtext);
         userinput.append(no);
     }
-
-
 }

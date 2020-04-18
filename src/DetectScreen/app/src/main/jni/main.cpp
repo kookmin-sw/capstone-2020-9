@@ -23,37 +23,23 @@ extern "C" {
                 Mat canny;
 
                 vector<Vec4i> lines;
-                //vector<vector<Point>> contours;
-                //vector<Point2f> approx;
-
 
                 cvtColor(matInput, gray, COLOR_BGR2GRAY);
                 GaussianBlur(gray, gray, Size(9,9), 0);
                 //threshold(gray, matInput, 125, 255, THRESH_BINARY);
                 Canny(gray, canny, 120, 150, 3);
-
                 HoughLinesP(canny, lines, 1, CV_PI/180, 20, 120, 5);//점 두개씩 들어감
-
-
-                /*
-                for( int i=0; i<lines.size(); i++ )
-                {
-                    Vec4i L = lines[i];
-
-                    line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                }*/
 
 
                 // 허프만에 찍힌  점들을 최소 제곱법을 이용해 직선 구해보자.
                 double a, b, c; // y = ax + b or x=c
-                int SigXY=0;
-                int SigX=0;
-                int SigY=0;
-                int SigX2=0;//X의 제곱
-                int SigY2=0;//y의 제곱
-                int n=lines.size()*2;// 표본의 갯수
+                long long int SigXY=0;
+                long long int SigX=0;
+                long long int SigY=0;
+                long long int SigX2=0;//X의 제곱
+                int n;// 표본의 갯수
 
-                vector<Vec4i> line1,line2,line3,line4;
+                vector<Vec4i> line1,line2,line3,line4;//상하좌우
 
                 for( int i=0; i<lines.size(); i++ )
                 {
@@ -76,24 +62,100 @@ extern "C" {
                     }
                 }
 
+                if(line1.size()>0){
+                    SigX=0; SigXY=0; SigY=0; SigX2=0;
+                    n=line1.size()*2;
+                    for(int i=0;i<line1.size();i++){
+                        Vec4i L = line1[i];
 
-                for(int i=0;i<line2.size();i++){
-                    Vec4i L = line2[i];
-                    //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                    SigXY+=L[0]*L[1]+L[2]*L[3];
-                    SigX+=L[0]+L[2];
-                    SigY+=L[1]+L[3];
-                    SigX2+=L[0]*L[0]+L[2]*L[2];
-                    SigY2+=L[1]*L[1]+L[3]*L[3];
+                        SigXY+=L[0]*L[1]+L[2]*L[3];
+                        SigX+=L[0]+L[2];
+                        SigY+=L[1]+L[3];
+                        SigX2+=L[0]*L[0]+L[2]*L[2];
 
-                    line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
+                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
+                    }
+
+                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
+                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
+
                 }
-                n=line2.size()*2;
+                else {
+                    a = 0;
+                    b = 1100;
+                }
+                line(matInput, Point(0,b), Point(2000,2000*a+b), Scalar(0,0,255), 5, LINE_AA );// 가로줄 출력
 
-                a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
-                b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
+                if(line2.size()>0){
+                    SigX=0; SigXY=0; SigY=0; SigX2=0;
+                    n=line2.size()*2;
+                    for(int i=0;i<line2.size();i++){
+                        Vec4i L = line2[i];
 
-                line(matInput, Point(0,b), Point(2000,2000*a+b), Scalar(0,0,255), 5, LINE_AA );
+                        SigXY+=L[0]*L[1]+L[2]*L[3];
+                        SigX+=L[0]+L[2];
+                        SigY+=L[1]+L[3];
+                        SigX2+=L[0]*L[0]+L[2]*L[2];
+
+                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
+                    }
+
+                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
+                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
+
+                }
+                else{
+                    a=0;
+                    b=0;
+                }
+                line(matInput, Point(0,b), Point(2000,2000*a+b), Scalar(0,0,255), 5, LINE_AA );// 가로줄 출력
+
+                if(line3.size()>0){
+                    SigX=0; SigXY=0; SigY=0; SigX2=0;
+                    n=line3.size()*2;
+                    for(int i=0;i<line3.size();i++){
+                        Vec4i L = line3[i];
+
+                        SigXY+=L[0]*L[1]+L[2]*L[3];
+                        SigX+=L[0]+L[2];
+                        SigY+=L[1]+L[3];
+                        SigX2+=L[0]*L[0]+L[2]*L[2];
+
+                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
+                    }
+
+                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
+                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
+                    line(matInput, Point(-b/a,0), Point((1300-b)/a,1300), Scalar(0,0,255), 5, LINE_AA );//세로줄 출력
+                }
+                else {
+
+                }
+
+
+                if(line4.size()>0){
+                    SigX=0; SigXY=0; SigY=0; SigX2=0;
+                    n=line4.size()*2;
+                    for(int i=0;i<line4.size();i++){
+                        Vec4i L = line4[i];
+
+                        SigXY+=L[0]*L[1]+L[2]*L[3];
+                        SigX+=L[0]+L[2];
+                        SigY+=L[1]+L[3];
+                        SigX2+=L[0]*L[0]+L[2]*L[2];
+
+                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
+                    }
+
+                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
+                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
+                    line(matInput, Point(-b/a,0), Point((1300-b)/a,1300), Scalar(0,0,255), 5, LINE_AA );//세로줄 출력
+                }
+                else{
+
+                }
+
+
                 //line(matInput, Point(-b/a,0), Point((1000-b)/a,1000), Scalar(0,0,255), 5, LINE_AA );
 
 

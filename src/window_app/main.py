@@ -1,7 +1,8 @@
 from socket import *
 import threading
 import time
-import pyautogui 
+import pyautogui
+import webbrowser
 from ast import literal_eval
 import sys
 import platform
@@ -133,6 +134,10 @@ class Form(QtWidgets.QDialog):
 
         # countdown = threading.Thread(target=self.countAndMinimization)
         # countdown.start()
+
+    @pyqtSlot()
+    def how_to(self): #btn
+        webbrowser.open("https://github.com/kookmin-sw/capstone-2020-9")
 
     def closeEvent(self, QCloseEvent):
         print("WindowCLoseEvent")

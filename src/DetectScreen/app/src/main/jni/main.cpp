@@ -14,7 +14,7 @@ extern "C" {
                 jobject instance,
                 jlong matAddrInput,
                 jlong matAddrResult,
-                jdouble ScreenSize){
+                jintArray boundaries){
 
                 Mat &matInput = *(Mat *)matAddrInput;
                 Mat &matResult = *(Mat *)matAddrResult;
@@ -32,208 +32,163 @@ extern "C" {
 
 
                 // 허프만에 찍힌  점들을 최소 제곱법을 이용해 직선 구해보자.
-                double a, b, c; // y = ax + b or x=c
-                long long int SigXY=0;
-                long long int SigX=0;
-                long long int SigY=0;
-                long long int SigX2=0;//X의 제곱
                 int n;// 표본의 갯수
 
                 vector<Vec4i> line1,line2,line3,line4;//상하좌우
 
-                for( int i=0; i<lines.size(); i++ )
+                for( int i=0; i<lines.size(); i++ )// 위치에 따른 직선 분류
                 {
                     Vec4i L = lines[i];
-                    if(L[2]-L[0] != 0 && 2*abs(L[3]-L[1]) < abs(L[2]-L[0])){// 가로선, 기울기가 1/2보다 작은 경우
-                        if(L[1]<333){
+                    if(L[2]-L[0] != 0 && 3*abs(L[3]-L[1]) < abs(L[2]-L[0])){// 가로선, 기울기가 1/2보다 작은 경우
+                        if(L[1]<300){
                             line1.push_back(L);
                         }
-                        else if(L[1]>700){
+                        else if(L[1]>660){
                             line2.push_back(L);
                         }
                     }
-                    else if (abs(L[3]-L[1]) > 2*abs(L[2]-L[0])){ // 세로선, 기울기가 2보다 큰 경우
-                        if(L[0]<666){
+                    else if (abs(L[3]-L[1]) > 4*abs(L[2]-L[0])){ // 세로선, 기울기가 2보다 큰 경우
+                        if(L[0]<600){
                             line3.push_back(L);
                         }
-                        else if (L[0]>1333){
+                        else if (L[0]>1300){
                             line4.push_back(L);
                         }
                     }
                 }
 
-                if(line1.size()>0){
-                    SigX=0; SigXY=0; SigY=0; SigX2=0;
-                    n=line1.size()*2;
-                    for(int i=0;i<line1.size();i++){
-                        Vec4i L = line1[i];
+                double SigA;
+                double SigB;
+                double tmpA;
+                double a1, b1;
+                double a2, b2;
+                double a3, b3;
+                double a4, b4;
+                int c3=-1;
+                int c4=-1;
 
-                        SigXY+=L[0]*L[1]+L[2]*L[3];
-                        SigX+=L[0]+L[2];
-                        SigY+=L[1]+L[3];
-                        SigX2+=L[0]*L[0]+L[2]*L[2];
-
-                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                    }
-
-                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
-                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
-
+                //가로줄1
+                SigA=0; SigB=0;
+                n=line1.size();
+                for(int i=0;i<n;i++){
+                    Vec4d L = line1[i];
+                    SigA+=(L[3]-L[1])/(L[2]-L[0]);
+                    SigB+=L[1]-L[0]*(L[3]-L[1])/(L[2]-L[0]);
                 }
-                else {
-                    a = 0;
-                    b = 1100;
-                }
-                line(matInput, Point(0,b), Point(2000,2000*a+b), Scalar(0,0,255), 5, LINE_AA );// 가로줄 출력
-
-                if(line2.size()>0){
-                    SigX=0; SigXY=0; SigY=0; SigX2=0;
-                    n=line2.size()*2;
-                    for(int i=0;i<line2.size();i++){
-                        Vec4i L = line2[i];
-
-                        SigXY+=L[0]*L[1]+L[2]*L[3];
-                        SigX+=L[0]+L[2];
-                        SigY+=L[1]+L[3];
-                        SigX2+=L[0]*L[0]+L[2]*L[2];
-
-                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                    }
-
-                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
-                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
-
+                if(n!=0){
+                    a1=SigA/n;
+                    b1=SigB/n;
                 }
                 else{
-                    a=0;
-                    b=0;
-                }
-                line(matInput, Point(0,b), Point(2000,2000*a+b), Scalar(0,0,255), 5, LINE_AA );// 가로줄 출력
-
-                if(line3.size()>0){
-                    SigX=0; SigXY=0; SigY=0; SigX2=0;
-                    n=line3.size()*2;
-                    for(int i=0;i<line3.size();i++){
-                        Vec4i L = line3[i];
-
-                        SigXY+=L[0]*L[1]+L[2]*L[3];
-                        SigX+=L[0]+L[2];
-                        SigY+=L[1]+L[3];
-                        SigX2+=L[0]*L[0]+L[2]*L[2];
-
-                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                    }
-
-                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
-                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
-                    line(matInput, Point(-b/a,0), Point((1300-b)/a,1300), Scalar(0,0,255), 5, LINE_AA );//세로줄 출력
-                }
-                else {
-
+                    a1=0;
+                    b1=0;
                 }
 
+                //line(matInput, Point(0,b1), Point(2000,2000*a1+b1), Scalar(0,0,255), 5, LINE_AA );// 가로줄 출력
 
-                if(line4.size()>0){
-                    SigX=0; SigXY=0; SigY=0; SigX2=0;
-                    n=line4.size()*2;
-                    for(int i=0;i<line4.size();i++){
-                        Vec4i L = line4[i];
-
-                        SigXY+=L[0]*L[1]+L[2]*L[3];
-                        SigX+=L[0]+L[2];
-                        SigY+=L[1]+L[3];
-                        SigX2+=L[0]*L[0]+L[2]*L[2];
-
-                        //line(matInput, Point(L[0],L[1]), Point(L[2],L[3]), Scalar(0,0,255), 5, LINE_AA );
-                    }
-
-                    a = (double)(n*SigXY-SigX*SigY)/(double)(n*SigX2-SigX*SigX);
-                    b = (double)(SigX2*SigY-SigX*SigXY)/(double)(n*SigX2-SigX*SigX);
-                    line(matInput, Point(-b/a,0), Point((1300-b)/a,1300), Scalar(0,0,255), 5, LINE_AA );//세로줄 출력
+                //가로줄2
+                SigA=0; SigB=0;
+                n=line2.size();
+                for(int i=0;i<n;i++){
+                    Vec4d L = line2[i];
+                    SigA+=(L[3]-L[1])/(L[2]-L[0]);
+                    SigB+=L[1]-L[0]*(L[3]-L[1])/(L[2]-L[0]);
+                }
+                if(n!=0){
+                    a2=SigA/n;
+                    b2=SigB/n;
                 }
                 else{
+                    a2=0;
+                    b2=1070;
+                }
+                //line(matInput, Point(0,b2), Point(2000,2000*a2+b2), Scalar(0,255,0), 5, LINE_AA );// 가로줄 출력
 
+                //세로줄1
+                SigA=0; SigB=0;
+                n=line3.size();
+                for(int i=0;i<n;i++){
+                    Vec4d L = line3[i];
+                    SigA+=(L[3]-L[1])/(L[2]-L[0]);
+                    SigB+=L[1]-L[0]*(L[3]-L[1])/(L[2]-L[0]);
+                }
+                if(n!=0 && SigA!=0){
+                    a3=SigA/n;
+                    b3=SigB/n;
+                    //line(matInput, Point(-b3/a3,0), Point((1000-b3)/a3,1000), Scalar(0,0,255), 5, LINE_AA );// 세로줄1 출력
+                }
+                else{
+                    c3=1;
+                    //line(matInput, Point(c3,0), Point(c3,1000), Scalar(0,0,255), 5, LINE_AA );// 세로줄1 출력
                 }
 
+                //세로줄2
+                SigA=0; SigB=0;
+                n=line4.size();
+                for(int i=0;i<n;i++){
+                    Vec4d L = line4[i];
+                    SigA+=(L[3]-L[1])/(L[2]-L[0]);
+                    SigB+=L[1]-L[0]*(L[3]-L[1])/(L[2]-L[0]);
+                }
+                if(n!=0 && SigA!=0){
+                    a4=SigA/n;
+                    b4=SigB/n;
+                    //line(matInput, Point(-b4/a4,0), Point((1000-b4)/a4,1000), Scalar(0,255,0), 5, LINE_AA );// 세로줄2 출력
+                }
+                else{
+                    c4=1900;
+                    //line(matInput, Point(c4,0), Point(c4,1000), Scalar(0,255,0), 5, LINE_AA );// 세로줄1 출력
+                }
 
-                //line(matInput, Point(-b/a,0), Point((1000-b)/a,1000), Scalar(0,0,255), 5, LINE_AA );
-
-
-                /* 최소제곱법 공식 위해
-                SigXY+=L[0]*L[1]+L[2]*L[3];
-                SigX+=L[0]+L[2];
-                SigY+=L[1]+L[3];
-                SigX2+=L[0]*L[0]+L[2]*L[2];
-                SigY2+=L[1]*L[1]+L[3]*L[3];
-                */
-
-
+                Vec8i P;
+                if(c3==-1 && c4==-1){
+                    P[0]=(b3-b1)/(a1-a3);
+                    P[1]=a1*P[0]+b1;
+                    P[2]=(b4-b1)/(a1-a4);
+                    P[3]=a1*P[2]+b1;
+                    P[4]=(b4-b2)/(a2-a4);
+                    P[5]=a2*P[4]+b2;
+                    P[6]=(b3-b2)/(a2-a3);
+                    P[7]=a2*P[6]+b2;
+                }
+                else if(c3==-1){
+                    P[0]=(b3-b1)/(a1-a3);
+                    P[1]=a1*P[0]+b1;
+                    P[2]=c4;
+                    P[3]=a1*P[2]+b1;
+                    P[4]=c4;
+                    P[5]=a2*P[4]+b2;
+                    P[6]=(b3-b2)/(a2-a3);
+                    P[7]=a2*P[6]+b2;
+                }
+                else if(c4==-1){
+                    P[0]=c3;
+                    P[1]=a1*P[0]+b1;
+                    P[2]=(b4-b1)/(a1-a4);
+                    P[3]=a1*P[2]+b1;
+                    P[4]=(b4-b2)/(a2-a4);
+                    P[5]=a2*P[4]+b2;
+                    P[6]=c3;
+                    P[7]=a2*P[6]+b2;
+                }
                 /*
-                int x1,y1, x2,y2;
-
-                if(c1==0){ // 직선들의 교점 구하여 스크린 끝점 구하는 부분
-                    x1 = (b3-b1)/(m1-m3);
-                    y1 = m3*x1+b3;
-                    x2 = (b4-b1)/(m1-m4);
-                    y2 = m4*x2+b4;
-                }
-                else{ // x=N 직선, 세로줄
-                    x1 = c1;
-                    y1 = m3*x1+b3;
-                    x2 = c1;
-                    y2 = m4*x2+b4;
-                }
-                points.push_back(Vec2i(x1,y1));
-                points.push_back(Vec2i(x2,y2));
-                if(c2==0){
-                    x1 = (b3-b2)/(m2-m3);
-                    y1 = m2*x2+b2;
-                    x2 = (b4-b2)/(m2-m4);
-                    y2 = m2*x2+b2;
-                }
-                else{ // x=N 직선, 세로줄
-                    x1 = c2;
-                    y1 = m3*x1+b3;
-                    x2 = c2;
-                    y2 = m4*x2+b4;
-                }
-                points.push_back(Vec2i(x1,y1));
-                points.push_back(Vec2i(x2,y2));
-
-                for(int i=0;i<points.size();i++){
-                    Vec2i L1 = points[i];
-                    Vec2i L2 = points[++i];
-                    line(matInput, Point(L1[0],L1[1]), Point(L2[0],L2[1]),
-                         Scalar(0,0,255), 5, LINE_AA );
-                }
+                line(matInput, Point(P[0],P[1]), Point(P[2],P[3]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(P[2],P[3]), Point(P[4],P[5]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(P[4],P[5]), Point(P[6],P[7]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(P[6],P[7]), Point(P[0],P[1]), Scalar(255,0,0), 5, LINE_AA );
                 */
-
-                /*칸투어 방식 , 사각형 꼭짓점 야무지게 찾아내지만 꼭짓점  하나라도 가려지면 못찾는다
-                findContours(canny, contours, RETR_LIST, CHAIN_APPROX_NONE);
-
-                for(int i=0;i<4;i++){// 면적이 넓은 칸투어 찾는다
-                    for(int j=i+1;j<contours.size();j++){
-                        if(fabs(contourArea(Mat(contours[i])))<fabs(contourArea(Mat(contours[j])))){
-                            swap(contours[i],contours[j]);
-                        }
-                    }
+                jint *B;
+                B = env->GetIntArrayElements(boundaries, NULL);
+                for(int i=0;i<8;i++){
+                    if(P[i]!=0) B[i] = (B[i]*8+P[i]*2)/10; // 기존값 8, 신규값 2의 비율로 적용
                 }
 
+                line(matInput, Point(B[0],B[1]), Point(B[2],B[3]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(B[2],B[3]), Point(B[4],B[5]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(B[4],B[5]), Point(B[6],B[7]), Scalar(255,0,0), 5, LINE_AA );
+                line(matInput, Point(B[6],B[7]), Point(B[0],B[1]), Scalar(255,0,0), 5, LINE_AA );
 
-                for(int i=0;i<6;i++){//근사하여 꼭짓점 4개인 도형 찾음
-                    approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.02, true);//2퍼센트 오차, 도형 근사화
-
-                    if(approx.size() == 4) break;
-
-                }
-
-                if(fabs(contourArea(Mat(approx))) > ScreenSize-300){//이전 도형과 크기 비슷하면
-                    for (int k = 0; k < approx.size() - 1; k++)//직선 그린다
-                        line(matInput, approx[k], approx[k + 1], Scalar(0, 255, 0), 3);
-                    line(matInput, approx[0], approx[approx.size() - 1], Scalar(0, 255, 0), 3);
-                    ScreenSize = fabs(contourArea(Mat(approx)));
-                }
-                */
+                env->ReleaseIntArrayElements(boundaries, B, 0);
             }
 }
 

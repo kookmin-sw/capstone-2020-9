@@ -15,7 +15,7 @@ extern "C" {
  * Signature: (JJ)V
  */
 JNIEXPORT void JNICALL Java_com_example_detectscreen_MainActivity_ConvertRGBtoGray
-  (JNIEnv *, jobject, jlong, jlong, jdouble);
+  (JNIEnv *, jobject, jlong, jlong, jintArray);
 
 #ifdef __cplusplus
 }

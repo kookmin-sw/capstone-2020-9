@@ -30,12 +30,11 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "opencv";
     private Mat matInput;
     private Mat matResult;
-    private Double ScreenSize = 0.0;
-
+    private int[] boundaries;
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
-    public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult, double ScreenSize);
+    public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult, int[] boundaries);
 
     static {
         System.loadLibrary("opencv_java4");
@@ -76,6 +75,8 @@ public class MainActivity extends AppCompatActivity
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.setCameraIndex(0); // front-camera(1),  back-camera(0)
+
+        boundaries = new int[8];
     }
 
     @Override
@@ -126,9 +127,7 @@ public class MainActivity extends AppCompatActivity
         if ( matResult == null )
             matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
 
-        if (ScreenSize == null)
-            ScreenSize = 0.0;
-        ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), ScreenSize);
+        ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), boundaries);
 
         return matInput;
     }

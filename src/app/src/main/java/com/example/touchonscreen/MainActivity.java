@@ -24,6 +24,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private Handler mHandler;
     private Socket socket;
     private String aa = "";
+    private boolean flag = false;
+    private String con = "Connected";
+    private String iv = "Invalid Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +78,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 //연결되있는 동안 계속 서버로부터 메시지 수신
                 while(true){
                     try{
+
                         //서버로부터 수신한 메시지 string 으로 리턴
                         InputStream is = socket.getInputStream();//서버에서 받을거
                         byte[] byteAr = new byte[100];
                         int readByteCount = is.read(byteAr);
                         aa = new String(byteAr, 0, readByteCount, "UTF-8");
+                        if(aa.equals(con))
+                            flag = true;
                         MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -92,6 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         e.printStackTrace();
 
                     }
+
                 }
             }
         }).start();
@@ -152,19 +159,35 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.sendbutton:
                 sendMsg();
+                //receiveMsg();
+                Log.w("서버 플래그", "" + flag);
+                if(aa.equals(con)){
+                    Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
+                    startActivity(intent);
+                }else{
+                    userinput = (EditText)findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                }
+
+                break;
                 //비밀번호 틀렸을 때
-                /*if (aa=="Connected") {
+                /*if (aa=="Invalid Password" || aa=="") {
 
                     // 비밀번호 입력한 거 클리어
                     // 다음액티비티로 전환
-                    //startActivity(new Intent(this, kyuhanActivity.class));
+                    userinput = (EditText)findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                    break;
+                }else if (aa=="Connected"){
+                    Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
+                    startActivity(intent);
                     break;
                 }else{
                     userinput = (EditText)findViewById(R.id.numberpadtext);
                     userinput.setText("");
                     break;
                 }*/
-                break;
+
         }
     }
 
@@ -193,6 +216,36 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
             }
         }).start();
+    }
+    public void receiveMsg(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    //서버로부터 수신한 메시지 string 으로 리턴
+                    InputStream is = socket.getInputStream();//서버에서 받을거
+                    byte[] byteAr = new byte[100];
+                    int readByteCount = is.read(byteAr);
+                    aa = new String(byteAr, 0, readByteCount, "UTF-8");
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, aa, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    if(aa.equals(con))
+                        flag = true;
+
+                    Log.w("서버에서 받은 값", "" + aa);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }).start();
+
     }
 
     protected void onStop() {

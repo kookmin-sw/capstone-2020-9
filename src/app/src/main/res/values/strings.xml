@@ -13,5 +13,6 @@
     <string name="clear">CLEAR</string>
     <string name="delete">DELETE</string>
     <string name="send">SEND</string>
+    <string name="next">NEXT</string>
     <string name="pleaseinput">인증번호를 입력하세요</string>
 </resources>

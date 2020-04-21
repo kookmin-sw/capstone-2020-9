@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -19,11 +21,20 @@ public class KyuhanActivity extends AppCompatActivity {
     private String number = "";
     private String msg;
     private OutputStream os;
+    Button sendCoord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kyuhan);
+        sendCoord = (Button)findViewById(R.id.coordsendBtn);
+        sendCoord.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendCoord(0.5f, 0.5f);
+                Log.w("좌표전송 테스트", "좌표전송");
+            }
+        });
         //매인액티비티에서 받은 올바른 인증번호
         final String pw = getIntent().getStringExtra("valid_pw");
         number = pw;
@@ -36,9 +47,6 @@ public class KyuhanActivity extends AppCompatActivity {
                     socket_2 = new Socket("15.164.116.157", 8081);
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
-                    receiveMsg();
-                    sendCoord(0.1f, 0.7f);
-                    Log.w("좌표전송 테스트", "좌표전송");
                     receiveMsg();
                 } catch (IOException e1) {
                     Log.w("서버 연결실패", "서버 연결실패");

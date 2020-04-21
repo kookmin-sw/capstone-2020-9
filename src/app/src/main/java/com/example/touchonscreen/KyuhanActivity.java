@@ -37,7 +37,7 @@ public class KyuhanActivity extends AppCompatActivity {
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
                     receiveMsg();
-                    sendCoord(4.1f, 6.7f);
+                    sendCoord(0.1f, 0.7f);
                     Log.w("좌표전송", "좌표전송");
                     receiveMsg();
                 } catch (IOException e1) {

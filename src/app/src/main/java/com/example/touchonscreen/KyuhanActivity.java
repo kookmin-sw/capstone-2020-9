@@ -18,11 +18,11 @@ public class KyuhanActivity extends AppCompatActivity {
     private String number = "";
     private String msg;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kyuhan);
+        //매인액티비티에서 받은 올바른 인증번호
         final String pw = getIntent().getStringExtra("valid_pw");
         number = pw;
         Log.w("새로 받은 패스워드", "새로 받은 패스워드" + pw);
@@ -30,12 +30,11 @@ public class KyuhanActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    //소켓 생성
+                    //소켓 생성 후 서버에 올바른 인증번호 송신
                     socket_2 = new Socket("15.164.116.157", 8081);
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
                     receiveMsg();
-
                 } catch (IOException e1) {
                     Log.w("서버 연결실패", "서버 연결실패");
                     e1.printStackTrace();
@@ -45,18 +44,15 @@ public class KyuhanActivity extends AppCompatActivity {
     }
 
     public void send(final String cd) {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 byte[] byteArr = new byte[100];
                 try {
                     byteArr = cd.getBytes("UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-
                 try {
                     OutputStream os = socket_2.getOutputStream();//서버로 보낼거
                     os.write(byteArr);
@@ -71,26 +67,20 @@ public class KyuhanActivity extends AppCompatActivity {
     }
 
     public void receiveMsg() {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     //서버로부터 수신한 메시지 string 으로 리턴
-                    InputStream is = socket_2.getInputStream();//서버에서 받을거
+                    InputStream is = socket_2.getInputStream();
                     byte[] byteAr = new byte[100];
                     int readByteCount = is.read(byteAr);
                     msg = new String(byteAr, 0, readByteCount, "UTF-8");
-
                     Log.w("새로 서버에서 받은 값", "" + msg);
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
-
                 }
             }
         }).start();
-
     }
 }

@@ -4,8 +4,8 @@ package com.example.touchonscreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.RemoteException;
+
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,25 +21,23 @@ import java.net.Socket;
 public class MainActivity extends Activity implements View.OnClickListener{
     Button btn[] = new Button[14];
     EditText userinput;
-    //requirement for socket
-    private Handler mHandler;
-    private Socket socket;
-    private String rmsg = "";
-    private boolean flag = false;
-    private String con = "Connected";
-    private String iv = "Invalid Password";
-    private String data = "";
 
-    //private String ip = "15.164.116.157";
+    //requirement for socket
+    private Socket socket;
+    private boolean isConnected = false;
+    private String con = "Connected";
+    private String rmsg = "";
+    private String vpw = "";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mHandler = new Handler();
 
-        //register the buttons
+
+        //버튼 등록
         btn[0] = (Button)findViewById(R.id.button1);
         btn[1] = (Button)findViewById(R.id.button2);
         btn[2] = (Button)findViewById(R.id.button3);
@@ -56,20 +54,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btn[13] = (Button)findViewById(R.id.nextbutton);
 
 
-        //register onClick event
+        //onClick 이벤트 등록
         for(int i=0; i<14;i++){
             btn[i].setOnClickListener(this);
         }
-        mHandler = new Handler();
+
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    //소켓 생성
+                    //소켓 생성 후 서버에 연결
                     socket = new Socket("15.164.116.157", 8081);
 
                     Log.w("서버 연결됨", "서버 연결됨");
+                    isConnected = true;
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -81,11 +80,31 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     Log.w("서버 연결실패", "서버 연결실패");
                     e1.printStackTrace();
                 }
+                //서버에 연결되어 있으면 계속 메시지 수신
+                while(isConnected){
+                    try{
+                        //서버로부터 수신한 메시지 string 으로 리턴
+                        InputStream is = socket.getInputStream();//서버에서 받을거
+                        byte[] byteAr = new byte[100];
+                        int readByteCount = is.read(byteAr);
+                        rmsg = new String(byteAr, 0, readByteCount, "UTF-8");
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, rmsg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Log.w("서버에서 받은 값", "" + rmsg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }).start();
     }
 
     @Override
+    //버튼 온클릭
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button1:
@@ -119,11 +138,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 addtoarray("0");
                 break;
             case R.id.deletebutton:
-                //get the lenth of input
+                //입력한 번호의 길이
                 int slength = userinput.length();
                 if (slength > 0) {
-
-                    //get the last character of the input
+                    //입력한 번호 마지막 숫자
                     String selection = userinput.getText().toString().substring(slength - 1, slength);
                     Log.e("Selection", selection);
 
@@ -140,17 +158,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.sendbutton:
                 sendMsg();
-                receiveMsg();
+                //클리어
                 userinput = (EditText) findViewById(R.id.numberpadtext);
                 userinput.setText("");
                 break;
             case R.id.nextbutton:
+                //Connected라는 메시지 수신하면 다음 액티비티 실행
                 if (rmsg.equals(con)) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 socket.close();
+                                isConnected = false;
                                 Log.w("서버 닫힘", "서버닫힘");
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -158,36 +178,36 @@ public class MainActivity extends Activity implements View.OnClickListener{
                             }
                         }
                     }).start();
-
-
-
-                    Log.w("패스워드", "패스워드" + data);
+                    //올바른 인증번호 다음 액티비티로 전달
+                    Log.w("패스워드", "패스워드" + vpw);
                     Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
-                    intent.putExtra("valid_pw", data);
+                    intent.putExtra("valid_pw", vpw);
                     startActivity(intent);
-
+                }else{
+                    //Invalid Password일 때
+                    Toast.makeText(MainActivity.this, "인증번호가 올바르지 않습니다", Toast.LENGTH_SHORT).show();
+                    Log.w("다음화면 못넘어감", "다음화면 못넘어감");
                 }
+                break;
         }
 
 
     }
-
+    //메시지 송신
     public void sendMsg() {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String data_2 = userinput.getText().toString();
-                data = data_2;
+                String smsg = userinput.getText().toString();
+                vpw = smsg;
                 byte[] byteArr = new byte[100];
                 try {
-                    byteArr = data_2.getBytes("UTF-8");
+                    byteArr = smsg.getBytes("UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-
                 try{
-                    OutputStream os = socket.getOutputStream();//서버로 보낼거
+                    OutputStream os = socket.getOutputStream();
                     os.write(byteArr);
                     os.flush();
                     Log.w("서버로 보냄", "서버로 보냄");
@@ -197,37 +217,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
             }
         }).start();
-    }
-    public void receiveMsg() {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    //서버로부터 수신한 메시지 string 으로 리턴
-                    InputStream is = socket.getInputStream();//서버에서 받을거
-                    byte[] byteAr = new byte[100];
-                    int readByteCount = is.read(byteAr);
-                    rmsg = new String(byteAr, 0, readByteCount, "UTF-8");
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, rmsg, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    if(rmsg.equals(con))
-                        flag = true;
-
-                    Log.w("서버에서 받은 값", "" + rmsg);
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-                }
-            }
-        }).start();
-
     }
 
     protected void onStop() {
@@ -240,7 +229,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void addtoarray(String no) {
-        //register TextBox
+        //텍스트 박스 등록
         userinput = (EditText)findViewById(R.id.numberpadtext);
         userinput.append(no);
     }

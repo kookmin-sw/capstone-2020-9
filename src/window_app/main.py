@@ -17,8 +17,8 @@ import os
 def point_on_screen(recvData):
     try:
         x_ratio, y_ratio = recvData.split(',')
-        point_x = WIDTH * x_ratio
-        point_y = HEIGHT * y_ratio
+        point_x = WIDTH * float(x_ratio)
+        point_y = HEIGHT * float(y_ratio)
 
         pyautogui.click(x=point_x, y=point_y)
     except: 

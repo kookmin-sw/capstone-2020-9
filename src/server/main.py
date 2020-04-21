@@ -7,6 +7,7 @@ random.seed(time.time())
 lock = threading.Lock()
 
 connected_com = dict()
+connected_mob = dict()
 
 def run():
     while True:
@@ -14,8 +15,9 @@ def run():
         exec(s)
 
 
-def receive(source_sock, target_id):
-    target_sock = connected_com[target_id]
+def receive(connection_id):
+    source_sock = connected_mob[connection_id]
+    target_sock = connected_com[connection_id]
     while True:
         try:
             recvData = source_sock.recv(1024)#source 살아있는지 확인
@@ -28,9 +30,10 @@ def receive(source_sock, target_id):
             break
    
 
-def check(source_sock, target_id):
-    target_sock = connected_com[target_id]
-    receiver = threading.Thread(target=receive, args=(source_sock, target_id), daemon=True)
+def check(connection_id):
+    source_sock = connected_mob[connection_id]
+    target_sock = connected_com[connection_id]
+    receiver = threading.Thread(target=receive, args=(connection_id), daemon=True)
     receiver.start()
 
     try:
@@ -38,20 +41,22 @@ def check(source_sock, target_id):
             recvData = target_sock.recv(1024) # target 살아있는지 확인
             if not recvData:
                 lock.acquire()
-                del connected_com[target_id]
+                del connected_com[connection_id]
+                del connected_mob[connection_id]
                 lock.release()
                 target_sock.close()
                 break
 
     except OSError :
         lock.acquire()
-        del connected_com[target_id]
+        del connected_com[connection_id]
+        del connected_mob[connection_id]
         lock.release()
         target_sock.close()
         source_sock.send('disconnected with other device'.encode('utf-8'))
         time.sleep(0.5)
         source_sock.close() ## 종료시켜? 아니면 재접속? 
-     
+
 
 def dist(sock):
     while True:
@@ -71,14 +76,27 @@ def dist(sock):
             break
 
         else : # from mobile, data : password 
-            try:
-                sendData = 'Connected'.encode('utf-8')
-                connected_com[recvData].send(sendData)
-                sock.send(sendData)
+            try:    
+                if(connected_mob.get(recvData, 0) == 0):
+                    sendData = 'Connected'.encode('utf-8')
+                    sock.send(sendData)
+                    lock.acquire()
+                    connected_mob[recvData] = 1
+                    lock.release()
+                    break
 
-                checking = threading.Thread(target=check, args=(sock, recvData))
-                checking.start()
-                break 
+                else : #reconnect
+                    sendData = 'Connected'.encode('utf-8')
+                    connected_com[recvData].send(sendData)
+                    sock.send(sendData)
+
+                    lock.acquire()
+                    connected_mob[recvData] = sock
+                    lock.release()
+
+                    checking = threading.Thread(target=check, args=(recvData))
+                    checking.start()
+                    break 
 
             except KeyError:
                 sendData = 'Invalid Password'
@@ -88,6 +106,7 @@ def dist(sock):
                 sendData = 'Invalid Password'
                 sock.send(sendData.encode('utf-8'))
                 lock.acquire()
+                del connected_mob[recvData]
                 del connected_com[recvData]
                 lock.release()
 

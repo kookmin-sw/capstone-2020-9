@@ -9,6 +9,12 @@ lock = threading.Lock()
 connected_com = dict()
 connected_mob = dict()
 
+def getLog():
+    while True:
+        now = time.localtime()
+        print("%02d:%02d:%02d" % ((now.tm_hour+17)%24, now.tm_min, now.tm_sec) )
+        time.sleep(300)
+
 def run():
     while True:
         s = input()
@@ -120,6 +126,9 @@ serverSock.listen(1)
 exe = threading.Thread(target= run)
 exe.start()
 
+logging = threading.Thread(target=getLog)
+logging.start()
+
 if __name__ == '__main__' :
     while True:
         
@@ -130,7 +139,6 @@ if __name__ == '__main__' :
         print(str(addr), 'connected.')
 
         disting = threading.Thread(target=dist, args=(connectionSock, ))
-
         disting.start()
 
         time.sleep(1)

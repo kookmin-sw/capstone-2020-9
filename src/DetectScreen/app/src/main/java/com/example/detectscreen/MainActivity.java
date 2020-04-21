@@ -41,7 +41,17 @@ public class MainActivity extends AppCompatActivity
         System.loadLibrary("native-lib");
     }
 
-
+    public String HandPos(float x, float y){ // 손의 위치를 계산해 준다  x,y는 비율
+        float h = 1080;
+        float w = 1920;
+        float tx = (w*x-(boundaries[0]+boundaries[6])/2)/
+                ((boundaries[2]+boundaries[4])/2-(boundaries[0]+boundaries[6])/2);
+        float ty = (h*y-(boundaries[1]+boundaries[3])/2)/
+                ((boundaries[5]+boundaries[7])/2-(boundaries[1]+boundaries[3])/2);
+        // 투사변환을 해야하지만 일단 중점을 기준으로 비율을 구했다
+        String result = "("+tx+","+ty+")";
+        return result;
+    }
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override

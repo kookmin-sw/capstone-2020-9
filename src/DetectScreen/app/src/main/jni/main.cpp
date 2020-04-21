@@ -188,6 +188,7 @@ extern "C" {
                 line(matInput, Point(B[4],B[5]), Point(B[6],B[7]), Scalar(255,0,0), 5, LINE_AA );
                 line(matInput, Point(B[6],B[7]), Point(B[0],B[1]), Scalar(255,0,0), 5, LINE_AA );
 
+
                 env->ReleaseIntArrayElements(boundaries, B, 0);
             }
 }

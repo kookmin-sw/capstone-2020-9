@@ -11,11 +11,5 @@
         android:layout_height="match_parent"
         android:id="@+id/activity_surface_view" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/textview" />
 
 </LinearLayout>

@@ -84,7 +84,7 @@ def dist(sock):
 
         else : # from mobile, data : password 
             try:    
-                if(connected_com[recvData] == 0):
+                if(connected_mob[recvData] == 0):
                     sendData = 'Connected'.encode('utf-8')
                     sock.send(sendData)
                     lock.acquire()
@@ -92,7 +92,7 @@ def dist(sock):
                     lock.release()
                     break
 
-                else : #reconnect
+                else:
                     sendData = 'Connected'.encode('utf-8')
                     connected_com[recvData].send(sendData)
                     sock.send(sendData)

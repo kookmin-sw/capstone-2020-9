@@ -12,7 +12,7 @@ connected_mob = dict()
 def getLog():
     while True:
         now = time.localtime()
-        print("%02d:%02d:%02d" % ((now.tm_hour+17)%24, now.tm_min, now.tm_sec) )
+        print("%02d:%02d:%02d" % ((now.tm_hour+9)%24, now.tm_min, now.tm_sec) + str(connected_com) + str(connected_mob))
         time.sleep(300)
 
 def run():
@@ -39,7 +39,7 @@ def receive(connection_id):
 def check(connection_id):
     source_sock = connected_mob[connection_id]
     target_sock = connected_com[connection_id]
-    receiver = threading.Thread(target=receive, args=(connection_id), daemon=True)
+    receiver = threading.Thread(target=receive, args=(connection_id,), daemon=True)
     receiver.start()
 
     try:
@@ -75,6 +75,7 @@ def dist(sock):
 
             lock.acquire()
             connected_com[pw] = sock
+            connected_mob[pw] = 0
             lock.release()
 
             sandData = pw.encode('utf-8')
@@ -83,7 +84,7 @@ def dist(sock):
 
         else : # from mobile, data : password 
             try:    
-                if(connected_mob.get(recvData, 0) == 0):
+                if(connected_com[recvData] == 0):
                     sendData = 'Connected'.encode('utf-8')
                     sock.send(sendData)
                     lock.acquire()
@@ -100,7 +101,7 @@ def dist(sock):
                     connected_mob[recvData] = sock
                     lock.release()
 
-                    checking = threading.Thread(target=check, args=(recvData))
+                    checking = threading.Thread(target=check, args=(recvData,))
                     checking.start()
                     break 
 

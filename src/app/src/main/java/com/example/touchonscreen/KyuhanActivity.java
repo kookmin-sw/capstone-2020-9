@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,6 +18,7 @@ public class KyuhanActivity extends AppCompatActivity {
     private Socket socket_2;
     private String number = "";
     private String msg;
+    private OutputStream os;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public class KyuhanActivity extends AppCompatActivity {
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
                     receiveMsg();
+                    sendCoord(4.1f, 6.7f);
+                    Log.w("좌표전송", "좌표전송");
+                    receiveMsg();
                 } catch (IOException e1) {
                     Log.w("서버 연결실패", "서버 연결실패");
                     e1.printStackTrace();
@@ -42,7 +47,7 @@ public class KyuhanActivity extends AppCompatActivity {
             }
         }).start();
     }
-
+    //서버로 메시지 전송
     public void send(final String cd) {
         new Thread(new Runnable() {
             @Override
@@ -54,7 +59,7 @@ public class KyuhanActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    OutputStream os = socket_2.getOutputStream();//서버로 보낼거
+                    os = socket_2.getOutputStream();//서버로 보낼거
                     os.write(byteArr);
                     os.flush();
                     Log.w("새로 서버로 보냄", "새로 서버로 보냄");
@@ -65,7 +70,15 @@ public class KyuhanActivity extends AppCompatActivity {
             }
         }).start();
     }
-
+    //서버로 좌표 전송
+    public void sendCoord(float x, float y){
+        String sx = Float.toString(x);
+        String sy = Float.toString(y);
+        String coord = sx + ", " + sy;
+        //    x, y     로 전송
+        send(coord);
+    }
+    //서버에서 메시지 수신
     public void receiveMsg() {
         new Thread(new Runnable() {
             @Override

@@ -41,6 +41,7 @@ def check(source_sock, target_id):
                 del connected_com[target_id]
                 lock.release()
                 target_sock.close()
+                break
 
     except OSError :
         lock.acquire()

@@ -66,7 +66,7 @@ def pointing_start(sock):
     
     return recvData
 
-def connectionStart(sock):
+def connectionStart(sock, QDialog):
     #연결 성공 
     while True:
         recvData = sock.recv(1024).decode('utf-8')
@@ -76,14 +76,9 @@ def connectionStart(sock):
 
     res = pointing_start(sock)
 
-    # 종료 / 재접속 gui
-    # print( res )
-    ''' 
-    if( 재접속 ):
-        continue
-    elif( 종료 ):
-        break
-    '''
+    if( res == 'disconnected with other device'):
+        QDialog.ui.status.setText('연결이 종료되었습니다. \n다시 연결하려면 번호를 다시 생성해 주세요')
+        QDialog.ui.pw_label_2.setText('')
     
 def notify():
     if( platform.system() == 'Windows' and platform.release() == '10'):
@@ -128,7 +123,7 @@ class Form(QtWidgets.QDialog):
         self.ui.pw_label_2.setText(pw)
         self.ui.status.setText('연결되었습니다.')#\n 프로그램을 최소화하여 사용하세요.')
         #self.clearCountdownTime()
-        waiting = threading.Thread(target=connectionStart, args=(sock,))
+        waiting = threading.Thread(target=connectionStart, args=(sock,self))
         waiting.start()
 
         # countdown = threading.Thread(target=self.countAndMinimization)

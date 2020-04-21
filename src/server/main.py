@@ -17,8 +17,11 @@ def getLog():
 
 def run():
     while True:
-        s = input()
-        exec(s)
+        try:
+            s = input()
+            exec(s)
+        except error as m:
+            print(m)
 
 
 def receive(connection_id):

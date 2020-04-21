@@ -20,7 +20,7 @@ def receive(connection_id):
     target_sock = connected_com[connection_id]
     while True:
         try:
-            recvData = source_sock.recv(1024)#source 살아있는지 확인
+            recvData = source_sock.recv(1024)#check source alive
             if not recvData:    
                 source_sock.close()
                 break
@@ -38,7 +38,7 @@ def check(connection_id):
 
     try:
         while True:
-            recvData = target_sock.recv(1024) # target 살아있는지 확인
+            recvData = target_sock.recv(1024) # check target alive
             if not recvData:
                 lock.acquire()
                 del connected_com[connection_id]
@@ -55,7 +55,7 @@ def check(connection_id):
         target_sock.close()
         source_sock.send('disconnected with other device'.encode('utf-8'))
         time.sleep(0.5)
-        source_sock.close() ## 종료시켜? 아니면 재접속? 
+        source_sock.close() ##reconnect? exti?
 
 
 def dist(sock):
@@ -123,12 +123,11 @@ exe.start()
 if __name__ == '__main__' :
     while True:
         
-        print('%d번 포트로 접속 대기중...'%port)
         print( connected_com)
 
         connectionSock, addr = serverSock.accept()
 
-        print(str(addr), '에서 접속되었습니다.')
+        print(str(addr), 'connected.')
 
         disting = threading.Thread(target=dist, args=(connectionSock, ))
 

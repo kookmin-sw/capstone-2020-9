@@ -98,7 +98,7 @@ background-color: rgb(255, 255, 255);</string>
     </rect>
    </property>
    <property name="text">
-    <string>연결할 장비에 아래 비밀번호를 입력하세요</string>
+    <string>아래 버튼을 눌러 인증번호를 생성하세요</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

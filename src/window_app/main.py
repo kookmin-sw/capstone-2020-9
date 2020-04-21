@@ -17,9 +17,10 @@ import os
 def point_on_screen(recvData):
     try:
         x_ratio, y_ratio = recvData.split(',')
-        point_x = WIDTH * x_ratio
-        point_y = HEIGHT * y_ratio
+        point_x = WIDTH * float(x_ratio)
+        point_y = HEIGHT * float(y_ratio)
 
+        print("좌표 : {}, {}".format(point_x,point_y) )
         pyautogui.click(x=point_x, y=point_y)
     except: 
         pass
@@ -59,31 +60,28 @@ def pointing_start(sock):
             sock.close()
             break
 
-        print('좌표', recvData)  # '0.7, 0.5'
+        print('입력 :', recvData)  # '0.7, 0.5'
         
         p = threading.Thread(target = point_on_screen, args=(recvData,), daemon=True )
         p.start()
     
     return recvData
 
-def connectionStart(sock):
+def connectionStart(sock, QDialog):
     #연결 성공 
     while True:
         recvData = sock.recv(1024).decode('utf-8')
         if( recvData == 'Connected' ):
+            QDialog.ui.status.setText('연결되었습니다')
+            QDialog.ui.pw_label_2.setText('')
             print(recvData)
             break
 
     res = pointing_start(sock)
 
-    # 종료 / 재접속 gui
-    # print( res )
-    ''' 
-    if( 재접속 ):
-        continue
-    elif( 종료 ):
-        break
-    '''
+    if( res == 'disconnected with other device'):
+        QDialog.ui.status.setText('연결이 종료되었습니다. \n다시 연결하려면 번호를 다시 생성해 주세요')
+        QDialog.ui.pw_label_2.setText('')
     
 def notify():
     if( platform.system() == 'Windows' and platform.release() == '10'):
@@ -126,9 +124,9 @@ class Form(QtWidgets.QDialog):
         pw, sock = make_connection()
         #화면에 pw 보여주기 gui
         self.ui.pw_label_2.setText(pw)
-        self.ui.status.setText('연결되었습니다.')#\n 프로그램을 최소화하여 사용하세요.')
+        self.ui.status.setText('연결할 장비에 아래 비밀번호를 입력하세요.')#\n 프로그램을 최소화하여 사용하세요.')
         #self.clearCountdownTime()
-        waiting = threading.Thread(target=connectionStart, args=(sock,))
+        waiting = threading.Thread(target=connectionStart, args=(sock,self))
         waiting.start()
 
         # countdown = threading.Thread(target=self.countAndMinimization)

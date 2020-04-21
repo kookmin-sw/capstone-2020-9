@@ -26,7 +26,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private Socket socket;
     private boolean isConnected = false;
     private String con = "Connected";
-    private String recon = "Reconnect";
     private String rmsg = "";
     private String vpw = "";
 
@@ -170,16 +169,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         @Override
                         public void run() {
                             try {
-                                OutputStream os = socket.getOutputStream();
-                                byte[] re = new byte[100];
-                                re = recon.getBytes("UTF-8");
-                                os.write(re);
-                                os.flush();
-                                Log.w("서버로 Reconnect 전송", "서버로 Reconnect 전송");
-                                os.close();
                                 isConnected = false;
                                 socket.close();
-
                                 Log.w("서버 닫힘", "서버닫힘");
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -199,8 +190,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 break;
         }
-
-
     }
     //메시지 송신
     public void sendMsg() {

@@ -38,7 +38,7 @@ public class KyuhanActivity extends AppCompatActivity {
                     send(pw);
                     receiveMsg();
                     sendCoord(0.1f, 0.7f);
-                    Log.w("좌표전송", "좌표전송");
+                    Log.w("좌표전송 테스트", "좌표전송");
                     receiveMsg();
                 } catch (IOException e1) {
                     Log.w("서버 연결실패", "서버 연결실패");

@@ -3,7 +3,6 @@ import threading
 import time
 import pyautogui
 import webbrowser
-from ast import literal_eval
 import sys
 import platform
 from PyQt5 import QtWidgets
@@ -17,9 +16,9 @@ import os
 
 def point_on_screen(recvData):
     try:
-        x_ratio, y_ratio = literal_eval(recvData)
-        point_x = WIDTH * x_ratio[0] / sum(x_ratio)
-        point_y = HEIGHT * y_ratio[0] / sum(y_ratio)
+        x_ratio, y_ratio = recvData.split(',')
+        point_x = WIDTH * float(x_ratio)
+        point_y = HEIGHT * float(y_ratio)
 
         pyautogui.click(x=point_x, y=point_y)
     except: 
@@ -60,7 +59,7 @@ def pointing_start(sock):
             sock.close()
             break
 
-        print('좌표', recvData)  # '(12.3, 3.5), (5.4, 2.8)'
+        print('좌표', recvData)  # '0.7, 0.5'
         
         p = threading.Thread(target = point_on_screen, args=(recvData,), daemon=True )
         p.start()

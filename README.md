@@ -17,16 +17,16 @@ https://kookmin-sw.github.io/capstone-2020-9/
 
 ## 4. 실행 방법
 1) server
-    `running on aws `
-    `ip : 15.164.116.157`
-    `port : 8081`
+    `running on aws`  
+    `ip : 15.164.116.157`  
+    `port : 8081`  
      
 2) android app
-    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`
+    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`  
 3) window app
-    `src\window_app\main.py 파일을 실행 시킨다`
-    `필요 python module : "pyautogui", "PyQt5", "win10toast"`
-    `실행 : user>python3 main.py`
+    `src\window_app\main.py 파일을 실행 시킨다`  
+    `필요 python module : "pyautogui", "PyQt5", "win10toast"`  
+    `실행 : user>python3 main.py`  
     
     
 

@@ -5,20 +5,32 @@
 https://kookmin-sw.github.io/capstone-2020-9/
 
 ## 1. 프로젝트 소개
-본 프로젝트는 텍스트로 표현된 사용자의 생각을 이미지화 하는것을 목표로 한다.
-단순히 단어를 입력하면 이미지를 생성하는 것을 넘어서 문장 수준의 텍스트를 입력받고, 그것을 인식해서 이미지를 생성한다. 이는 그림 실력이 없는 사용자도 만들고 싶은 이미지에 대한 구상만 있다면, 학습된 AI를 통해 이미지를 만들 수 있다는 희망을 줄 것이다.
+
 
 ## 2. Abstract
-This project aims to making images of the thoughts of users expressed in text.
-Simply typing a word goes creating an image, This project gets text at the sentence level, recognizes it, and creates an image. This will give hope to create images through learned AI, provided that even users without drawing skills and having only an idea for images that they want to create.
+
 
 
 ## 3. 소개 영상
- - https://youtu.be/2o48bFe9558
- <img src="https://user-images.githubusercontent.com/20828492/77653369-ea0ffe80-6fb2-11ea-9b22-fd1d9023b367.png" width="1000" height="520">
+ - link
+ <img src="" width="0" height="0">
 
 ## 4. 실행 방법
- - 추후공개
+1) server
+    `running on aws `
+    `ip : 15.164.116.157`
+    `port : 8081`
+     
+2) android app
+    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`
+3) window app
+    `src\window_app\main.py 파일을 실행 시킨다`
+    `필요 python module : "pyautogui", "PyQt5", "win10toast"`
+    `실행 : user>python3 main.py`
+    
+    
+
+
 
 ## 5. 팀 소개
 

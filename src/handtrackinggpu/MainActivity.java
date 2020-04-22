@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     + landmarks.getLandmarkCount());
             Log.d(TAG, getLandmarksDebugString(landmarks));
             send(getLandmarksDebugString(landmarks));
+
           } catch (InvalidProtocolBufferException e) {
             Log.e(TAG, "Couldn't Exception received - " + e);
             return;
@@ -189,14 +190,6 @@ public class MainActivity extends AppCompatActivity {
         }
       }
     }).start();
-  }
-  //서버로 좌표 전송
-  public void sendCoord(float x, float y){
-    String sx = Float.toString(x);
-    String sy = Float.toString(y);
-    String coord = sx + ", " + sy;
-    //    x, y     로 전송
-    send(coord);
   }
 
   @Override
@@ -287,9 +280,14 @@ public class MainActivity extends AppCompatActivity {
       if(landmarkIndex == 9){
         x=(x+landmark.getX())/2;
         y=(y+landmark.getY())/2;
-        landmarksString += Float.toString(x);
-        landmarksString += ", ";
-        landmarksString += Float.toString(y);
+        if(x == 0.0 && y == 0.0){
+          Log.d(TAG, "delete 0.0, 0.0");
+        }
+        else {
+          landmarksString += Float.toString(x);
+          landmarksString += ", ";
+          landmarksString += Float.toString(y);
+        }
       }
       ++landmarkIndex;
     }

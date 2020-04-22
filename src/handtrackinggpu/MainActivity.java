@@ -23,6 +23,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmark;
@@ -36,6 +37,12 @@ import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.PacketGetter;
 import com.google.mediapipe.glutil.EglManager;
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 
 /** Main activity of MediaPipe example apps. */
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
   // This is needed because OpenGL represents images assuming the image origin is at the bottom-left
   // corner, whereas MediaPipe in general assumes the image origin is at top-left.
   private static final boolean FLIP_FRAMES_VERTICALLY = true;
+
+  private Socket socket_2;
+  private String number = "";
+  private String msg;
+  private OutputStream os;
+  Button sendCoord;
 
   static {
     // Load all native libraries needed by the app.
@@ -81,6 +94,24 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    final String pw = getIntent().getStringExtra("valid_pw");
+    number = pw;
+    Log.w("새로 받은 패스워드", "새로 받은 패스워드" + pw);
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          //소켓 생성 후 서버에 올바른 인증번호 송신
+          socket_2 = new Socket("15.164.116.157", 8081);
+          Log.w("새로 서버 연결됨", "새로 서버 연결됨");
+          send(pw);
+          //receiveMsg();
+        } catch (IOException e1) {
+          Log.w("서버 연결실패", "서버 연결실패");
+          e1.printStackTrace();
+        }
+      }
+    }).start();
 
     previewDisplayView = new SurfaceView(this);
     setupPreviewDisplayView();
@@ -127,9 +158,8 @@ public class MainActivity extends AppCompatActivity {
                     + packet.getTimestamp()
                     + "] #Landmarks for hand: "
                     + landmarks.getLandmarkCount());
-            //Toast myToast = Toast.makeText(this, getLandmarksDebugString(landmarks),Toast.LENGTH_SHORT);
-            //myToast.show();
             Log.d(TAG, getLandmarksDebugString(landmarks));
+            send(getLandmarksDebugString(landmarks));
           } catch (InvalidProtocolBufferException e) {
             Log.e(TAG, "Couldn't Exception received - " + e);
             return;
@@ -137,6 +167,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
     PermissionHelper.checkAndRequestCameraPermissions(this);
+  }
+  public void send(final String cd) {
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        byte[] byteArr = new byte[100];
+        try {
+          byteArr = cd.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+        try {
+          os = socket_2.getOutputStream();//서버로 보낼거
+          os.write(byteArr);
+          os.flush();
+          Log.w("새로 서버로 보냄", "새로 서버로 보냄");
+        } catch (IOException e) {
+          e.printStackTrace();
+          Log.w("서버로 못보냄", "서버로 못보냄");
+        }
+      }
+    }).start();
+  }
+  //서버로 좌표 전송
+  public void sendCoord(float x, float y){
+    String sx = Float.toString(x);
+    String sy = Float.toString(y);
+    String coord = sx + ", " + sy;
+    //    x, y     로 전송
+    send(coord);
   }
 
   @Override
@@ -227,11 +287,9 @@ public class MainActivity extends AppCompatActivity {
       if(landmarkIndex == 9){
         x=(x+landmark.getX())/2;
         y=(y+landmark.getY())/2;
-        landmarksString += "(";
         landmarksString += Float.toString(x);
         landmarksString += ", ";
         landmarksString += Float.toString(y);
-        landmarksString += ")";
       }
       ++landmarkIndex;
     }

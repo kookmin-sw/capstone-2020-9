@@ -47,7 +47,7 @@ public class KyuhanActivity extends AppCompatActivity {
                     socket_2 = new Socket("15.164.116.157", 8081);
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
-                    receiveMsg();
+                    //receiveMsg();
                 } catch (IOException e1) {
                     Log.w("서버 연결실패", "서버 연결실패");
                     e1.printStackTrace();

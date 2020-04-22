@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->C:\AndroidProject\capstone-2020-9\src\DetectScreen\opencv\java\AndroidManifest.xml
+8-->/home/harry/capstone/src/DetectScreen/opencv/java/AndroidManifest.xml
 9        android:targetSdkVersion="26" />
-9-->C:\AndroidProject\capstone-2020-9\src\DetectScreen\opencv\java\AndroidManifest.xml
+9-->/home/harry/capstone/src/DetectScreen/opencv/java/AndroidManifest.xml
 10
 11</manifest>

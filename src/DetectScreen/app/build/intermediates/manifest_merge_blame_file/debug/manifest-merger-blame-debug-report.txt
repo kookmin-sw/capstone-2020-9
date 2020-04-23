@@ -1,0 +1,94 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.detectscreen"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:5:5-64
+11-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:5:22-62
+12
+13    <uses-feature
+13-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:6:5-84
+14        android:name="android.hardware.camera"
+14-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:6:19-57
+15        android:required="false" />
+15-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:6:58-82
+16    <uses-feature
+16-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:7:5-94
+17        android:name="android.hardware.camera.autofocus"
+17-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:7:19-67
+18        android:required="false" />
+18-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:7:68-92
+19    <uses-feature
+19-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:8:5-90
+20        android:name="android.hardware.camera.front"
+20-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:8:19-63
+21        android:required="false" />
+21-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:8:64-88
+22    <uses-feature
+22-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:9:5-101
+23        android:name="android.hardware.camera.front.autofocus"
+23-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:9:19-73
+24        android:required="false" />
+24-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:9:75-99
+25
+26    <supports-screens
+26-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:11:5-15:37
+27        android:anyDensity="true"
+27-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:15:9-34
+28        android:largeScreens="true"
+28-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:14:9-36
+29        android:normalScreens="true"
+29-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:13:9-37
+30        android:resizeable="true"
+30-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:11:23-48
+31        android:smallScreens="true" />
+31-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:12:9-36
+32
+33    <application
+33-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:17:5-33:19
+34        android:allowBackup="true"
+34-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:18:9-35
+35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+35-->[androidx.core:core:1.1.0] /home/harry/.gradle/caches/transforms-2/files-2.1/da95e0dd41fd0c634661df2a0f122634/core-1.1.0/AndroidManifest.xml:24:18-86
+36        android:debuggable="true"
+37        android:icon="@mipmap/ic_launcher"
+37-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:19:9-43
+38        android:label="@string/app_name"
+38-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:20:9-41
+39        android:roundIcon="@mipmap/ic_launcher_round"
+39-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:21:9-54
+40        android:supportsRtl="true"
+40-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:22:9-35
+41        android:testOnly="true"
+42        android:theme="@style/AppTheme" >
+42-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:23:9-40
+43        <activity
+43-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:24:9-32:20
+44            android:name="com.example.detectscreen.MainActivity"
+44-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:24:19-47
+45            android:configChanges="keyboardHidden|orientation"
+45-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:26:13-63
+46            android:screenOrientation="landscape" >
+46-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:25:13-50
+47            <intent-filter>
+47-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:27:13-31:29
+48                <action android:name="android.intent.action.MAIN" />
+48-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:28:17-69
+48-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:28:25-66
+49
+50                <category android:name="android.intent.category.LAUNCHER" />
+50-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:30:17-77
+50-->/home/harry/capstone/src/DetectScreen/app/src/main/AndroidManifest.xml:30:27-74
+51            </intent-filter>
+52        </activity>
+53    </application>
+54
+55</manifest>

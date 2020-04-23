@@ -1,0 +1,42 @@
+{
+  "stringTable": {
+    "0": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/armeabi-v7a",
+    "1": "--target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC"
+  },
+  "buildFiles": [
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/CMakeLists.txt",
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "opencv_jni_shared-Debug-armeabi-v7a": {
+      "buildCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/armeabi-v7a\" opencv_jni_shared",
+      "buildType": "debug",
+      "toolchain": "1752033803",
+      "abi": "armeabi-v7a",
+      "artifactName": "opencv_jni_shared",
+      "files": [
+        {
+          "src": "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/dummy.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/armeabi-v7a/libopencv_jni_shared.a"
+    }
+  },
+  "toolchains": {
+    "1752033803": {
+      "cppCompilerExecutable": "/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

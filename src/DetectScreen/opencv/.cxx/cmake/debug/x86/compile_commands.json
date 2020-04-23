@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/x86",
+  "command": "/home/harry/Android/Sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android21 --gcc-toolchain=/home/harry/Android/Sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/harry/Android/Sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/linux-x86_64/sysroot    -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o -c /home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/dummy.cpp",
+  "file": "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/dummy.cpp"
+}
+]

@@ -130,10 +130,7 @@ public class SendNumForConnect extends Activity implements View.OnClickListener 
             int slength = userinput.length();
             if (slength > 0) {
                 //입력한 번호 마지막 숫자
-                String selection = userinput.getText().toString().substring(slength - 1, slength);
-                Log.e("Selection", selection);
-
-                String result = userinput.getText().toString().replace(selection, "");
+                String result = userinput.getText().toString().substring(0, slength-1);
                 Log.e("Result", result);
 
                 userinput.setText(result);

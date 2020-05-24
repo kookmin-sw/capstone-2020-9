@@ -40,10 +40,10 @@ extern "C" {
                 {
                     Vec4i L = lines[i];
                     if(L[2]-L[0] != 0 && 3*abs(L[3]-L[1]) < abs(L[2]-L[0])){// 가로선, 기울기가 1/3보다 작은 경우
-                        if(L[1]<height/3){
+                        if(L[1]<2*height/5){
                             line1.push_back(L);
                         }
-                        else if(L[1]>height*2/3){
+                        else if(L[1]>height*3/5){
                             line2.push_back(L);
                         }
                     }

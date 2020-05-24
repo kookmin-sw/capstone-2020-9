@@ -17,7 +17,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="LMG710N0832e6ec" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -53,13 +52,15 @@
     <property name="DEBUGGABLE_DEVICE" value="lge-lm_g710n-LMG710N0832e6ec" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.detectscreen" />
     <property name="DEBUGGER_ID" value="Auto" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="ce081718945f501d0c7e" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-22T12:49:25.846Z" />
     <property name="ExportApk.ApkPath" value="C:\AndroidProject\capstone-2020-9\src\DetectScreen\app" />
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="C:/Android/SDK" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Suggestions" />
+    <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="ics" />

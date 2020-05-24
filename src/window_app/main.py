@@ -15,40 +15,61 @@ import os
 from tkinter import *
 from PIL import Image, ImageTk
 
+def make_popup_image(mode):
+    SIZE = 250
+    root = Tk()
+    root.wm_attributes("-alpha", '0.6')
+    root.overrideredirect(1)
+    root.lift()
+    root.wm_attributes("-topmost", 1)
+    root.geometry("{}x{}+{}+{}".format(SIZE, SIZE, int((WIDTH-SIZE)/2), int((HEIGHT-SIZE)/2)) )
+
+    photo = PhotoImage()
+    if( mode == 0 ): 
+        photo = PhotoImage(file = 'img/click.png')
+    elif( mode == 1 ):
+        photo = PhotoImage(file = 'img/left.png')
+    elif( mode == 2 ):
+        photo = PhotoImage(file = 'img/right.png')
+    elif( mode == 3 ):
+        photo = PhotoImage(file = 'img/locked.png')
+    elif( mode == 4 ):
+        photo = PhotoImage(file = 'img/unlocked.png')
+        
+    label = Label(root, image=photo)
+    label.pack()
+
+    root.after(1000, lambda: root.destroy())
+    root.mainloop()
 
 def point_on_screen(recvData):
     try:
         mode, x_ratio, y_ratio = recvData.split(',')
         # mode 0 = click, 1 = left, 2 = right, 3 = lock, 4 = unlock 
 
-        SIZE = 250
-        root = Tk()
-        root.wm_attributes("-alpha", '0.6')
-        root.overrideredirect(1)
-        root.geometry("{}x{}+{}+{}".format(SIZE, SIZE, int((WIDTH-SIZE)/2), int((HEIGHT-SIZE)/2)) )
-
-        if( mode == 0 ): 
-            photo = PhotoImage(file = 'click.png')
-        elif( mode == 1 ):
-            photo = PhotoImage(file = 'left.png')
-        elif( mode == 2 ):
-            photo = PhotoImage(file = 'right.png')
-        elif( mode == 3 ):
-            photo = PhotoImage(file = 'locked.png')
-        elif( mode == 4 ):
-            photo = PhotoImage(file = 'unlocked.png')
-            
-        label= Label(root, image=photo)
-        label.pack()
-
-        root.after(1000, lambda: root.destroy())
-        root.mainloop()
-
+        p = threading.Thread(target = make_popup_image, args=(int(mode),), daemon=True )
+        p.start()
+        
         point_x = WIDTH * float(x_ratio)
         point_y = HEIGHT * float(y_ratio)
 
         print("좌표 : {}, {}".format(point_x,point_y) )
-        #pyautogui.click(x=point_x, y=point_y)
+        if(mode == 0):
+            pyautogui.click(x=point_x, y=point_y)
+        elif( mode == 1):
+            pyautogui.press('left')
+        elif( mode == 2):
+            pyautogui.press('right')
+        elif( mode == 3):
+            pass
+        elif( mode == 4):
+            pass
+
+
+
+
+
+
     except:
         pass
 
@@ -87,7 +108,7 @@ def pointing_start(sock):
             sock.close()
             break
 
-        print('입력 :', recvData)  # '0.7, 0.5'
+        print('입력 :', recvData)  # '0, 0.7, 0.5'
         
         p = threading.Thread(target = point_on_screen, args=(recvData,), daemon=True )
         p.start()

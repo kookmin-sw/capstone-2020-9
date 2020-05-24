@@ -12,11 +12,38 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
 from win10toast import ToastNotifier
 import os
- 
+from tkinter import *
+from PIL import Image, ImageTk
+
 
 def point_on_screen(recvData):
     try:
-        x_ratio, y_ratio = recvData.split(',')
+        mode, x_ratio, y_ratio = recvData.split(',')
+        # mode 0 = click, 1 = left, 2 = right, 3 = lock, 4 = unlock 
+
+        SIZE = 250
+        root = Tk()
+        root.wm_attributes("-alpha", '0.6')
+        root.overrideredirect(1)
+        root.geometry("{}x{}+{}+{}".format(SIZE, SIZE, int((WIDTH-SIZE)/2), int((HEIGHT-SIZE)/2)) )
+
+        if( mode == 0 ): 
+            photo = PhotoImage(file = 'click.png')
+        elif( mode == 1 ):
+            photo = PhotoImage(file = 'left.png')
+        elif( mode == 2 ):
+            photo = PhotoImage(file = 'right.png')
+        elif( mode == 3 ):
+            photo = PhotoImage(file = 'locked.png')
+        elif( mode == 4 ):
+            photo = PhotoImage(file = 'unlocked.png')
+            
+        label= Label(root, image=photo)
+        label.pack()
+
+        root.after(1000, lambda: root.destroy())
+        root.mainloop()
+
         point_x = WIDTH * float(x_ratio)
         point_y = HEIGHT * float(y_ratio)
 
@@ -94,6 +121,7 @@ class Form(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
         self.ui = uic.loadUi("tos_v1.ui", self) #tos.ui
         self.ui.setWindowTitle('Touch On Screen')
+        self.setWindowIcon(QtGui.QIcon("img/logo.png"))
         #self.ui.login_widget.hide()
         #self.ui.how_to_widget.hide()
 
@@ -172,7 +200,7 @@ if __name__ == '__main__':
     w = Form()
     w.show()
 
-    trayIcon = SystemTrayIcon(QtGui.QIcon("Logo.png"), w)
+    trayIcon = SystemTrayIcon(QtGui.QIcon("img/Logo.png"), w)
     trayIcon.show()
     app.exec()
     os._exit(0)

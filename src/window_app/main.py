@@ -21,8 +21,8 @@ def point_on_screen(recvData):
         point_y = HEIGHT * float(y_ratio)
 
         print("좌표 : {}, {}".format(point_x,point_y) )
-        pyautogui.click(x=point_x, y=point_y)
-    except: 
+        #pyautogui.click(x=point_x, y=point_y)
+    except:
         pass
 
 
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     w = Form()
     w.show()
 
-    trayIcon = SystemTrayIcon(QtGui.QIcon("test.png"), w)
+    trayIcon = SystemTrayIcon(QtGui.QIcon("Logo.png"), w)
     trayIcon.show()
     app.exec()
     os._exit(0)

@@ -16,7 +16,7 @@ def getLog():
         time.sleep(300)
 
 def run():
-    while True:
+    while True: 
         try:
             s = input()
             exec(s)
@@ -93,6 +93,7 @@ def dist(sock):
                     lock.acquire()
                     connected_mob[recvData] = 1
                     lock.release()
+                    time.sleep(10)
                     break
 
                 else:
@@ -145,5 +146,5 @@ if __name__ == '__main__' :
         disting = threading.Thread(target=dist, args=(connectionSock, ))
         disting.start()
 
-        time.sleep(1)
+        #time.sleep(1)
         pass

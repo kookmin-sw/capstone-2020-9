@@ -14,8 +14,7 @@ Simply typing a word goes creating an image, This project gets text at the sente
 
 
 ## 3. 소개 영상
- - https://youtu.be/2o48bFe9558
- <img src="https://user-images.githubusercontent.com/20828492/77653369-ea0ffe80-6fb2-11ea-9b22-fd1d9023b367.png" width="1000" height="520">
+<iframe width="640" height="360" src="https://youtu.be/FLWs8H1VLTo" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 ## 4. 실행 방법
  - 추후공개

@@ -27,8 +27,8 @@
     <rect>
      <x>30</x>
      <y>50</y>
-     <width>301</width>
-     <height>151</height>
+     <width>305</width>
+     <height>155</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -54,8 +54,8 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>250</x>
      <y>10</y>
-     <width>93</width>
-     <height>28</height>
+     <width>95</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -65,10 +65,10 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="generate_num_btn">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>115</x>
      <y>220</y>
-     <width>131</width>
-     <height>31</height>
+     <width>135</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -78,10 +78,10 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>115</x>
      <y>260</y>
-     <width>131</width>
-     <height>28</height>
+     <width>135</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">

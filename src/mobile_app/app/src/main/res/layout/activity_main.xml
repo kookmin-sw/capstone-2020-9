@@ -123,11 +123,5 @@
         android:layout_row="8"
         android:text="@string/send"
         android:background="@drawable/button_state"/>
-    <Button
-        android:id="@+id/nextbutton"
-        android:layout_column="1"
-        android:layout_margin="5dp"
-        android:layout_row="8"
-        android:text="@string/next"
-        android:background="@drawable/button_state"/>
+
 </GridLayout>

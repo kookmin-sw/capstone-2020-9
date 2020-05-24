@@ -29,8 +29,8 @@
     <!-- Sign In -->
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="signin_email">Signup or Signin by email</string>
-    <string name="signin_google">Google login</string>
+    <string name="signin_email">로그인</string>
+    <string name="register_email">회원가입</string>
     <string name="signin_facebook">Facebook login</string>
     <string name="signup_complete">Membership success</string>
     <string name="signin_complete">Login success</string>

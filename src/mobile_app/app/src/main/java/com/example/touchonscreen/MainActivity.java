@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 public class MainActivity extends Activity implements View.OnClickListener{
-    Button btn[] = new Button[14];
+    Button btn[] = new Button[13];
     EditText userinput;
 
     //requirement for socket
@@ -51,11 +51,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btn[10] = (Button)findViewById(R.id.deletebutton);
         btn[11] = (Button)findViewById(R.id.clearbutton);
         btn[12] = (Button)findViewById(R.id.sendbutton);
-        btn[13] = (Button)findViewById(R.id.nextbutton);
+
 
 
         //onClick 이벤트 등록
-        for(int i=0; i<14;i++){
+        for(int i=0; i<13;i++){
             btn[i].setOnClickListener(this);
         }
 
@@ -198,34 +198,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
 
                 break;
-
-            case R.id.nextbutton:
-                //Connected라는 메시지 수신하면 다음 액티비티 실행
-                if (rmsg.equals(con)) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                isConnected = false;
-                                socket.close();
-                                Log.w("서버 닫힘", "서버닫힘");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.w("서버 안닫힘", "서버 안닫힘");
-                            }
-                        }
-                    }).start();
-                    //올바른 인증번호 다음 액티비티로 전달
-                    Log.w("패스워드", "패스워드" + vpw);
-                    Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
-                    intent.putExtra("valid_pw", vpw);
-                    startActivity(intent);
-                }else{
-                    //Invalid Password일 때
-                    Toast.makeText(MainActivity.this, "인증번호가 올바르지 않습니다", Toast.LENGTH_SHORT).show();
-                    Log.w("다음화면 못넘어감", "다음화면 못넘어감");
-                }
-                break;
         }
     }
 
@@ -271,12 +243,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         byte[] byteAr = new byte[100];
                         int readByteCount = is.read(byteAr);
                         rmsg = new String(byteAr, 0, readByteCount, "UTF-8");
-                        MainActivity.this.runOnUiThread(new Runnable() {
+                        /*MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(MainActivity.this, rmsg, Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        });*/
                         Log.w("서버에서 받은 값", "" + rmsg);
                     } catch (IOException e) {
                         e.printStackTrace();

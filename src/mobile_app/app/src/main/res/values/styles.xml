@@ -11,7 +11,7 @@
         <item name="colorButtonNormal">@color/colorWhite</item>
     </style>
     <style name="LoadingTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">@drawable/tos</item>
+        <item name="android:windowBackground">@drawable/tos_loading</item>
     </style>
 
 </resources>

@@ -24,6 +24,7 @@ def make_popup_image(mode):
     root.wm_attributes("-topmost", 1)
     root.geometry("{}x{}+{}+{}".format(SIZE, SIZE, int((WIDTH-SIZE)/2), int((HEIGHT-SIZE)/2)) )
 
+
     photo = PhotoImage()
     if( mode == 0 ): 
         photo = PhotoImage(file = 'img/click.png')
@@ -147,6 +148,14 @@ class MainForm(QtWidgets.QDialog):
     def showNormal(self):
         trayIcon.hide()
         self.show()
+    
+    def keyPressEvent(self, event):
+        pass
+    # Did the user press the Escape key?
+    #if event.key() == QtCore.Qt.Key_Escape: # QtCore.Qt.Key_Escape is a value that equates to what the operating system passes to python from the keyboard when the escape key is pressed.
+        # Yes: Close the window
+        #self.close()
+    # No:  Do nothing.
 
     @pyqtSlot()
     def generate_num(self): # btn 
@@ -199,6 +208,9 @@ class LoginForm(QtWidgets.QDialog):
         main_window.closeEvent(QCloseEvent)
         self.__init__()
 
+    def keyPressEvent(self, event):
+        pass
+
     @pyqtSlot()
     def send_login_info(self):
         print(self.ui.id_box.text())
@@ -229,7 +241,10 @@ class SignUpForm(QtWidgets.QDialog):
     def closeEvent(self, QCloseEvent):
         main_window.closeEvent(QCloseEvent)
         self.__init__()
-    
+
+    def keyPressEvent(self, event):
+        pass
+
 
     @pyqtSlot()
     def id_check(self):

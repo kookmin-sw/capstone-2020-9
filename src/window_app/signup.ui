@@ -364,22 +364,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>Dialog</sender>
-   <signal>signal1()</signal>
-   <receiver>sign_in_btn</receiver>
-   <slot>toggle()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>341</x>
-     <y>173</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>234</x>
-     <y>242</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <signal>start()</signal>

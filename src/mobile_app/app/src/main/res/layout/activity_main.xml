@@ -30,10 +30,11 @@
 
     <Button
         android:id="@+id/button1"
+        android:layout_row="4"
         android:layout_column="0"
         android:layout_margin="5dp"
-        android:layout_row="4"
-        android:text="@string/Button1" />
+        android:text="@string/Button1"
+        android:background="@drawable/button_state"/>
 
 
     <!--android:background="@drawable/button1"-->
@@ -43,77 +44,90 @@
         android:layout_column="1"
         android:layout_margin="5dp"
         android:layout_row="4"
-        android:text="@string/Button2" />
+        android:text="@string/Button2"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button3"
         android:layout_column="2"
         android:layout_margin="5dp"
         android:layout_row="4"
-        android:text="@string/Button3" />
+        android:text="@string/Button3"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button4"
         android:layout_column="0"
         android:layout_margin="5dp"
         android:layout_row="5"
-        android:text="@string/Button4" />
+        android:text="@string/Button4"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button5"
         android:layout_column="1"
         android:layout_margin="5dp"
         android:layout_row="5"
-        android:text="@string/Button5" />
+        android:text="@string/Button5"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button6"
         android:layout_column="2"
         android:layout_margin="5dp"
         android:layout_row="5"
-        android:text="@string/Button6" />
+        android:text="@string/Button6"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button7"
         android:layout_column="0"
         android:layout_margin="5dp"
         android:layout_row="6"
-        android:text="@string/Button7" />
+        android:text="@string/Button7"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button8"
         android:layout_column="1"
         android:layout_margin="5dp"
         android:layout_row="6"
-        android:text="@string/Button8" />
+        android:text="@string/Button8"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button9"
         android:layout_column="2"
         android:layout_margin="5dp"
         android:layout_row="6"
-        android:text="@string/Button9" />
+        android:text="@string/Button9"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/clearbutton"
         android:layout_column="0"
         android:layout_margin="5dp"
         android:layout_row="7"
-        android:text="@string/clear" />
+        android:text="@string/clear"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/button0"
         android:layout_column="1"
         android:layout_margin="5dp"
         android:layout_row="7"
-        android:text="0" />
+        android:text="0"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/deletebutton"
         android:layout_column="2"
         android:layout_margin="5dp"
         android:layout_row="7"
-        android:text="@string/delete" />
+        android:text="@string/delete"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/sendbutton"
         android:layout_column="2"
         android:layout_margin="5dp"
         android:layout_row="8"
-        android:text="@string/send" />
+        android:text="@string/send"
+        android:background="@drawable/button_state"/>
     <Button
         android:id="@+id/nextbutton"
         android:layout_column="1"
         android:layout_margin="5dp"
         android:layout_row="8"
-        android:text="@string/next" />
+        android:text="@string/next"
+        android:background="@drawable/button_state"/>
 </GridLayout>

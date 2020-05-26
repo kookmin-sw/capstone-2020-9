@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (EditText) findViewById((R.id.email_edittext));
+        mEmailView = (EditText) findViewById((R.id.id_edittext));
         mPasswordView = (EditText) findViewById((R.id.password_edittext));
 
         mEmailView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

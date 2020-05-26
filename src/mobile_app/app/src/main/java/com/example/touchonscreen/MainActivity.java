@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 public class MainActivity extends Activity implements View.OnClickListener{
-    Button btn[] = new Button[13];
+    Button btn[] = new Button[12];
     EditText userinput;
 
     //requirement for socket
@@ -48,14 +48,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btn[7] = (Button)findViewById(R.id.button8);
         btn[8] = (Button)findViewById(R.id.button9);
         btn[9] = (Button)findViewById(R.id.button0);
-        btn[10] = (Button)findViewById(R.id.deletebutton);
-        btn[11] = (Button)findViewById(R.id.clearbutton);
-        btn[12] = (Button)findViewById(R.id.sendbutton);
+        //btn[10] = (Button)findViewById(R.id.deletebutton);
+        btn[10] = (Button)findViewById(R.id.clearbutton);
+        btn[11] = (Button)findViewById(R.id.sendbutton);
 
 
 
         //onClick 이벤트 등록
-        for(int i=0; i<13;i++){
+        for(int i=0; i<12;i++){
             btn[i].setOnClickListener(this);
         }
 
@@ -137,7 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.button0:
                 addtoarray("0");
                 break;
-            case R.id.deletebutton:
+            /*case R.id.deletebutton:
                 //입력한 번호의 길이
                 int slength = userinput.length();
                 if (slength > 0) {
@@ -151,53 +151,61 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     userinput.setText(result);
                     userinput.setSelection(userinput.getText().length());
                 }
-                break;
+                break;*/
             case R.id.clearbutton:
                 userinput = (EditText) findViewById(R.id.numberpadtext);
                 userinput.setText("");
                 break;
             case R.id.sendbutton:
-                sendMsg();
-                try {
-                    sendThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                recvMsg();
-                try {
-                    recvThread.join();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //클리어
-                userinput = (EditText) findViewById(R.id.numberpadtext);
-                userinput.setText("");
-                if (rmsg.equals(con)) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                isConnected = false;
-                                socket.close();
-                                Log.w("서버 닫힘", "서버닫힘");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.w("서버 안닫힘", "서버 안닫힘");
+                if(isConnected==true){
+                    sendMsg();
+                    try {
+                        sendThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    recvMsg();
+                    try {
+                        recvThread.join();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //클리어
+                    userinput = (EditText) findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                    if (rmsg.equals(con)) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    isConnected = false;
+                                    socket.close();
+                                    Log.w("서버 닫힘", "서버닫힘");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Log.w("서버 안닫힘", "서버 안닫힘");
+                                }
                             }
-                        }
-                    }).start();
-                    //올바른 인증번호 다음 액티비티로 전달
-                    Log.w("패스워드", "패스워드" + vpw);
-                    Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
-                    intent.putExtra("valid_pw", vpw);
-                    startActivity(intent);
-                }else{
-                    //Invalid Password일 때
-                    Toast.makeText(MainActivity.this, "인증번호가 올바르지 않습니다", Toast.LENGTH_SHORT).show();
-                    Log.w("서버 다음화면 못넘어감", "서버 다음화면 못넘어감");
-                }
+                        }).start();
+                        //올바른 인증번호 다음 액티비티로 전달
+                        Log.w("패스워드", "패스워드" + vpw);
+                        Intent intent = new Intent(MainActivity.this, KyuhanActivity.class);
+                        intent.putExtra("valid_pw", vpw);
+                        startActivity(intent);
+                    }else{
+                        //Invalid Password일 때
+                        Toast.makeText(MainActivity.this, "인증번호가 올바르지 않습니다", Toast.LENGTH_SHORT).show();
+                        Log.w("서버 다음화면 못넘어감", "서버 다음화면 못넘어감");
+                    }
 
-                break;
+                    break;
+                }else{
+                    userinput = (EditText) findViewById(R.id.numberpadtext);
+                    userinput.setText("");
+                    Toast.makeText(MainActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
+                    Log.w("서버 연결 안되서 전송 못함", "서버 연결 안되서 전송 못함");
+                    break;
+                }
         }
     }
 
@@ -263,6 +271,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onStop() {
         super.onStop();
         try{
+            isConnected = false;
             socket.close(); //소켓 닫는다
         } catch (IOException e){
             e.printStackTrace();

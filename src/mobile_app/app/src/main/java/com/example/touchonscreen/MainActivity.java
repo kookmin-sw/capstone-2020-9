@@ -270,12 +270,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     protected void onStop() {
         super.onStop();
-        try{
-            isConnected = false;
-            socket.close(); //소켓 닫는다
-        } catch (IOException e){
-            e.printStackTrace();
+        if(isConnected==true){
+            try{
+                isConnected = false;
+                socket.close(); //소켓 닫는다
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
+
     }
 
     private void addtoarray(String no) {

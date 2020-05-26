@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/register_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="180dp"
+
+
+        android:layout_marginBottom="105dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +69,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <Button
             android:id="@+id/register_button_r"
             android:layout_width="match_parent"
@@ -82,7 +81,6 @@
             android:theme="@style/ButtonStyle" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

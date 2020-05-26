@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String vpw = "";
     Thread sendThread = new Thread();
     Thread recvThread = new Thread();
+    /*private boolean status = false;
+    String ip = "35.175.201.165";
+    SocketManager manager = null;
+    private String rmsg = "";*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void run() {
                 try{
                     //소켓 생성 후 서버에 연결
-                    socket = new Socket("15.164.116.157", 8081);
+                    socket = new Socket("35.175.201.165", 8081);
 
                     Log.w("서버 연결됨", "서버 연결됨");
                     isConnected = true;
@@ -81,7 +86,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     e1.printStackTrace();
                 }
                 //서버에 연결되어 있으면 계속 메시지 수신
-                /*while(isConnected){
+                while(isConnected){
                     try{
                         //서버로부터 수신한 메시지 string 으로 리턴
                         InputStream is = socket.getInputStream();//서버에서 받을거
@@ -98,10 +103,46 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }*/
+                }
             }
         }).start();
     }
+
+    /*protected void onResume() {
+
+        super.onResume();
+        manager = SocketManager.getInstance();
+    }
+    protected void onPause() {
+
+        super.onPause();
+    }
+    public void connectToServer() throws RemoteException {
+        manager.setSocket(ip);
+        manager.connect();
+        status = manager.getStatus();
+    }
+
+    public void sendData() throws RemoteException {
+
+        if(status==true){
+            manager.send(userinput.getText().toString());
+        }
+        else{
+            Toast.makeText(MainActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
+            Log.w("서버 연결 안되서 전송 못함", "서버 연결 안되서 전송 못함" + status);
+        }
+    }
+
+    public void receiveData() throws RemoteException {
+        if(status==true){
+            rmsg = manager.receive();
+        }else{
+            Toast.makeText(MainActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
+            Log.w("서버 연결 안되서 수신 못함", "서버 연결 안되서 수신 못함");
+
+        }
+    }*/
 
     @Override
     //버튼 온클릭
@@ -136,6 +177,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.button0:
                 addtoarray("0");
+
                 break;
             /*case R.id.deletebutton:
                 //입력한 번호의 길이
@@ -155,9 +197,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.clearbutton:
                 userinput = (EditText) findViewById(R.id.numberpadtext);
                 userinput.setText("");
+
                 break;
+
             case R.id.sendbutton:
-                if(isConnected==true){
+             if(isConnected==true){
                     sendMsg();
                     try {
                         sendThread.join();
@@ -251,12 +295,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         byte[] byteAr = new byte[100];
                         int readByteCount = is.read(byteAr);
                         rmsg = new String(byteAr, 0, readByteCount, "UTF-8");
-                        /*MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.this, rmsg, Toast.LENGTH_SHORT).show();
-                            }
-                        });*/
+
                         Log.w("서버에서 받은 값", "" + rmsg);
                     } catch (IOException e) {
                         e.printStackTrace();

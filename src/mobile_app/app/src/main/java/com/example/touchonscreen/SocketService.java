@@ -19,6 +19,7 @@ import java.net.SocketAddress;
 
 
 public class SocketService extends Service {
+    final int Time_out = 5000;
     private boolean isConnected = false;
     private Socket socket = null;
     private SocketAddress socketAddress = null;
@@ -26,8 +27,9 @@ public class SocketService extends Service {
     private InputStream is = null;
     private int port = 8081;
     private String rmsg = "";
-    Thread sendThread = new Thread();
-    Thread recvThread = new Thread();
+    public Thread connThread = new Thread();
+    public Thread sendThread = new Thread();
+    public Thread recvThread = new Thread();
 
     IConnectionService.Stub binder = new IConnectionService.Stub() {
         @Override
@@ -86,19 +88,24 @@ public class SocketService extends Service {
     }
     void myConnect(){
         socket = new Socket();
-        new Thread(new Runnable() {
+        connThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
                     socket.connect(socketAddress);
                     os = socket.getOutputStream();
                     is = socket.getInputStream();
+                    isConnected = true;
+                    Log.w("서버 연결됨", "서버 연결됨");
+
                 } catch (IOException e) {
+                    Log.w("서버 연결실패", "서버 연결실패");
                     e.printStackTrace();
                 }
-                isConnected = true;
+
             }
-        }).start();
+        });
+        connThread.start();
     }
 
     void myDisconnect(){

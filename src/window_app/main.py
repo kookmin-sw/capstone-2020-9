@@ -78,7 +78,7 @@ def make_connection(id):
 
     clientSock = socket(AF_INET, SOCK_STREAM)
     #clientSock.connect(('127.0.0.1', port))
-    clientSock.connect(('15.164.116.157', port))
+    clientSock.connect(('35.175.201.165', port))
     
 
     print('접속 완료')

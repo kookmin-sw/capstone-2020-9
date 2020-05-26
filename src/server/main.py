@@ -85,6 +85,15 @@ def dist(sock):
             sock.send(sandData)
             break
 
+        elif( recvData == 'login' ):
+            pass
+        elif( recvData == 'signup'):
+            pass
+        elif( recvData == 'idCheck' ):
+            pass
+
+
+
         else : # from mobile, data : password 
             try:    
                 if(connected_mob[recvData] == 0):

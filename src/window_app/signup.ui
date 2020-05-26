@@ -320,7 +320,7 @@
    <sender>sign_in_btn</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>login_confirm()</slot>
+   <slot>signup_confirm()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>200</x>
@@ -369,7 +369,7 @@
   <signal>start()</signal>
   <signal>signal1()</signal>
   <slot>go_login()</slot>
-  <slot>login_confirm()</slot>
+  <slot>signup_confirm()</slot>
   <slot>id_check()</slot>
   <slot>test()</slot>
  </slots>

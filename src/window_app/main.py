@@ -14,6 +14,7 @@ from win10toast import ToastNotifier
 import os
 from tkinter import *
 from PIL import Image, ImageTk
+import json
 
 def make_popup_image(mode):
     SIZE = 250
@@ -48,8 +49,6 @@ def point_on_screen(recvData):
         mode, x_ratio, y_ratio = recvData.split(',')
         # mode 0 = click, 1 = left, 2 = right, 3 = lock, 4 = unlock 
 
-        p = threading.Thread(target = make_popup_image, args=(int(mode),), daemon=True )
-        p.start()
         
         point_x = WIDTH * float(x_ratio)
         point_y = HEIGHT * float(y_ratio)
@@ -67,13 +66,14 @@ def point_on_screen(recvData):
         elif( mode == 4):
             pass
 
-
+        p = threading.Thread(target = make_popup_image, args=(int(mode),), daemon=True )
+        p.start()
 
     except:
         pass
 
 
-def make_connection():
+def make_connection(id):
     port = 8081
 
     clientSock = socket(AF_INET, SOCK_STREAM)
@@ -83,14 +83,25 @@ def make_connection():
 
     print('접속 완료')
 
-    sendData = 'com'
-    clientSock.send(sendData.encode('utf-8'))
+    if( id == 'pw' ):
+        sendData = 'com'
+        clientSock.send(sendData.encode('utf-8'))
 
-    password = clientSock.recv(1024).decode('utf-8')
+        password = clientSock.recv(1024).decode('utf-8')
 
-    #화면에 비밀번호 보여주기 
-    print("pw : " + password)
-    return password, clientSock
+        #화면에 비밀번호 보여주기 
+        print("pw : " + password)
+        return password, clientSock
+    
+    elif( id == 'login' or id == 'signup'):
+        sendData = id
+        clientSock.send(sendData.encode('utf-8'))
+        
+        return clientSock
+    
+        
+
+        
 
 
 def pointing_start(sock):
@@ -149,7 +160,7 @@ class MainForm(QtWidgets.QDialog):
         trayIcon.hide()
         self.show()
     
-    def keyPressEvent(self, event):
+    def keyPressEvent(self, event): 
         pass
     # Did the user press the Escape key?
     #if event.key() == QtCore.Qt.Key_Escape: # QtCore.Qt.Key_Escape is a value that equates to what the operating system passes to python from the keyboard when the escape key is pressed.
@@ -161,7 +172,7 @@ class MainForm(QtWidgets.QDialog):
     def generate_num(self): # btn 
         #self.ui.pw_show.setText("1234")
 
-        pw, sock = make_connection()
+        pw, sock = make_connection('pw')
         #화면에 pw 보여주기 gui
         self.ui.pw_label_2.setText(pw)
         self.ui.status.setText('연결할 장비에 아래 비밀번호를 입력하세요.')
@@ -215,6 +226,11 @@ class LoginForm(QtWidgets.QDialog):
     def send_login_info(self):
         print(self.ui.id_box.text())
         print(self.ui.pw_box.text())
+        #pw, sock = make_connection('login')
+        login_info = dict()
+        login_info["id"] = self.ui.id_box.text()
+        login_info["pw"] = self.ui.pw_box.text()
+
         pass
 
     @pyqtSlot()
@@ -257,6 +273,7 @@ class SignUpForm(QtWidgets.QDialog):
             self.ui.result.setText("이미 존재하는 ID 입니다.")
             
         '''
+        #pw, sock = make_connection('idCheck')
         self.ui.sign_in_btn.setEnabled(True)
 
     @pyqtSlot()
@@ -265,7 +282,8 @@ class SignUpForm(QtWidgets.QDialog):
         login_window.show()
 
     @pyqtSlot()
-    def login_confirm(self):
+    def signup_confirm(self):
+        #pw, sock = make_connection('signup')
         if(self.check and self.ui.pw_box.text() != self.ui.pw_check_box.text()):
             self.ui.result("비밀번호가 다릅니다.")
         else:

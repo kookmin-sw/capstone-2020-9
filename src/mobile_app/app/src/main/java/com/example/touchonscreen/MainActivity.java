@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void run() {
                 try{
                     //소켓 생성 후 서버에 연결
-                    socket = new Socket("35.175.201.165", 8081);
+                    socket = new Socket("3.226.243.223", 8081);
 
                     Log.w("서버 연결됨", "서버 연결됨");
                     isConnected = true;
@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     e1.printStackTrace();
                 }
                 //서버에 연결되어 있으면 계속 메시지 수신
-                while(isConnected){
+                /*while(isConnected){
                     try{
                         //서버로부터 수신한 메시지 string 으로 리턴
                         InputStream is = socket.getInputStream();//서버에서 받을거
@@ -103,7 +103,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                }*/
             }
         }).start();
     }
@@ -201,7 +201,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.sendbutton:
-             if(isConnected==true){
+                if(isConnected==true){
                     sendMsg();
                     try {
                         sendThread.join();

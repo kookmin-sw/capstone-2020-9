@@ -41,4 +41,8 @@
     <string name="signout_success">Signout success</string>
     <string name="signout_fail">Signout fail</string>
     <string name="signout_fail_null">Please enter your email and password</string>
+    <string name="device_1">PC 1</string>
+    <string name="device_2">PC 2</string>
+    <string name="append_dv">+</string>
+    <string name="dvl_title">등록된 기기</string>
 </resources>

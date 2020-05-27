@@ -44,7 +44,7 @@ public class KyuhanActivity extends AppCompatActivity {
             public void run() {
                 try {
                     //소켓 생성 후 서버에 올바른 인증번호 송신
-                    socket_2 = new Socket("15.164.116.157", 8081);
+                    socket_2 = new Socket("35.175.201.165", 8081);
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
                     receiveMsg();

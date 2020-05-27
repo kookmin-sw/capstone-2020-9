@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DevicelistActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/dvl_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="80dp"
+            android:text="@string/dvl_title"/>
+        <Button
+            android:id="@+id/dv1_button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/device_1"
+            android:theme="@style/ButtonStyle"
+            android:background="@drawable/button_state"/>
+
+
+        <Button
+            android:id="@+id/dv2_button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/device_2"
+            android:theme="@style/ButtonStyle"
+            android:background="@drawable/button_state"/>
+
+        <Button
+            android:id="@+id/plusdv_button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="80dp"
+            android:text="@string/append_dv"
+            android:theme="@style/ButtonStyle"
+            android:background="@drawable/button_state"/>
+    </LinearLayout>
+
+</RelativeLayout>

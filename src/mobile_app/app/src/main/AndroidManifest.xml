@@ -18,8 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".DevicelistActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".KyuhanActivity" />
         <activity android:name=".MainActivity" />
         <activity
@@ -33,9 +34,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".SocketService"
+        <service
+            android:name=".SocketService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

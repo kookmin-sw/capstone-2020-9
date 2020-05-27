@@ -8,10 +8,11 @@ interface IConnectionService {
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
      */
-    boolean getStatus();
+    int getStatus();
     void setSocket(String ip);
     void connect();
     void disconnect();
     void send(String smsg);
+    void con_send(String ss);
     String receive();
 }

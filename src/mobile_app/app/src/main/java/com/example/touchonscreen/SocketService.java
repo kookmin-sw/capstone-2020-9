@@ -20,21 +20,22 @@ import java.net.SocketAddress;
 
 public class SocketService extends Service {
     final int Time_out = 5000;
-    private boolean isConnected = false;
+    final int STATUS_DISCONNECTED = 0;
+    final int STATUS_CONNECTED = 1;
+
+    private int status = STATUS_DISCONNECTED;
     private Socket socket = null;
     private SocketAddress socketAddress = null;
-    private OutputStream os = null;
-    private InputStream is = null;
+    private OutputStream oss = null;
+    private InputStream iss = null;
     private int port = 8081;
-    private String rmsg = "";
-    public Thread connThread = new Thread();
-    public Thread sendThread = new Thread();
-    public Thread recvThread = new Thread();
+    private String rmsgs = "";
+
 
     IConnectionService.Stub binder = new IConnectionService.Stub() {
         @Override
-        public boolean getStatus() throws RemoteException {
-            return isConnected;
+        public int getStatus() throws RemoteException {
+            return status;
         }
 
         @Override
@@ -60,6 +61,11 @@ public class SocketService extends Service {
         @Override
         public String receive() throws RemoteException {
             return myReceive();
+        }
+
+        public void con_send(String ss){
+            myConnect();
+            mySend(ss);
         }
     };
     public SocketService(){}
@@ -88,14 +94,14 @@ public class SocketService extends Service {
     }
     void myConnect(){
         socket = new Socket();
-        connThread = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
                     socket.connect(socketAddress);
-                    os = socket.getOutputStream();
-                    is = socket.getInputStream();
-                    isConnected = true;
+                    oss = socket.getOutputStream();
+                    iss = socket.getInputStream();
+                    status = STATUS_CONNECTED;
                     Log.w("서버 연결됨", "서버 연결됨");
 
                 } catch (IOException e) {
@@ -104,24 +110,25 @@ public class SocketService extends Service {
                 }
 
             }
-        });
-        connThread.start();
+        }).start();
     }
 
     void myDisconnect(){
         try{
-            os.close();
-            is.close();
+            status = STATUS_DISCONNECTED;
+            oss.close();
+            iss.close();
             socket.close();
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        isConnected = false;
+
     }
 
     void mySend(final String sendmsg){
-        sendThread= new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 byte[] byteArr = new byte[100];
@@ -133,8 +140,8 @@ public class SocketService extends Service {
                 }
                 try{
 
-                    os.write(byteArr);
-                    os.flush();
+                    oss.write(byteArr);
+                    oss.flush();
                     Log.w("서버로 보냄", "서버로 보냄");
 
                 } catch (IOException e){
@@ -142,28 +149,26 @@ public class SocketService extends Service {
                     Log.w("서버로 못보냄", "서버로 못보냄");
                 }
             }
-        });
-        sendThread.start();
+        }).start();
     }
     String myReceive(){
-        recvThread = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try{
                     //서버로부터 수신한 메시지 string 으로 리턴
                     byte[] byteAr = new byte[100];
-                    int readByteCount = is.read(byteAr);
-                    rmsg = new String(byteAr, 0, readByteCount, "UTF-8");
+                    int readByteCount = iss.read(byteAr);
+                    rmsgs = new String(byteAr, 0, readByteCount, "UTF-8");
 
-                    Log.w("서버에서 받은 값", "" + rmsg);
+                    Log.w("서버에서 받은 값", "" + rmsgs);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-        });
-        recvThread.start();
-        return rmsg;
+        }).start();
+        return rmsgs;
     }
 }

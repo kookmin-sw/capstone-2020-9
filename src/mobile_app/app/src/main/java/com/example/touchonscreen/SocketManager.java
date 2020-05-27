@@ -45,7 +45,7 @@ public class SocketManager extends Application {
     private void setBinder(IConnectionService binder) {
         this.binder = binder;
     }
-    boolean getStatus() throws RemoteException {
+    int getStatus() throws RemoteException {
         return binder.getStatus();
     }
     void setSocket(String ip) throws RemoteException {

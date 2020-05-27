@@ -10,14 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="120dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/dvl_title"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="80dp"
-            android:text="@string/dvl_title"/>
+            android:layout_marginBottom="60dp"
+            android:text="@string/dvl_title"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
         <Button
             android:id="@+id/dv1_button"
             android:layout_width="match_parent"
@@ -27,6 +30,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="35dp"
             android:text="@string/device_1"
+            android:textSize="25sp"
             android:theme="@style/ButtonStyle"
             android:background="@drawable/button_state"/>
 
@@ -39,6 +43,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="35dp"
             android:text="@string/device_2"
+            android:textSize="25sp"
             android:theme="@style/ButtonStyle"
             android:background="@drawable/button_state"/>
 
@@ -50,6 +55,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="80dp"
             android:text="@string/append_dv"
+            android:textSize="25sp"
             android:theme="@style/ButtonStyle"
             android:background="@drawable/button_state"/>
     </LinearLayout>

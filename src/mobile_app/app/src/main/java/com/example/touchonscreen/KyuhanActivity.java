@@ -31,7 +31,7 @@ public class KyuhanActivity extends AppCompatActivity {
         sendCoord.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendCoord(0.5f, 0.5f);
+                sendCoord(0,0.5f, 0.5f);
                 Log.w("좌표전송 테스트", "좌표전송");
             }
         });
@@ -79,10 +79,11 @@ public class KyuhanActivity extends AppCompatActivity {
         }).start();
     }
     //서버로 좌표 전송
-    public void sendCoord(float x, float y){
+    public void sendCoord(int motion, float x, float y){
+        String smotion = Integer.toString(motion);
         String sx = Float.toString(x);
         String sy = Float.toString(y);
-        String coord = sx + ", " + sy;
+        String coord =smotion+", "+ sx + ", " + sy;
         //    x, y     로 전송
         send(coord);
     }

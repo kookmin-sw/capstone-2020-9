@@ -78,7 +78,7 @@ def make_connection(id):
 
     clientSock = socket(AF_INET, SOCK_STREAM)
     #clientSock.connect(('127.0.0.1', port))
-    clientSock.connect(('35.175.201.165', port))
+    clientSock.connect(('3.226.243.223', port))
     
 
     print('접속 완료')
@@ -226,12 +226,16 @@ class LoginForm(QtWidgets.QDialog):
     def send_login_info(self):
         print(self.ui.id_box.text())
         print(self.ui.pw_box.text())
-        #pw, sock = make_connection('login')
+        sock = make_connection('login') 
         login_info = dict()
         login_info["id"] = self.ui.id_box.text()
         login_info["pw"] = self.ui.pw_box.text()
-
-        pass
+        sock.send(json.dumps(login_info).encode('utf-8'))
+        recvData = sock.recv(1024).decode('utf-8')
+        if(recvData == 'ok'):
+            #다음화면으로 넘어가기
+            pass
+            
 
     @pyqtSlot()
     def make_account(self):
@@ -248,7 +252,6 @@ class LoginForm(QtWidgets.QDialog):
 class SignUpForm(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.check = False
         self.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint, False)
         self.ui = uic.loadUi("signup.ui", self) 
         self.ui.setWindowTitle('Touch On Screen')
@@ -264,17 +267,17 @@ class SignUpForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def id_check(self):
-        '''
-        send data = self.ui.id_box.text() 
-        if (recv data == unique):
-            self.check = True
+        sock = make_connection('idCheck')
+        id_info = dict()
+        id_info["id"] = self.ui.id_box.text()
+        sock.send(json.dumps(id_info).encode('utf-8'))
+        recvData = sock.recv(1024).decode('utf-8')
+        if(recvData == 'ok'):
+            self.ui.sign_in_btn.setEnabled(True)
         else:
             self.ui.id_box.setText("")
             self.ui.result.setText("이미 존재하는 ID 입니다.")
-            
-        '''
-        #pw, sock = make_connection('idCheck')
-        self.ui.sign_in_btn.setEnabled(True)
+
 
     @pyqtSlot()
     def go_login(self):
@@ -283,10 +286,20 @@ class SignUpForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def signup_confirm(self):
-        #pw, sock = make_connection('signup')
-        if(self.check and self.ui.pw_box.text() != self.ui.pw_check_box.text()):
+        sock = make_connection('signup')
+        if(self.ui.pw_box.text() != self.ui.pw_check_box.text()):
             self.ui.result("비밀번호가 다릅니다.")
-        else:
+            return 
+        
+        signup_info = dict()
+        signup_info["id"] = self.ui.id_box.text()
+        signup_info["pw"] = self.ui.pw_box.text()
+        signup_info["name"] = self.ui.name_box.text()
+        signup_info["email"] = self.ui.email_box.text()
+        sock.send(json.dumps(signup_info).encode('utf-8'))
+
+        recvData = sock.recv(1024).decode('utf-8')
+        if(recvData == 'ok'):
             self.hide()
             main_window.show()
             self.__init__()

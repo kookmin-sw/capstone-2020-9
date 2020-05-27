@@ -2,6 +2,8 @@ from socket import *
 import threading
 import time
 import random
+import json
+import pymysql
 
 random.seed(time.time())
 lock = threading.Lock()
@@ -70,6 +72,7 @@ def check(connection_id):
 def dist(sock):
     while True:
         recvData = sock.recv(1024).decode('utf-8')
+        print(recvData)
         if( recvData == 'com' ): # from com 
 
             pw = f'0000'
@@ -86,11 +89,23 @@ def dist(sock):
             break
 
         elif( recvData == 'login' ):
-            pass
+            login_info = json.loads(recvData)
+            ok = False
+            # db에서 정보 확인
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
         elif( recvData == 'signup'):
-            pass
+            signup_info = json.loads(recvData)
+            ok = False
+            #db 에 정보 저장
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
         elif( recvData == 'idCheck' ):
-            pass
+            id_info = json.loads(recvData)
+            ok = False
+            #db가서 id 정보 있는지 확인
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
 
 
 
@@ -130,8 +145,30 @@ def dist(sock):
                 del connected_com[recvData]
                 lock.release()
 
-
 port = 8081
+
+#mysql 5.7.22 
+
+# MySQL Connection 연결
+db_conn = pymysql.connect(host='mysql-1.clechpc6fvlz.us-east-1.rds.amazonaws.com', 
+port = '3306', user='admin', password='puri142857', db='testdb', charset='utf8')
+ 
+# # Connection 으로부터 Cursor 생성
+# curs = db_conn.cursor()
+ 
+# # SQL문 실행
+# sql = "select * from customer"
+# curs.execute(sql)
+ 
+# # 데이타 Fetch
+# rows = curs.fetchall()
+# print(rows)     # 전체 rows
+# # print(rows[0])  # 첫번째 row: (1, '김정수', 1, '서울')
+# # print(rows[1])  # 두번째 row: (2, '강수정', 2, '서울')
+ 
+# Connection 닫기
+db_conn.close()
+
 
 serverSock = socket(AF_INET, SOCK_STREAM)
 serverSock.bind(('', port))

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name" translatable="false">Hand Tracking GPU</string>
+    <string name="no_camera_access" translatable="false">Please grant camera permissions.</string>
+    <string name="Button1">1</string>
+    <string name="Button2">2</string>
+    <string name="Button3">3</string>
+    <string name="Button4">4</string>
+    <string name="Button5">5</string>
+    <string name="Button6">6</string>
+    <string name="Button7">7</string>
+    <string name="Button8">8</string>
+    <string name="Button9">9</string>
+    <string name="Button0">0</string>
+    <string name="clear">CLEAR</string>
+    <string name="delete">DELETE</string>
+    <string name="send">SEND</string>
+    <string name="next">NEXT</string>
+    <string name="pleaseinput">인증번호를 입력하세요</string>
+    <string name="coord">"Send Coordinate</string>
+</resources>

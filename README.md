@@ -53,7 +53,7 @@ https://youtu.be/FLWs8H1VLTo
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
-      모션인식 
+      모션인식, github관리 
    
 <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
 

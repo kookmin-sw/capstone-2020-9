@@ -122,6 +122,11 @@ https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and
     # Hello World!
     # Hello World!
 
+### 4.2 python module 설치방법 
+`pip install pyautogui`
+`pip install PyQt5`
+`pip install win10toast`
+
 
 
 

@@ -4,8 +4,6 @@
 ### 팀페이지 주소
 https://kookmin-sw.github.io/capstone-2020-9/
 
-### 프로젝트 시나리오 영상
-https://youtu.be/Y0ykC2mQFJw
 
 ## 1. 프로젝트 소개
 화면을 보여주는 모니터, 빔 프로젝터 등은 컴퓨터에 있어서 가장 기본적인 출력장치들 중 하나이다. 시각적인 출력장치도 매우 많은 종류가 생기고 터치가 가능해지는 모니터, 터치를 인식하는 빔 프로젝터 등 출력장치에 입력장치를 추가하여 사용자와 상호작용을 하는 장치들 역시 매우 많이 개발되며 상용화 되고 있다. 기존의 제품을 사용해 입력장치를 추가하려면 추가적인 기기를 구매하거나 새로운 기기를 구매해야 한다.  
@@ -24,6 +22,10 @@ The goal is to develop a deep learning model that recognizes motion of hand and 
 
 https://youtu.be/FLWs8H1VLTo
 
+
+### 프로젝트 시나리오 영상
+[![Watch the video](https://img.youtube.com/vi/Y0ykC2mQFJw/maxresdefault.jpg)](https://youtu.be/Y0ykC2mQFJw)
+https://youtu.be/Y0ykC2mQFJw
 
 ## 4. 실행 방법
 

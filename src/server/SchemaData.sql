@@ -51,10 +51,15 @@ CREATE TABLE conn_info (
 -------------------------------------------
 
 INSERT INTO user_info VALUES
-('test', 'test', 'test', 'test@mail.com');
+('test', 'test', 'test', 'test@mail.com'),
+('test2', 'test', 'test', 'test@mail.com'),
+('test3', 'test', 'test', 'test@mail.com');
 
 INSERT INTO conn_info VALUES
-('test', 'ff:ff:ff:ff:ff:ff', 'test');
+('test', 'ff:ff:ff:ff:ff:ff', 'test'),
+('test', 'ff:ff:ff:ff:ff:ee', 'test'),
+('test2', 'ff:ff:ff:ff:ff:ff', 'test'),
+('test3', 'ff:ff:ff:ff:ff:ff', 'test');
 
 
 

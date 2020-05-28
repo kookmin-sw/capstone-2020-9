@@ -5,48 +5,79 @@
 https://kookmin-sw.github.io/capstone-2020-9/
 
 ## 1. 프로젝트 소개
-본 프로젝트는 텍스트로 표현된 사용자의 생각을 이미지화 하는것을 목표로 한다.
-단순히 단어를 입력하면 이미지를 생성하는 것을 넘어서 문장 수준의 텍스트를 입력받고, 그것을 인식해서 이미지를 생성한다. 이는 그림 실력이 없는 사용자도 만들고 싶은 이미지에 대한 구상만 있다면, 학습된 AI를 통해 이미지를 만들 수 있다는 희망을 줄 것이다.
+화면을 보여주는 모니터, 빔 프로젝터 등은 컴퓨터에 있어서 가장 기본적인 출력장치들 중 하나이다. 시각적인 출력장치도 매우 많은 종류가 생기고 터치가 가능해지는 모니터, 터치를 인식하는 빔 프로젝터 등 출력장치에 입력장치를 추가하여 사용자와 상호작용을 하는 장치들 역시 매우 많이 개발되며 상용화 되고 있다. 기존의 제품을 사용해 입력장치를 추가하려면 추가적인 기기를 구매하거나 새로운 기기를 구매해야 한다.  
+따라서 본 프로젝트는 빔 프로젝터, 모니터 등 PC와 연결된 스크린에서의 조작을 모바일에서의 모션인식을 통해 가능하게 하는 것을 목표로 한다.  대부분의 강의를 위한 공간은 빔 프로젝터나 큰 모니터를 사용한다. 하지만 발표를 하면서 동적인 자세 또는 특정 행동을 통해서 발표 스크린을 제어하는 것은 어렵다. 이 프로젝트는 모바일 디바이스에서의 모션 인식 기능을 통해 추가적인 비용 소모 없이 화면을 터치하는것과 같은 효과를 줄 것이다.  
+사람의 손을 추적하고 손의 모션을 인식하는 딥러닝 모델을 학습하고, 해당 모델로 발표를 진행하는 사용자의 모션을 실시간으로 분석하여 화면을 제어하는 프로그램 개발을 목표로 한다. 모바일 어플리케이션에서 화면을 인식함으로 출력 장치에 무관한 화면 제어를 가능하게 한다.  
 
 ## 2. Abstract
-This project aims to making images of the thoughts of users expressed in text.
-Simply typing a word goes creating an image, This project gets text at the sentence level, recognizes it, and creates an image. This will give hope to create images through learned AI, provided that even users without drawing skills and having only an idea for images that they want to create.
+Monitors, beam projectors and etc that show a screen are one of the most basic output devices in a computer. There are a lot of kinds of optical output devices. And also devices are being developed and commercialized by adding input stream in output devices, such as monitors and beam projectors that recognize touch. However, to add input function using existing products, you must purchase additional devices or purchase new devices  
+Therefore, this project aims to enable control on screens connected to PCs such as beam projectors or monitors through motion recognition on mobile devices. Most of the spaces for lectures use a beam projector or a large monitor. However, it is difficult to control the presentation screen through dynamic guestures or specific actions during the presentation. So, this project will give the similar effect as touching the screen without additional cost through motion recognition on a mobile device.  
+The goal is to develop a deep learning model that recognizes motion of hand and a program that control the screen by analyzes the motion of the user who conducts the presentation in real-time. So, screen recognition in mobile applications enables screen control regardless of the output device.  
 
 
 ## 3. 소개 영상
-<iframe width="640" height="360" src="https://youtu.be/FLWs8H1VLTo" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+ - link
+[![Watch the video](https://img.youtube.com/vi/FLWs8H1VLTo/maxresdefault.jpg)](https://youtu.be/FLWs8H1VLTo)
+
+https://youtu.be/FLWs8H1VLTo
+
 
 ## 4. 실행 방법
- - 추후공개
+1) server
+    `running on aws`  
+    `ip : 15.164.116.157`  
+    `port : 8081`  
+     
+2) android app
+    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`  
+3) window app
+    `src\window_app\main.py 파일을 실행 시킨다`  
+    `필요 python module : "pyautogui", "PyQt5", "win10toast"`  
+    `실행 : user>python3 main.py`  
+    
+    
+
+
 
 ## 5. 팀 소개
+<img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="160" height="200">
 
     - 정형섭(팀장)
       20153229
       bluesky096049@gmail.com
- <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="160" height="200">
-    
+      모션인식 및 안드로이드 어플리케이션 연동
+
+
+ 
+<img src="https://user-images.githubusercontent.com/20828492/77652703-03fd1180-6fb2-11ea-95b8-fe1abd59f51f.jpg" width="160" height="200">
+
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77652703-03fd1180-6fb2-11ea-95b8-fe1abd59f51f.jpg" width="160" height="200">
-      
+      모션인식 
+   
+<img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
+
     - 유성훈
       20153199
       ysg03004@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
+      모바일 프로그래밍 및 UI 
+   
       
-      
+<img src="https://user-images.githubusercontent.com/20828492/77650650-24779c80-6faf-11ea-9e66-68652b3252ef.jpg" width="150" height="200">
+
     - 이규한
       20153206
       qr96@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77650650-24779c80-6faf-11ea-9e66-68652b3252ef.jpg" width="150" height="200">
+      모바일 프로그래밍 
    
    
+<img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="160" height="200">
+
     - 조정근
       20153235
       barunpuri@kookmin.ac.kr
-   <img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="160" height="200">
+      PC 프로그래밍 및 서버 구현 
       
 
 

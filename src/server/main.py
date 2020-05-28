@@ -92,6 +92,10 @@ def dist(sock):
             login_info = json.loads(recvData)
             ok = False
             # db에서 정보 확인
+            # sql = "select count(*) from user_info where id = {};".format(login_info["id"])
+            # curs.execute(sql)
+            # rows = curs.fetchall()
+            # print(rows)
             if(ok):
                 sock.send('ok'.encode('utf-8'))
         elif( recvData == 'signup'):
@@ -145,16 +149,15 @@ def dist(sock):
                 del connected_com[recvData]
                 lock.release()
 
-port = 8081
 
 #mysql 5.7.22 
 
 # MySQL Connection 연결
-db_conn = pymysql.connect(host='mysql-1.clechpc6fvlz.us-east-1.rds.amazonaws.com', 
-port = '3306', user='admin', password='puri142857', db='testdb', charset='utf8')
+db_conn = pymysql.connect(host='database-1.clechpc6fvlz.us-east-1.rds.amazonaws.com', 
+port = 3306, user='admin', password='puri142857', db='capstone', charset='utf8')
  
 # # Connection 으로부터 Cursor 생성
-# curs = db_conn.cursor()
+curs = db_conn.cursor()
  
 # # SQL문 실행
 # sql = "select * from customer"
@@ -167,8 +170,10 @@ port = '3306', user='admin', password='puri142857', db='testdb', charset='utf8')
 # # print(rows[1])  # 두번째 row: (2, '강수정', 2, '서울')
  
 # Connection 닫기
-db_conn.close()
+# db_conn.close()
 
+
+port = 8081
 
 serverSock = socket(AF_INET, SOCK_STREAM)
 serverSock.bind(('', port))
@@ -194,3 +199,7 @@ if __name__ == '__main__' :
 
         #time.sleep(1)
         pass
+
+    db_conn.close()
+
+db_conn.close()

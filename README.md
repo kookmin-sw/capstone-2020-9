@@ -24,6 +24,7 @@ The goal is to develop a deep learning model that recognizes motion of hand and 
 
 https://youtu.be/FLWs8H1VLTo
 
+
 ## 4. 실행 방법
 
 

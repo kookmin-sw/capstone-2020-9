@@ -26,29 +26,79 @@ https://youtu.be/FLWs8H1VLTo
 
 https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and-ubuntu
 
-1)terminal에서 mediapipe의 깃 파일들을 불러온다
+1)terminal에서 mediapipe의 깃 파일들을 불러온다.
 
     '$ git clone https://github.com/google/mediapipe.git'
     '$ cd mediapipe'
     
 2)Bazel을 설치한다.
 
-    'https://docs.bazel.build/versions/master/install-ubuntu.html'
+    https://docs.bazel.build/versions/master/install-ubuntu.html
     
 3)OpenCV와 FFmpeg를 설치한다.
 
-    opt1) pakage manager tool을 사용해 pre-compile 되어있는 OpenCV 라이브러리를 설치한다.
+   opt1) pakage manager tool을 사용해 pre-compile 되어있는 OpenCV 라이브러리를 설치한다.
     
         '$ sudo apt-get install libopencv-core-dev libopencv-highgui-dev \
                        libopencv-calib3d-dev libopencv-features2d-dev \
                        libopencv-imgproc-dev libopencv-video-dev'
                        
-    opt2) setup_opencv.sh를 실행하여 OpenCV를 자동 빌드한다. 그리고 Mediapipe의 OpenCV 구성을 수정한다.
+   opt2) setup_opencv.sh를 실행하여 OpenCV를 자동 빌드한다. 그리고 Mediapipe의 OpenCV 구성을 수정한다.
     
-    opt3) https://docs.opencv.org/3.4.6/d7/d9f/tutorial_linux_install.html (OpenCV manual)을 따라한다.
+   opt3) https://docs.opencv.org/3.4.6/d7/d9f/tutorial_linux_install.html (OpenCV manual)을 따라한다.
     
     추가. Mediapipe가 당신 컴퓨터의 OpenCV의 라이브러리를 가리키도록 WORKSPACE 와 opencv_linux.BUILD 를 수정해야한다.  만약 OpenCV4가 "/usr/local"에 설치되어있다면 당신은 WORKSPACE 의 "linux_opencv"new_local_repository rule과 opencv_linux.BUILD 의 "opencv" cc_library ruls을 수정해야한다.
     
+    new_local_repository(
+    name = "linux_opencv",
+    build_file = "@//third_party:opencv_linux.BUILD",
+    path = "/usr/local",
+    )
+
+    cc_library(
+        name = "opencv",
+        srcs = glob(
+            [
+                "lib/libopencv_core.so",
+                "lib/libopencv_highgui.so",
+                "lib/libopencv_imgcodecs.so",
+                "lib/libopencv_imgproc.so",
+                "lib/libopencv_video.so",
+                "lib/libopencv_videoio.so",
+            ],
+        ),
+        hdrs = glob(["include/opencv4/**/*.h*"]),
+        includes = ["include/opencv4/"],
+        linkstatic = 1,
+        visibility = ["//visibility:public"],
+    )
+    
+4)Hello World desktop example 실행
+    
+    $ export GLOG_logtostderr=1
+
+    # if you are running on Linux desktop with CPU only
+    $ bazel run --define MEDIAPIPE_DISABLE_GPU=1 \
+        mediapipe/examples/desktop/hello_world:hello_world
+
+    # If you are running on Linux desktop with GPU support enabled (via mesa drivers)
+    $ bazel run --copt -DMESA_EGL_NO_X11_HEADERS --copt -DEGL_NO_X11 \
+        mediapipe/examples/desktop/hello_world:hello_world
+
+    # Should print:
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    
+### 4.2 Window app 모듈 설치방법
+
 1) server
     `running on aws`  
     `ip : 35.175.201.165`  

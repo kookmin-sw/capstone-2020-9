@@ -2,6 +2,8 @@ from socket import *
 import threading
 import time
 import random
+import json
+import pymysql
 
 random.seed(time.time())
 lock = threading.Lock()
@@ -16,7 +18,7 @@ def getLog():
         time.sleep(300)
 
 def run():
-    while True:
+    while True: 
         try:
             s = input()
             exec(s)
@@ -70,6 +72,7 @@ def check(connection_id):
 def dist(sock):
     while True:
         recvData = sock.recv(1024).decode('utf-8')
+        print(recvData)
         if( recvData == 'com' ): # from com 
 
             pw = f'0000'
@@ -85,6 +88,31 @@ def dist(sock):
             sock.send(sandData)
             break
 
+        elif( recvData == 'login' ):
+            login_info = json.loads(recvData)
+            ok = False
+            # db에서 정보 확인
+            # sql = "select count(*) from user_info where id = {};".format(login_info["id"])
+            # curs.execute(sql)
+            # rows = curs.fetchall()
+            # print(rows)
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
+        elif( recvData == 'signup'):
+            signup_info = json.loads(recvData)
+            ok = False
+            #db 에 정보 저장
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
+        elif( recvData == 'idCheck' ):
+            id_info = json.loads(recvData)
+            ok = False
+            #db가서 id 정보 있는지 확인
+            if(ok):
+                sock.send('ok'.encode('utf-8'))
+
+
+
         else : # from mobile, data : password 
             try:    
                 if(connected_mob[recvData] == 0):
@@ -93,6 +121,7 @@ def dist(sock):
                     lock.acquire()
                     connected_mob[recvData] = 1
                     lock.release()
+                    time.sleep(10)
                     break
 
                 else:
@@ -121,6 +150,29 @@ def dist(sock):
                 lock.release()
 
 
+#mysql 5.7.22 
+
+# MySQL Connection 연결
+db_conn = pymysql.connect(host='database-1.clechpc6fvlz.us-east-1.rds.amazonaws.com', 
+port = 3306, user='admin', password='puri142857', db='capstone', charset='utf8')
+ 
+# # Connection 으로부터 Cursor 생성
+curs = db_conn.cursor()
+ 
+# # SQL문 실행
+# sql = "select * from customer"
+# curs.execute(sql)
+ 
+# # 데이타 Fetch
+# rows = curs.fetchall()
+# print(rows)     # 전체 rows
+# # print(rows[0])  # 첫번째 row: (1, '김정수', 1, '서울')
+# # print(rows[1])  # 두번째 row: (2, '강수정', 2, '서울')
+ 
+# Connection 닫기
+# db_conn.close()
+
+
 port = 8081
 
 serverSock = socket(AF_INET, SOCK_STREAM)
@@ -145,5 +197,9 @@ if __name__ == '__main__' :
         disting = threading.Thread(target=dist, args=(connectionSock, ))
         disting.start()
 
-        time.sleep(1)
+        #time.sleep(1)
         pass
+
+    db_conn.close()
+
+db_conn.close()

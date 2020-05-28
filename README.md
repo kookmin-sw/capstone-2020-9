@@ -22,6 +22,22 @@ The goal is to develop a deep learning model that recognizes motion of hand and 
 https://youtu.be/FLWs8H1VLTo
 
 ## 4. 실행 방법
+
+
+1) server
+    `running on aws`  
+    `ip : 3.226.243.223`  
+    `port : 8081`  
+     
+2) android app
+    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`  
+3) window app
+    `src\window_app\main.py 파일을 실행 시킨다`  
+    `필요 python module : "pyautogui", "PyQt5", "win10toast"`  
+    `실행 : user>python3 main.py`  
+    
+    
+
 ### 4.1 mediapipe 설치방법 (Linux)
 
 https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and-ubuntu
@@ -96,22 +112,7 @@ https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and
     # Hello World!
     # Hello World!
     # Hello World!
-    
-### 4.2 Window app 모듈 설치방법
 
-1) server
-    `running on aws`  
-    `ip : 35.175.201.165`  
-    `port : 8081`  
-     
-2) android app
-    `src\tos_proto.apk 를 다운받아서 android 환경에 설치하고 실행한다.`  
-3) window app
-    `src\window_app\main.py 파일을 실행 시킨다`  
-    `필요 python module : "pyautogui", "PyQt5", "win10toast"`  
-    `실행 : user>python3 main.py`  
-    
-    
 
 
 

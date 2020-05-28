@@ -45,4 +45,9 @@
     <string name="device_2">PC 2</string>
     <string name="append_dv">+</string>
     <string name="dvl_title">등록된 기기</string>
+
+    <string name="x_coord">X 좌표</string>
+    <string name="y_coord">Y 좌표</string>
+    <string name="gesture_mode">제스처</string>
+    <string name="send_coord">좌표 전송</string>
 </resources>

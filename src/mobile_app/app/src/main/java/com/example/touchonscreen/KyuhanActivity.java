@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -23,16 +24,37 @@ public class KyuhanActivity extends AppCompatActivity {
     private OutputStream os;
     Button sendCoord;
 
+    EditText mode;
+    EditText xcoord;
+    EditText ycoord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kyuhan);
-        sendCoord = (Button)findViewById(R.id.coordsendBtn);
+
+        mode = (EditText) findViewById(R.id.gesture_mode);
+        xcoord = (EditText) findViewById(R.id.x_coord);
+        ycoord = (EditText) findViewById(R.id.y_coord);
+
+
+
+        sendCoord = (Button)findViewById(R.id.send_coord);
         sendCoord.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendCoord(0,0.5f, 0.5f);
+                String mode_t = mode.getText().toString();
+                String xcoord_t = xcoord.getText().toString();
+                String ycoord_t = ycoord.getText().toString();
+
+                sendCoord(mode_t,xcoord_t, ycoord_t);
                 Log.w("좌표전송 테스트", "좌표전송");
+
+                mode.setText("");
+                xcoord.setText("");
+                ycoord.setText("");
+
+
             }
         });
         //매인액티비티에서 받은 올바른 인증번호
@@ -44,7 +66,7 @@ public class KyuhanActivity extends AppCompatActivity {
             public void run() {
                 try {
                     //소켓 생성 후 서버에 올바른 인증번호 송신
-                    socket_2 = new Socket("35.175.201.165", 8081);
+                    socket_2 = new Socket("3.226.243.223", 8081);
                     Log.w("새로 서버 연결됨", "새로 서버 연결됨");
                     send(pw);
                     receiveMsg();
@@ -79,11 +101,9 @@ public class KyuhanActivity extends AppCompatActivity {
         }).start();
     }
     //서버로 좌표 전송
-    public void sendCoord(int motion, float x, float y){
-        String smotion = Integer.toString(motion);
-        String sx = Float.toString(x);
-        String sy = Float.toString(y);
-        String coord =smotion+", "+ sx + ", " + sy;
+    public void sendCoord(String motion, String x, String y){
+
+        String coord =motion+", "+ x + ", " + y;
         //    x, y     로 전송
         send(coord);
     }

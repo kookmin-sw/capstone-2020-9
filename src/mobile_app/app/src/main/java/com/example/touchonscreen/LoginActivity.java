@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Toast.makeText(LoginActivity.this, "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, DevicelistActivity.class);
                 startActivity(intent);
                 //서버 연결

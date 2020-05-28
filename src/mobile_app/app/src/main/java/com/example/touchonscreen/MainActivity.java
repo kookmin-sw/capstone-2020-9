@@ -74,12 +74,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
                     Log.w("서버 연결됨", "서버 연결됨");
                     isConnected = true;
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    /*MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(MainActivity.this, "Server Connected", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
 
                 }catch (IOException e1){
                     Log.w("서버 연결실패", "서버 연결실패");

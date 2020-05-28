@@ -24,7 +24,7 @@ https://youtu.be/FLWs8H1VLTo
 ## 4. 실행 방법
 1) server
     `running on aws`  
-    `ip : 15.164.116.157`  
+    `ip : 35.175.201.165`  
     `port : 8081`  
      
 2) android app

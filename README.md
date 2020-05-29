@@ -23,11 +23,11 @@ The goal is to develop a deep learning model that recognizes motion of hand and 
 https://youtu.be/FLWs8H1VLTo
 
 ### 프로젝트 시나리오 영상
-[![Watch the video](https://img.youtube.com/vi/Y0ykC2mQFJw/maxresdefault.jpg)](https://youtu.be/Y0ykC2mQFJw)
+[![Watch the video](https://img.youtube.com/vi/Y0ykC2mQFJw/mqdefault.jpg)](https://youtu.be/Y0ykC2mQFJw)
 https://youtu.be/Y0ykC2mQFJw
 
 ### 프로젝트 구현 영상
-[![Watch the video](https://img.youtube.com/vi/w3RBwXQyVUQ/maxresdefault.jpg)](https://youtu.be/w3RBwXQyVUQ)
+[![Watch the video](https://img.youtube.com/vi/w3RBwXQyVUQ/mqdefault.jpg)](https://youtu.be/w3RBwXQyVUQ)
 https://youtu.be/w3RBwXQyVUQ
 
 ## 4. 실행 방법

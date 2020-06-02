@@ -1,0 +1,2 @@
+/home/harry/capstone/src/DetectScreen/app/src/main/jni/Android.mk:9: C:\AndroidProject\capstone-2020-9\src\DetectScreen\opencv\native\jni\OpenCV.mk: 그런 파일이나 디렉터리가 없습니다
+make: *** No rule to make target `C:\AndroidProject\capstone-2020-9\src\DetectScreen\opencv\native\jni\OpenCV.mk'.  Stop.

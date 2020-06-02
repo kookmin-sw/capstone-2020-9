@@ -93,9 +93,8 @@ def dist(sock):
             recvData = sock.recv(1024).decode('utf-8')
             login_info = json.loads(recvData)
             print("login {}".format(recvData))
-            print(login_info)
             # db에서 정보 확인
-            sql = 'select count(*) from user_info where id = {} and pw = {};'.format(login_info["id"], login_info["pw"])
+            sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
 
             curs.execute(sql)
             rows = curs.fetchall()
@@ -114,7 +113,10 @@ def dist(sock):
 
             else : 
                 sock.send('fail'.encode('utf-8'))
-                
+
+            print("login end")
+            break
+
         elif( recvData == 'signup'):
             recvData = sock.recv(1024).decode('utf-8')
             print("signup {}",format(recvData))
@@ -128,17 +130,22 @@ def dist(sock):
             except :
                 sock.send('fail'.encode('utf-8'))
 
+            print("signup end")
+            break
+
         elif( recvData == 'idCheck' ):
             recvData = sock.recv(1024).decode('utf-8')
             id_info = json.loads(recvData)
             # db에서 정보 확인
-            sql = 'select count(*) from user_info where id = {};'.format(id_info["id"])
+            sql = 'select count(*) from user_info where id = "{}";'.format(id_info["id"])
             curs.execute(sql)
             rows = curs.fetchall()
             if(rows[0][0] == 1):
                 sock.send('ok'.encode('utf-8'))
             else : 
                 sock.send('fail'.encode('utf-8'))
+            
+            break
 
         else : # from mobile, data : password 
             try:    

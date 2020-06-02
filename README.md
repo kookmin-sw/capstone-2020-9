@@ -76,7 +76,7 @@ https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and
     
    option3) https://docs.opencv.org/3.4.6/d7/d9f/tutorial_linux_install.html (OpenCV manual)을 따라한다.
     
-    추가. Mediapipe가 당신 컴퓨터의 OpenCV의 라이브러리를 가리키도록 WORKSPACE 와 opencv_linux.BUILD 를 수정해야한다.  만약 OpenCV4가 "/usr/local"에 설치되어있다면 당신은 WORKSPACE 의 "linux_opencv"new_local_repository rule과 opencv_linux.BUILD 의 "opencv" cc_library ruls을 수정해야한다.
+    추가.(only option3) Mediapipe가 당신 컴퓨터의 OpenCV의 라이브러리를 가리키도록 WORKSPACE 와 opencv_linux.BUILD 를 수정해야한다.  만약 OpenCV4가 "/usr/local"에 설치되어있다면 당신은 WORKSPACE 의 "linux_opencv"new_local_repository rule과 opencv_linux.BUILD 의 "opencv" cc_library ruls을 수정해야한다.
     
     new_local_repository(
     name = "linux_opencv",

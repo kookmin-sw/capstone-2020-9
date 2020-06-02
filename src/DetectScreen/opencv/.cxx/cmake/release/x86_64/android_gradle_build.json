@@ -1,0 +1,42 @@
+{
+  "stringTable": {
+    "0": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86_64",
+    "1": "--target=x86_64-none-linux-android21 --gcc-toolchain=/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/CMakeLists.txt",
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86_64\" clean"
+  ],
+  "buildTargetsCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "opencv_jni_shared-Release-x86_64": {
+      "buildCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86_64\" opencv_jni_shared",
+      "buildType": "release",
+      "toolchain": "1752033803",
+      "abi": "x86_64",
+      "artifactName": "opencv_jni_shared",
+      "files": [
+        {
+          "src": "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/dummy.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86_64/libopencv_jni_shared.a"
+    }
+  },
+  "toolchains": {
+    "1752033803": {
+      "cppCompilerExecutable": "/home/harry/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "buildFiles": [
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/home/harry/capstone/src/DetectScreen/opencv/libcxx_helper/CMakeLists.txt",
+    "/home/harry/Android/Sdk/ndk/21.1.6352462/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86\" clean"
+  ],
+  "buildTargetsCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "opencv_jni_shared-Release-x86": {
+      "artifactName": "opencv_jni_shared",
+      "buildCommand": "/home/harry/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86\" opencv_jni_shared",
+      "abi": "x86",
+      "output": "/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/x86/libopencv_jni_shared.a"
+    }
+  }
+}

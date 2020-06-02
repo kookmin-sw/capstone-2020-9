@@ -93,6 +93,7 @@ def dist(sock):
             recvData = sock.recv(1024).decode('utf-8')
             login_info = json.loads(recvData)
             print("login {}".format(recvData))
+            print(login_info)
             # db에서 정보 확인
             sql = 'select count(*) from user_info where id = {} and pw = {};'.format(login_info["id"], login_info["pw"])
 
@@ -118,6 +119,7 @@ def dist(sock):
             recvData = sock.recv(1024).decode('utf-8')
             print("signup {}",format(recvData))
             signup_info = json.loads(recvData)  #id, pw, name, email
+            print(signup_info)
             sql = 'insert user_info(id, pw, name, email) values ("{}", "{}", "{}", "{}");'.format(signup_info["id"], signup_info["pw"], signup_info["name"], signup_info["email"])
             try:
                 curs.execute(sql)

@@ -90,28 +90,47 @@ def dist(sock):
 
         elif( recvData == 'login' ):
             login_info = json.loads(recvData)
-            ok = False
             # db에서 정보 확인
-            # sql = "select count(*) from user_info where id = {};".format(login_info["id"])
-            # curs.execute(sql)
-            # rows = curs.fetchall()
-            # print(rows)
-            if(ok):
+            sql = 'select count(*) from user_info where id = {} and pw = {};'.format(login_info["id"], login_info["pw"])
+
+            curs.execute(sql)
+            rows = curs.fetchall()
+            if(rows[0][0] == 1):
                 sock.send('ok'.encode('utf-8'))
+
+            #     devType = login_info.get("isCom",0)
+            #     sql = 'insert conn_info(id, macAddr, DeviceName, DeviceType) values ("{}", "{}", "{}", "{}");'.format(login_info["id"], login_info["mac"], , )
+            # try:
+            #     curs.execute(sql)
+            #     rows = curs.fetchall()
+            # except :
+            #     pass
+            
+
+
+            else : 
+                sock.send('fail'.encode('utf-8'))
+                
         elif( recvData == 'signup'):
-            signup_info = json.loads(recvData)
-            ok = False
-            #db 에 정보 저장
-            if(ok):
+            signup_info = json.loads(recvData)  #id, pw, name, email
+            sql = 'insert user_info(id, pw, name, email) values ("{}", "{}", "{}", "{}");'.format(signup_info["id"], signup_info["pw"], signup_info["name"], signup_info["email"])
+            try:
+                curs.execute(sql)
+                rows = curs.fetchall()
                 sock.send('ok'.encode('utf-8'))
+            except :
+                sock.send('fail'.encode('utf-8'))
+
         elif( recvData == 'idCheck' ):
             id_info = json.loads(recvData)
-            ok = False
-            #db가서 id 정보 있는지 확인
-            if(ok):
+            # db에서 정보 확인
+            sql = 'select count(*) from user_info where id = {};'.format(id_info["id"])
+            curs.execute(sql)
+            rows = curs.fetchall()
+            if(rows[0][0] == 1):
                 sock.send('ok'.encode('utf-8'))
-
-
+            else : 
+                sock.send('fail'.encode('utf-8'))
 
         else : # from mobile, data : password 
             try:    

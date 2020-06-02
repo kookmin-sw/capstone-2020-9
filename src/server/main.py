@@ -89,6 +89,7 @@ def dist(sock):
             break
 
         elif( recvData == 'login' ):
+            recvData = sock.recv(1024).decode('utf-8')
             login_info = json.loads(recvData)
             # db에서 정보 확인
             sql = 'select count(*) from user_info where id = {} and pw = {};'.format(login_info["id"], login_info["pw"])
@@ -112,6 +113,7 @@ def dist(sock):
                 sock.send('fail'.encode('utf-8'))
                 
         elif( recvData == 'signup'):
+            recvData = sock.recv(1024).decode('utf-8')
             signup_info = json.loads(recvData)  #id, pw, name, email
             sql = 'insert user_info(id, pw, name, email) values ("{}", "{}", "{}", "{}");'.format(signup_info["id"], signup_info["pw"], signup_info["name"], signup_info["email"])
             try:
@@ -122,6 +124,7 @@ def dist(sock):
                 sock.send('fail'.encode('utf-8'))
 
         elif( recvData == 'idCheck' ):
+            recvData = sock.recv(1024).decode('utf-8')
             id_info = json.loads(recvData)
             # db에서 정보 확인
             sql = 'select count(*) from user_info where id = {};'.format(id_info["id"])

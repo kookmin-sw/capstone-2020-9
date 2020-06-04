@@ -225,8 +225,6 @@ class LoginForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def send_login_info(self):
-        print(self.ui.id_box.text())
-        print(self.ui.pw_box.text())
         sock = make_connection('login') 
         login_info = dict()
         login_info["id"] = self.ui.id_box.text()
@@ -238,7 +236,7 @@ for ele in range(0,8*6,8)][::-1])
         if(recvData == 'ok'):
             #다음화면으로 넘어가기
             print(recvData)
-            pass
+            
             
 
     @pyqtSlot()

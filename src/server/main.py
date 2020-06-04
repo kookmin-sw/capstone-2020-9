@@ -121,6 +121,7 @@ def dist(sock):
                         if( connected_dev.get((login_info["id"],r[0]), 0) != 0 ):
                             conn_list += r[0] + ','
 
+                    if(conn_list ==''): conn_list = 'empty'
                     sock.send(conn_list.encode('utf-8'))
                     
                     conn = threading.Thread(target=make_connection, args=(sock,))
@@ -136,20 +137,20 @@ def dist(sock):
                     curs.execute(sql)
                     rows = curs.fetchall()
 
-                    pw = f'0000'
-                    while(pw == '0000' or connected_com.get(pw,0) != 0 ):
-                        pw = f'{random.randrange(1, 10**4):04}'
-
-                    lock.acquire()
-                    connected_com[pw] = sock
-                    connected_mob[pw] = 0
-                    connected_dev[login_info["id"], login_info["did"]] = pw
-                    lock.release()
-                    
-                    sock.send('ok'.encode('utf-8'))
-
                 except:
-                    sock.send('fail'.encode('utf-8'))
+                    pass
+
+                pw = f'0000'
+                while(pw == '0000' or connected_com.get(pw,0) != 0 ):
+                    pw = f'{random.randrange(1, 10**4):04}'
+
+                lock.acquire()
+                connected_com[pw] = sock
+                connected_mob[pw] = 0
+                connected_dev[login_info["id"], login_info["did"]] = pw
+                lock.release()
+                
+                sock.send('ok'.encode('utf-8'))
 
             print("login end")
             break

@@ -70,6 +70,16 @@ def check(connection_id):
         source_sock.close() ##reconnect? exti?
 
 
+def make_connection(sock):
+    recvData = sock.recv(1024).decode('utf-8')
+    conn_info = json.loads(recvData)
+
+    pw = connected_dev[conn_info["id"], conn_info["did"]]
+    sock.send(pw.encode('utf-8'))
+
+    # conn_info["id" | "did"]
+        
+
 def dist(sock):
     while True:
         recvData = sock.recv(1024).decode('utf-8')
@@ -90,15 +100,6 @@ def dist(sock):
             sock.send(sandData)
             break
 
-        elif( recvData =='conn' ):
-            recvData = sock.recv(1024).decode('utf-8')
-            conn_info = json.loads(recvData)
-
-            connected_dev[conn_info["id"], conn_info["did"]] = pw
-            sock.send(pw.encode('utf-8'))
-
-            # conn_info["id" | "did"]
-            break
 
         elif( recvData == 'login' ):
             recvData = sock.recv(1024).decode('utf-8')
@@ -117,10 +118,14 @@ def dist(sock):
                     rows = curs.fetchall()
                     conn_list = ''
                     for r in rows: 
-                        if( connected_dev.get([login_info["id"],r[0]], 0) != 0 ):
+                        if( connected_dev.get((login_info["id"],r[0]), 0) != 0 ):
                             conn_list += r[0] + ','
 
                     sock.send(conn_list.encode('utf-8'))
+                    
+                    conn = threading.Thread(target=make_connection, args=(sock,))
+                    conn.start()
+
                 else : 
                     sock.send('fail'.encode('utf-8'))
 

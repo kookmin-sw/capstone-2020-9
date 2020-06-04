@@ -99,18 +99,13 @@ def dist(sock):
             curs.execute(sql)
             rows = curs.fetchall()
             if(rows[0][0] == 1):
-                sock.send('ok'.encode('utf-8'))
+                sql = 'select deviceName from conn_info where id = "{}";'.format(signup_info["id"])
+                curs.execute(sql)
+                rows = curs.fetchall()
+                conn_list = ''
+                for r in rows: conn_list += r[0] + ', '
 
-            #     devType = login_info.get("isCom",0)
-            #     sql = 'insert conn_info(id, macAddr, DeviceName, DeviceType) values ("{}", "{}", "{}", "{}");'.format(login_info["id"], login_info["mac"], , )
-            # try:
-            #     curs.execute(sql)
-            #     rows = curs.fetchall()
-            # except :
-            #     pass
-            
-
-
+                sock.send(conn_list.encode('utf-8'))
             else : 
                 sock.send('fail'.encode('utf-8'))
 
@@ -126,14 +121,7 @@ def dist(sock):
             try:
                 curs.execute(sql)
                 rows = curs.fetchall()
-
-                sql = 'select deviceName from conn_info where id = "{}";'.format(signup_info["id"])
-                curs.execute(sql)
-                rows = curs.fetchall()
-                conn_list = ''
-                for r in rows: conn_list += r[0] + ', '
-
-                sock.send(conn_list.encode('utf-8'))
+                sock.send('ok'.encode('utf-8'))
             except :
                 sock.send('fail'.encode('utf-8'))
 

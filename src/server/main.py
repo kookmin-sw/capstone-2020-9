@@ -9,6 +9,7 @@ random.seed(time.time())
 lock = threading.Lock()
 
 connected_com = dict()
+connected_dev = dict()
 connected_mob = dict()
 
 def getLog():
@@ -89,25 +90,52 @@ def dist(sock):
             sock.send(sandData)
             break
 
+        elif( recvData =='conn' ):
+            recvData = sock.recv(1024).decode('utf-8')
+            conn_info = json.loads(recvData)
+
+            connected_dev[conn_info["id"], conn_info["did"]] = pw
+            sock.send(pw.encode('utf-8'))
+
+            # conn_info["id" | "did"]
+            break
+
         elif( recvData == 'login' ):
             recvData = sock.recv(1024).decode('utf-8')
             login_info = json.loads(recvData)
             print("login {}".format(recvData))
             # db에서 정보 확인
-            sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
 
-            curs.execute(sql)
-            rows = curs.fetchall()
-            if(rows[0][0] == 1):
-                sql = 'select deviceName from conn_info where id = "{}";'.format(signup_info["id"])
+            if(login_info.get("did",0) == 0 ): #phone
+                sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
+
                 curs.execute(sql)
                 rows = curs.fetchall()
-                conn_list = ''
-                for r in rows: conn_list += r[0] + ', '
+                if(rows[0][0] == 1):
+                    sql = 'select deviceName from conn_info where id = "{}";'.format(login_info["id"])
+                    curs.execute(sql)
+                    rows = curs.fetchall()
+                    conn_list = ''
+                    for r in rows: 
+                        if( connected_dev.get([login_info["id"],r[0]], 0) != 0 ):
+                            conn_list += r[0] + ','
 
-                sock.send(conn_list.encode('utf-8'))
-            else : 
-                sock.send('fail'.encode('utf-8'))
+                    sock.send(conn_list.encode('utf-8'))
+                else : 
+                    sock.send('fail'.encode('utf-8'))
+
+            else: # pc
+                pw = f'0000'
+                while(pw == '0000' or connected_com.get(pw,0) != 0 ):
+                    pw = f'{random.randrange(1, 10**4):04}'
+
+                lock.acquire()
+                connected_com[pw] = sock
+                connected_mob[pw] = 0
+                connected_dev[login_info["id"], login_info["did"]] = pw
+                lock.release()
+                
+                sock.send('ok'.encode('utf-8'))
 
             print("login end")
             break
@@ -128,19 +156,6 @@ def dist(sock):
             print("signup end")
             break
 
-        elif( recvData == 'idCheck' ):
-            recvData = sock.recv(1024).decode('utf-8')
-            id_info = json.loads(recvData)
-            # db에서 정보 확인
-            sql = 'select count(*) from user_info where id = "{}";'.format(id_info["id"])
-            curs.execute(sql)
-            rows = curs.fetchall()
-            if(rows[0][0] == 1):
-                sock.send('ok'.encode('utf-8'))
-            else : 
-                sock.send('fail'.encode('utf-8'))
-            
-            break
 
         else : # from mobile, data : password 
             try:    

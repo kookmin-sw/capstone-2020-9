@@ -125,17 +125,26 @@ def dist(sock):
                     sock.send('fail'.encode('utf-8'))
 
             else: # pc
-                pw = f'0000'
-                while(pw == '0000' or connected_com.get(pw,0) != 0 ):
-                    pw = f'{random.randrange(1, 10**4):04}'
-
-                lock.acquire()
-                connected_com[pw] = sock
-                connected_mob[pw] = 0
-                connected_dev[login_info["id"], login_info["did"]] = pw
-                lock.release()
                 
-                sock.send('ok'.encode('utf-8'))
+                sql = 'insert conn_info(id, macAddr, DeviceName) values ("{}", "{}", "{}");'.format(login_info["id"], login_info["mac"], login_info["did"])
+                try:
+                    curs.execute(sql)
+                    rows = curs.fetchall()
+
+                    pw = f'0000'
+                    while(pw == '0000' or connected_com.get(pw,0) != 0 ):
+                        pw = f'{random.randrange(1, 10**4):04}'
+
+                    lock.acquire()
+                    connected_com[pw] = sock
+                    connected_mob[pw] = 0
+                    connected_dev[login_info["id"], login_info["did"]] = pw
+                    lock.release()
+                    
+                    sock.send('ok'.encode('utf-8'))
+
+                except:
+                    sock.send('fail'.encode('utf-8'))
 
             print("login end")
             break

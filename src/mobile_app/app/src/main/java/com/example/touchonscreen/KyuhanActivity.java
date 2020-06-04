@@ -38,8 +38,7 @@ public class KyuhanActivity extends AppCompatActivity {
         ycoord = (EditText) findViewById(R.id.y_coord);
 
 
-
-        sendCoord = (Button)findViewById(R.id.send_coord);
+        sendCoord = (Button) findViewById(R.id.send_coord);
         sendCoord.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +46,7 @@ public class KyuhanActivity extends AppCompatActivity {
                 String xcoord_t = xcoord.getText().toString();
                 String ycoord_t = ycoord.getText().toString();
 
-                sendCoord(mode_t,xcoord_t, ycoord_t);
+                sendCoord(mode_t, xcoord_t, ycoord_t);
                 Log.w("좌표전송 테스트", "좌표전송");
 
                 mode.setText("");
@@ -77,6 +76,7 @@ public class KyuhanActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     //서버로 메시지 전송
     public void send(final String cd) {
         new Thread(new Runnable() {
@@ -92,7 +92,7 @@ public class KyuhanActivity extends AppCompatActivity {
                     os = socket_2.getOutputStream();//서버로 보낼거
                     os.write(byteArr);
                     os.flush();
-                    Log.w("새로 서버로 보냄", "새로 서버로 보냄");
+                    Log.w("새로 서버로 보냄", cd);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.w("서버로 못보냄", "서버로 못보냄");
@@ -100,13 +100,15 @@ public class KyuhanActivity extends AppCompatActivity {
             }
         }).start();
     }
-    //서버로 좌표 전송
-    public void sendCoord(String motion, String x, String y){
 
-        String coord =motion+", "+ x + ", " + y;
+    //서버로 좌표 전송
+    public void sendCoord(String motion, String x, String y) {
+
+        String coord = motion + ", " + x + ", " + y;
         //    x, y     로 전송
         send(coord);
     }
+
     //서버에서 메시지 수신
     public void receiveMsg() {
         new Thread(new Runnable() {

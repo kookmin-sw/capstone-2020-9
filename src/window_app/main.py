@@ -169,6 +169,7 @@ class MainForm(QtWidgets.QDialog):
         #self.close()
     # No:  Do nothing.
 
+
     @pyqtSlot()
     def generate_num(self): # btn 
         #self.ui.pw_show.setText("1234")
@@ -235,9 +236,11 @@ class LoginForm(QtWidgets.QDialog):
         recvData = sock.recv(1024).decode('utf-8')
         print(recvData)
         if(recvData == 'ok'):
-            #다음화면으로 넘어가기
-            pass
-            
+            self.hide()
+            waiting = threading.Thread(target=connectionStart, args=(sock,self))
+            waiting.start()
+            main_window.show()
+        
             
 
     @pyqtSlot()

@@ -33,7 +33,7 @@ CREATE TABLE user_info (
 CREATE TABLE conn_info (
     Id          CHAR(15)    NOT NULL,
     MacAddr     CHAR(17)    NOT NULL,
-    DeviceName  CHAR(10)    NOT NULL,
+    DeviceName  CHAR(100)    NOT NULL,
 
     PRIMARY KEY     (Id, MacAddr),
     INDEX   idx_id      (Id ASC),

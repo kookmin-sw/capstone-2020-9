@@ -229,13 +229,14 @@ class LoginForm(QtWidgets.QDialog):
         login_info = dict()
         login_info["id"] = self.ui.id_box.text()
         login_info["pw"] = self.ui.pw_box.text()
-        login_info["mac"] = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff) 
-for ele in range(0,8*6,8)][::-1])
+        login_info["did"] = gethostname()
+        #mac = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff) for ele in range(0,8*6,8)][::-1])
         sock.send(json.dumps(login_info).encode('utf-8'))
         recvData = sock.recv(1024).decode('utf-8')
-        if(recvData == 'ok'):
+        print(recvData)
+        if(recvData != 'fail'):
             #다음화면으로 넘어가기
-            print(recvData)
+            pass
             
             
 
@@ -265,21 +266,6 @@ class SignUpForm(QtWidgets.QDialog):
 
     def keyPressEvent(self, event):
         pass
-
-
-    @pyqtSlot()
-    def id_check(self):
-        sock = make_connection('idCheck')
-        id_info = dict()
-        id_info["id"] = self.ui.id_box.text()
-        sock.send(json.dumps(id_info).encode('utf-8'))
-        recvData = sock.recv(1024).decode('utf-8')
-        if(recvData == 'ok'):
-            self.ui.sign_in_btn.setEnabled(True)
-        else:
-            self.ui.id_box.setText("")
-            self.ui.result.setText("이미 존재하는 ID 입니다.")
-
 
     @pyqtSlot()
     def go_login(self):

@@ -237,6 +237,8 @@ class LoginForm(QtWidgets.QDialog):
         print(recvData)
         if(recvData == 'ok'):
             self.hide()
+            main_window.ui.pushButton_3.setEnable(False)
+            main_window.ui.status.setText("연결을 기다리고 있습니다.")
             waiting = threading.Thread(target=connectionStart, args=(sock,self))
             waiting.start()
             main_window.show()

@@ -71,12 +71,14 @@ def check(connection_id):
 
 
 def make_connection(sock):
-    recvData = sock.recv(1024).decode('utf-8')
-    conn_info = json.loads(recvData)
+    try: 
+        recvData = sock.recv(1024).decode('utf-8')
+        conn_info = json.loads(recvData)
 
-    pw = connected_dev[conn_info["id"], conn_info["did"]]
-    sock.send(pw.encode('utf-8'))
-
+        pw = connected_dev[conn_info["id"], conn_info["did"]]
+        sock.send(pw.encode('utf-8'))
+    except:
+        pass
     # conn_info["id" | "did"]
         
 
@@ -93,7 +95,7 @@ def dist(sock):
 
             lock.acquire()
             connected_com[pw] = sock
-            connected_mob[pw] = 0
+            connected_mob[pw] = 1
             lock.release()
 
             sandData = pw.encode('utf-8')

@@ -95,7 +95,7 @@ def dist(sock):
 
             lock.acquire()
             connected_com[pw] = sock
-            connected_mob[pw] = 1
+            connected_mob[pw] = 0
             lock.release()
 
             sandData = pw.encode('utf-8')
@@ -148,7 +148,7 @@ def dist(sock):
 
                 lock.acquire()
                 connected_com[pw] = sock
-                connected_mob[pw] = 0
+                connected_mob[pw] = 1
                 connected_dev[login_info["id"], login_info["did"]] = pw
                 lock.release()
                 

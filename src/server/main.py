@@ -126,7 +126,14 @@ def dist(sock):
             try:
                 curs.execute(sql)
                 rows = curs.fetchall()
-                sock.send('ok'.encode('utf-8'))
+
+                sql = 'select deviceName from conn_info where id = "{}";'.format(signup_info["id"])
+                curs.execute(sql)
+                rows = curs.fetchall()
+                conn_list = ''
+                for r in rows: conn_list += r[0] + ', '
+
+                sock.send(conn_list.encode('utf-8'))
             except :
                 sock.send('fail'.encode('utf-8'))
 

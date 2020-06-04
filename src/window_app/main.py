@@ -230,11 +230,11 @@ class LoginForm(QtWidgets.QDialog):
         login_info["id"] = self.ui.id_box.text()
         login_info["pw"] = self.ui.pw_box.text()
         login_info["did"] = gethostname()
-        #mac = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff) for ele in range(0,8*6,8)][::-1])
+        login_info["mac"] = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff) for ele in range(0,8*6,8)][::-1])
         sock.send(json.dumps(login_info).encode('utf-8'))
         recvData = sock.recv(1024).decode('utf-8')
         print(recvData)
-        if(recvData != 'fail'):
+        if(recvData == 'ok'):
             #다음화면으로 넘어가기
             pass
             

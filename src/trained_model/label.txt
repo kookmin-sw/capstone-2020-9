@@ -1,1 +1,1 @@
-click leftDown lock rightDown 
+clickdown clickup holddown holdup leftDown leftUp rightDown rightUp 

@@ -1,3 +1,0 @@
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/debug/x86/CMakeFiles/opencv_jni_shared.dir

@@ -1,3 +1,0 @@
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
-/home/harry/capstone/src/DetectScreen/opencv/.cxx/cmake/release/armeabi-v7a/CMakeFiles/opencv_jni_shared.dir

@@ -33,13 +33,12 @@ CREATE TABLE user_info (
 CREATE TABLE conn_info (
     Id          CHAR(15)    NOT NULL,
     MacAddr     CHAR(17)    NOT NULL,
-    DeviceName  CHAR(10)    NOT NULL,
-    
+    DeviceName  CHAR(10)    		,
+    DeviceType	Int(10)		NOT NULL,
 
     PRIMARY KEY     (Id, MacAddr),
     INDEX   idx_id      (Id ASC),
     INDEX   idx_Mac     (MacAddr ASC),
-    INDEX   idx_name    (DeviceName ASC),
 
     CONSTRAINT      fk_user_conn    FOREIGN KEY (Id)    REFERENCES user_info(Id)
                                         ON DELETE CASCADE
@@ -56,10 +55,10 @@ INSERT INTO user_info VALUES
 ('test3', 'test', 'test', 'test@mail.com');
 
 INSERT INTO conn_info VALUES
-('test', 'ff:ff:ff:ff:ff:ff', 'test'),
-('test', 'ff:ff:ff:ff:ff:ee', 'test'),
-('test2', 'ff:ff:ff:ff:ff:ff', 'test'),
-('test3', 'ff:ff:ff:ff:ff:ff', 'test');
+('test', 'ff:ff:ff:ff:ff:ff', 'test', 1),
+('test', 'ff:ff:ff:ff:ff:ee', 'test', 1),
+('test2', 'ff:ff:ff:ff:ff:ff', 'test', 1),
+('test3', 'ff:ff:ff:ff:ff:ff', 'test', 1);
 
 
 

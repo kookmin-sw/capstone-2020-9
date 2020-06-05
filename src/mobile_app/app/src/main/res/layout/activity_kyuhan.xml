@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="5"
-    android:rowCount="5"
-    tools:context=".KyuhanActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/coordsendBtn"
-        android:text="@string/coord" />
-</GridLayout>
+    <LinearLayout
+        android:id="@+id/register_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="188dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+
+            <EditText
+                android:id="@+id/gesture_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/gesture_mode" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/x_coord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/x_coord" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/y_coord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/y_coord" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/send_coord"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/send_coord"
+            android:theme="@style/ButtonStyle" />
+
+    </LinearLayout>
+</RelativeLayout>

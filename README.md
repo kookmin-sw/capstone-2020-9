@@ -4,6 +4,7 @@
 ### 팀페이지 주소
 https://kookmin-sw.github.io/capstone-2020-9/
 
+
 ## 1. 프로젝트 소개
 화면을 보여주는 모니터, 빔 프로젝터 등은 컴퓨터에 있어서 가장 기본적인 출력장치들 중 하나이다. 시각적인 출력장치도 매우 많은 종류가 생기고 터치가 가능해지는 모니터, 터치를 인식하는 빔 프로젝터 등 출력장치에 입력장치를 추가하여 사용자와 상호작용을 하는 장치들 역시 매우 많이 개발되며 상용화 되고 있다. 기존의 제품을 사용해 입력장치를 추가하려면 추가적인 기기를 구매하거나 새로운 기기를 구매해야 한다.  
 따라서 본 프로젝트는 빔 프로젝터, 모니터 등 PC와 연결된 스크린에서의 조작을 모바일에서의 모션인식을 통해 가능하게 하는 것을 목표로 한다.  대부분의 강의를 위한 공간은 빔 프로젝터나 큰 모니터를 사용한다. 하지만 발표를 하면서 동적인 자세 또는 특정 행동을 통해서 발표 스크린을 제어하는 것은 어렵다. 이 프로젝트는 모바일 디바이스에서의 모션 인식 기능을 통해 추가적인 비용 소모 없이 화면을 터치하는것과 같은 효과를 줄 것이다.  
@@ -21,11 +22,20 @@ The goal is to develop a deep learning model that recognizes motion of hand and 
 
 https://youtu.be/FLWs8H1VLTo
 
+### 프로젝트 시나리오 영상
+[![Watch the video](https://img.youtube.com/vi/Y0ykC2mQFJw/mqdefault.jpg)](https://youtu.be/Y0ykC2mQFJw)  
+https://youtu.be/Y0ykC2mQFJw
+
+### 프로젝트 구현 영상
+[![Watch the video](https://img.youtube.com/vi/w3RBwXQyVUQ/mqdefault.jpg)](https://youtu.be/w3RBwXQyVUQ)  
+https://youtu.be/w3RBwXQyVUQ
 
 ## 4. 실행 방법
+
+
 1) server
     `running on aws`  
-    `ip : 15.164.116.157`  
+    `ip : 3.226.243.223`  
     `port : 8081`  
      
 2) android app
@@ -36,6 +46,92 @@ https://youtu.be/FLWs8H1VLTo
     `실행 : user>python3 main.py`  
     
     
+
+### 4.1 mediapipe 설치방법 (Linux)
+
+https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and-ubuntu
+
+1)기본적으로 mediapipe는 python3을 지원하므로 python version을 확인 후 mediapipe build에 필요한 lib를 설치한다.
+    `python -V`
+    `sudo apt-get install python3-dev python3-numpy`
+
+2)terminal에서 mediapipe의 깃 파일들을 불러온다.
+
+    '$ git clone https://github.com/google/mediapipe.git'
+    '$ cd mediapipe'
+    
+3)Bazel을 설치한다.
+
+    https://docs.bazel.build/versions/master/install-ubuntu.html
+    
+4)OpenCV와 FFmpeg를 설치한다(option 중 하나 선택하여 설치)
+
+   option1) pakage manager tool을 사용해 pre-compile 되어있는 OpenCV 라이브러리를 설치한다.
+    
+        '$ sudo apt-get install libopencv-core-dev libopencv-highgui-dev \
+                       libopencv-calib3d-dev libopencv-features2d-dev \
+                       libopencv-imgproc-dev libopencv-video-dev'
+                       
+   option2) setup_opencv.sh를 실행하여 OpenCV를 자동 빌드한다. 그리고 Mediapipe의 OpenCV 구성을 수정한다.
+    
+   option3) https://docs.opencv.org/3.4.6/d7/d9f/tutorial_linux_install.html (OpenCV manual)을 따라한다.
+    
+    추가.(only option3) Mediapipe가 당신 컴퓨터의 OpenCV의 라이브러리를 가리키도록 WORKSPACE 와 opencv_linux.BUILD 를 수정해야한다.  만약 OpenCV4가 "/usr/local"에 설치되어있다면 당신은 WORKSPACE 의 "linux_opencv"new_local_repository rule과 opencv_linux.BUILD 의 "opencv" cc_library ruls을 수정해야한다.
+    
+    new_local_repository(
+    name = "linux_opencv",
+    build_file = "@//third_party:opencv_linux.BUILD",
+    path = "/usr/local",
+    )
+
+    cc_library(
+        name = "opencv",
+        srcs = glob(
+            [
+                "lib/libopencv_core.so",
+                "lib/libopencv_highgui.so",
+                "lib/libopencv_imgcodecs.so",
+                "lib/libopencv_imgproc.so",
+                "lib/libopencv_video.so",
+                "lib/libopencv_videoio.so",
+            ],
+        ),
+        hdrs = glob(["include/opencv4/**/*.h*"]),
+        includes = ["include/opencv4/"],
+        linkstatic = 1,
+        visibility = ["//visibility:public"],
+    )
+    
+5)Hello World desktop example 실행
+    
+    $ export GLOG_logtostderr=1
+
+    # if you are running on Linux desktop with CPU only
+    $ bazel run --define MEDIAPIPE_DISABLE_GPU=1 \
+        mediapipe/examples/desktop/hello_world:hello_world
+
+    # If you are running on Linux desktop with GPU support enabled (via mesa drivers)
+    $ bazel run --copt -DMESA_EGL_NO_X11_HEADERS --copt -DEGL_NO_X11 \
+        mediapipe/examples/desktop/hello_world:hello_world
+
+    # Should print:
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+    # Hello World!
+
+### 4.2 python module 설치방법 
+`pip install pyautogui`  
+`pip install PyQt5`  
+`pip install win10toast`  
+
+### 4.3 사용자 데이터셋 생성방법
 
 
 
@@ -54,7 +150,7 @@ https://youtu.be/FLWs8H1VLTo
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
-      모션인식 
+      모션인식, github관리 
    
 <img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
 

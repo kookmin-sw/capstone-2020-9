@@ -108,7 +108,7 @@ def dist(sock):
             login_info = json.loads(recvData)
             print("login {}".format(recvData))
             # db에서 정보 확인
-
+            
             if(login_info.get("did",0) == 0 ): #phone
                 sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
 
@@ -145,6 +145,7 @@ def dist(sock):
                 pw = f'0000'
                 while(pw == '0000' or connected_com.get(pw,0) != 0 ):
                     pw = f'{random.randrange(1, 10**4):04}'
+
 
                 lock.acquire()
                 connected_com[pw] = sock

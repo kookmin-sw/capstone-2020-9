@@ -137,6 +137,7 @@ def dist(sock):
             else: # pc
                 sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
 
+
                 curs.execute(sql)
                 rows = curs.fetchall()
                 if(rows[0][0] == 0):

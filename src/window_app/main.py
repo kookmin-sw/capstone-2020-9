@@ -239,6 +239,7 @@ class LoginForm(QtWidgets.QDialog):
         recvData = sock.recv(1024).decode('utf-8')
         print(recvData)
         if(recvData == 'ok'):
+
             main_window.move(self.x(), self.y())
             self.hide()
             main_window.ui.pushButton_3.setEnabled(False)
@@ -249,6 +250,7 @@ class LoginForm(QtWidgets.QDialog):
             main_window.show()
         else:
             self.ui.result.setText("올바르지 않은 ID, PW 입니다.")
+
             
 
     @pyqtSlot()

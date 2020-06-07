@@ -48,6 +48,7 @@ https://youtu.be/w3RBwXQyVUQ
     
 
 ### 4.1 mediapipe 설치방법 (Linux)
+* linux를 처음 시작할 경우 python, python3의 모든 모듈이 설치되어있어야 한다.
 
 https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and-ubuntu
 

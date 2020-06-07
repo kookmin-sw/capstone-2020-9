@@ -304,6 +304,15 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>id_box</tabstop>
+  <tabstop>pw_box</tabstop>
+  <tabstop>pw_check_box</tabstop>
+  <tabstop>name_box</tabstop>
+  <tabstop>email_box</tabstop>
+  <tabstop>sign_in_btn</tabstop>
+  <tabstop>pushButton_3</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

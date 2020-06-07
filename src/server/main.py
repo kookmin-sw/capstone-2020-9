@@ -85,6 +85,7 @@ def make_connection(sock):
 def dist(sock):
     while True:
         recvData = sock.recv(1024).decode('utf-8')
+        if(recvData == ''): break
         print("flag: {}".format(recvData))
 
         if( recvData == 'com' ): # from com 
@@ -131,8 +132,16 @@ def dist(sock):
 
                 else : 
                     sock.send('fail'.encode('utf-8'))
+                    continue
 
             else: # pc
+                sql = 'select count(*) from user_info where id = "{}" and pw = "{}";'.format(login_info["id"], login_info["pw"])
+
+                curs.execute(sql)
+                rows = curs.fetchall()
+                if(rows[0][0] == 0):
+                    sock.send('fail'.encode('utf-8'))
+                    break
                 
                 sql = 'insert conn_info(id, macAddr, DeviceName) values ("{}", "{}", "{}");'.format(login_info["id"], login_info["mac"], login_info["did"])
                 try:
@@ -169,6 +178,7 @@ def dist(sock):
                 sock.send('ok'.encode('utf-8'))
             except :
                 sock.send('fail'.encode('utf-8'))
+                continue
 
             print("signup end")
             break
@@ -209,7 +219,7 @@ def dist(sock):
                 del connected_mob[recvData]
                 del connected_com[recvData]
                 lock.release()
-
+            break
 
 #mysql 5.7.22 
 

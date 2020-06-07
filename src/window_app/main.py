@@ -191,9 +191,7 @@ class MainForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def login(self): #btn
-        print(self.frameGeometry().center())
         login_window.move(self.x(), self.y())
-        print(login_window.frameGeometry().center())
         self.hide()
         login_window.show()
 
@@ -245,10 +243,12 @@ class LoginForm(QtWidgets.QDialog):
             self.hide()
             main_window.ui.pushButton_3.setEnabled(False)
             main_window.ui.status.setText("연결을 기다리고 있습니다.")
+            main_window.ui.pw_label_2.setText("")
             waiting = threading.Thread(target=connectionStart, args=(sock,main_window))
             waiting.start()
             main_window.show()
-        
+        else:
+            self.ui.result.setText("올바르지 않은 ID, PW 입니다.")
             
 
     @pyqtSlot()
@@ -289,9 +289,12 @@ class SignUpForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def signup_confirm(self):
+        if(self.ui.id_box.text() == '' or self.ui.pw_box.text() == '' or self.ui.name_box.text() == '' or self.ui.email_box.text() == ''):
+            self.ui.result.setText("id를 입력해주세요")
+            return
         sock = make_connection('signup')
         if(self.ui.pw_box.text() != self.ui.pw_check_box.text()):
-            self.ui.result("비밀번호가 다릅니다.")
+            self.ui.result.setText("비밀번호가 다릅니다.")
             return 
         
         signup_info = dict()
@@ -305,8 +308,10 @@ class SignUpForm(QtWidgets.QDialog):
         if(recvData == 'ok'):
             main_window.move(self.x(), self.y())
             self.hide()
-            main_window.show()
+            login_window.show()
             self.__init__()
+        else:
+            self.ui.result.setText("이미 존재하는 ID 입니다.")
             
     
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):

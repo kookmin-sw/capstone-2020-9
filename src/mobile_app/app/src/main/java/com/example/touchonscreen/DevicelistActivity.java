@@ -80,9 +80,9 @@ public class DevicelistActivity extends AppCompatActivity {
         Load.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rmsg.equals("empty")){
+                if (rmsg.equals("empty")) {
                     Toast.makeText(DevicelistActivity.this, "연결된 PC가 없습니다.", Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     setBtn();
                 }
             }
@@ -120,13 +120,7 @@ public class DevicelistActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     vpw = rmsg;
-                    sendData(rmsg);
-                    try {
-                        sendThread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    isConnected=false;
+                    isConnected = false;
                     try {
                         socket.close();
                         Log.w("서버 닫힘", "서버닫힘");
@@ -162,7 +156,7 @@ public class DevicelistActivity extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.w("서버로 못보냄", "서버로 못보냄");
+                    Log.w("서버로 못보냄", sendmsg);
                 }
             }
         });
@@ -214,5 +208,17 @@ public class DevicelistActivity extends AppCompatActivity {
             }
         }
 
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isConnected == true) {
+            try {
+                isConnected = false;
+                socket.close(); //소켓 닫는다
+                Log.w("서버 닫힘", "서버닫힘");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

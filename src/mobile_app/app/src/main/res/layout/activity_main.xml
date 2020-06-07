@@ -1,130 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:columnCount="5"
-    android:orientation="horizontal"
-    android:rowCount="11">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_columnSpan="4"
-        android:layout_gravity="center|fill"
-        android:layout_marginBottom="5dp"
-        android:text="@string/pleaseinput" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_above="@id/grid_layout"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/tos_logo_name" />
 
-    <EditText
-        android:id="@+id/numberpadtext"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_columnSpan="4"
-        android:layout_gravity="center|fill"
-        android:ems="10"
-        android:inputType="text|textPassword">
+    <GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:rowCount="11">
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:layout_gravity="center|fill"
+            android:layout_marginBottom="5dp"
+            android:text="@string/pleaseinput" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button1" />
+        <EditText
+            android:id="@+id/numberpadtext"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:layout_gravity="center|fill"
+            android:layout_marginBottom="50dp"
+            android:ems="10"
+            android:inputType="text|textPassword">
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button1"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
 
-    <!--android:background="@drawable/button1"-->
+        <!--android:background="@drawable/button1"-->
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_row="4"
-        android:layout_column="1"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button2" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button2"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_row="4"
-        android:layout_column="2"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button3" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button3"
+            android:textColor="@color/text_selector"
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_row="5"
-        android:layout_column="0"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button4" />
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_row="5"
-        android:layout_column="1"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button5" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button4"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_row="5"
-        android:layout_column="2"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button6" />
+        <Button
+            android:id="@+id/button5"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button5"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_row="6"
-        android:layout_column="0"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button7" />
+        <Button
+            android:id="@+id/button6"
+            android:layout_row="5"
+            android:layout_column="2"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button6"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_row="6"
-        android:layout_column="1"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button8" />
+        <Button
+            android:id="@+id/button7"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button7"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_row="6"
-        android:layout_column="2"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button9" />
+        <Button
+            android:id="@+id/button8"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button8"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/clearbutton"
-        android:layout_row="7"
-        android:layout_column="0"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/clear" />
+        <Button
+            android:id="@+id/button9"
+            android:layout_row="6"
+            android:layout_column="2"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button9"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button0"
-        android:layout_row="7"
-        android:layout_column="1"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/Button0" />
+        <Button
+            android:id="@+id/clearbutton"
+            android:layout_row="7"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/clear"
+            android:textColor="@color/text_selector"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/sendbutton"
-        android:layout_row="7"
-        android:layout_column="2"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_state"
-        android:text="@string/send" />
+        <Button
+            android:id="@+id/button0"
+            android:layout_row="7"
+            android:layout_column="1"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/Button0"
+            android:textColor="@color/text_selector"
+            android:textSize="25sp" />
 
-</GridLayout>
+        <Button
+            android:id="@+id/sendbutton"
+            android:layout_row="7"
+            android:layout_column="2"
+            android:layout_margin="5dp"
+            android:height="75dp"
+            android:background="#00ff0000"
+            android:text="@string/send"
+            android:textColor="@color/text_selector"
+            android:textSize="20sp" />
+
+    </GridLayout>
+
+</LinearLayout>
+
+

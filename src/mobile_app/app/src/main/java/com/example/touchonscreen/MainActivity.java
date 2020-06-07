@@ -246,4 +246,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         userinput = (EditText) findViewById(R.id.numberpadtext);
         userinput.append(no);
     }
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isConnected == true) {
+            try {
+                isConnected = false;
+                socket.close(); //소켓 닫는다
+                Log.w("서버 닫힘", "서버닫힘");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

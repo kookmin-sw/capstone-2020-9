@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     Thread recvThread = new Thread();
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -68,25 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         mLogInButton = (Button) findViewById(R.id.login_button);
         mRegisterButton = (Button) findViewById(R.id.register_button);
         mNonmemberButton = (Button) findViewById(R.id.non_members_button);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //소켓 생성 후 서버에 연결
-                    socket = new Socket("3.226.243.223", 8081);
-                    os = socket.getOutputStream();
-                    is = socket.getInputStream();
-
-                    Log.w("서버 연결됨", "서버 연결됨");
-                    isConnected = true;
-                } catch (IOException e1) {
-                    Log.w("서버 연결실패", "서버 연결실패");
-                    e1.printStackTrace();
-                }
-
-            }
-        }).start();
 
 
         mLogInButton.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                     mIdView.setText("");
                     mPasswordView.setText("");
                     if (rmsg.equals("fail")) {
-                        Toast.makeText(LoginActivity.this, "틀린 비밀번호", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "등록되지 않은 회원이거나, 틀린 비밀번호입니다", Toast.LENGTH_SHORT).show();
                         Log.w("서버 로그인 실패", "서버 로그인 실패");
 
 
@@ -161,19 +141,21 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            isConnected = false;
-                            socket.close();
-                            Log.w("서버 닫힘", "서버닫힘");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.w("서버 안닫힘", "서버 안닫힘");
+                if (isConnected == true) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                isConnected = false;
+                                socket.close();
+                                Log.w("서버 닫힘", "서버닫힘");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.w("서버 안닫힘", "서버 안닫힘");
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                }
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
 
@@ -182,19 +164,21 @@ public class LoginActivity extends AppCompatActivity {
         mNonmemberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            isConnected = false;
-                            socket.close();
-                            Log.w("서버 닫힘", "서버닫힘");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.w("서버 안닫힘", "서버 안닫힘");
+                if (isConnected == true) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                isConnected = false;
+                                socket.close();
+                                Log.w("서버 닫힘", "서버닫힘");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.w("서버 안닫힘", "서버 안닫힘");
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                }
                 Intent intetnt = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intetnt);
             }
@@ -220,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.w("서버로 못보냄", "서버로 못보냄");
+                    Log.w("서버로 못보냄", sendmsg);
                 }
             }
         });
@@ -273,6 +257,29 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isConnected==false){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        //소켓 생성 후 서버에 연결
+                        socket = new Socket("3.226.243.223", 8081);
+                        os = socket.getOutputStream();
+                        is = socket.getInputStream();
 
+                        Log.w("서버 연결됨", "서버 연결됨");
+                        isConnected = true;
+                    } catch (IOException e1) {
+                        Log.w("서버 연결실패", "서버 연결실패");
+                        e1.printStackTrace();
+                    }
+
+                }
+            }).start();
+        }
+    }
 }
 

@@ -34,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     Thread recvThread = new Thread();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -73,54 +72,63 @@ public class RegisterActivity extends AppCompatActivity {
                 String pw = rg_pw.getText().toString();
                 String name = rg_name.getText().toString();
                 String email = rg_email.getText().toString();
-                String signup = "";
-                try {
-                    signup = convertJson(id, pw, name, email);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                sendData("signup");
-                try {
-                    sendThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                sendData(signup);
-                try {
-                    sendThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                recvData();
-                try {
-                    recvThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                if("".equals(id) || "".equals(pw) || "".equals(name) || "".equals(email)){
+                    Toast.makeText(RegisterActivity.this, "입력하지 않은 항목이 있습니다", Toast.LENGTH_SHORT).show();
+                }else{
+                    String signup = "";
+                    try {
+                        signup = convertJson(id, pw, name, email);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sendData("signup");
+                    try {
+                        sendThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    sendData(signup);
+                    try {
+                        sendThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    recvData();
+                    try {
+                        recvThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                if (rmsg.equals("ok")) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                isConnected = false;
-                                socket.close();
-                                Log.w("서버 닫힘", "서버닫힘");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.w("서버 안닫힘", "서버 안닫힘");
+                    if (rmsg.equals("ok")) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    isConnected = false;
+                                    socket.close();
+                                    Log.w("서버 닫힘", "서버닫힘");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Log.w("서버 안닫힘", "서버 안닫힘");
+                                }
                             }
-                        }
-                    }).start();
-                    Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    Log.w("서버 회원가입 성공", "서버 회원가입 성공");
-                } else {
+                        }).start();
+                        Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        Log.w("서버 회원가입 성공", "서버 회원가입 성공");
+                    } else {
+                        if (isConnected == true) {
+                            Toast.makeText(RegisterActivity.this, "이미 등록된 회원입니다", Toast.LENGTH_SHORT).show();
+                            Log.w("서버 회원가입 실패", "서버 회원가입 실패");
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(RegisterActivity.this, "이미 존재하는 회원입니다", Toast.LENGTH_SHORT).show();
-                    Log.w("서버 회원가입 실패", "서버 회원가입 실패");
+                        }
+                    }
                 }
+
             }
         });
     }
@@ -145,14 +153,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Log.w("서버로 못보냄", "서버로 못보냄");
+                        Log.w("서버로 못보냄", sendmsg);
                     }
                 }
             });
             sendThread.start();
         } else {
             Toast.makeText(RegisterActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
-            Log.w("서버 연결 안되서 전송 못함", "서버 연결 안되서 전송 못함");
+            Log.w("서버 연결 안되서 전송 못함", sendmsg);
         }
 
     }
@@ -180,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
             recvThread.start();
         } else {
             Toast.makeText(RegisterActivity.this, "서버에 연결되지 않았습니다", Toast.LENGTH_SHORT).show();
-            Log.w("서버 연결 안되서 수신 못함", "서버 연결 안되서 수신 못함");
+            Log.w("서버 연결 안되서 수신 못함", rmsg);
         }
 
     }
@@ -208,6 +216,18 @@ public class RegisterActivity extends AppCompatActivity {
         String json = data.toString();
         return json;
 
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isConnected == true) {
+            try {
+                isConnected = false;
+                socket.close(); //소켓 닫는다
+                Log.w("서버 닫힘", "서버닫힘");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

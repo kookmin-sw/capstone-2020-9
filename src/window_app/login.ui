@@ -38,7 +38,7 @@
     <locale language="Korean" country="SouthKorea"/>
    </property>
    <property name="inputMethodHints">
-    <set>Qt::ImhNone</set>
+    <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
    </property>
    <property name="inputMask">
     <string/>
@@ -132,6 +132,13 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>id_box</tabstop>
+  <tabstop>pw_box</tabstop>
+  <tabstop>pushButton_12</tabstop>
+  <tabstop>pushButton_13</tabstop>
+  <tabstop>pushButton_11</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

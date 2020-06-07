@@ -154,6 +154,7 @@ class MainForm(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
         self.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint, False)
         self.ui = uic.loadUi("tos_v1.ui", self) #tos.ui
+        self.setFixedSize(self.frameGeometry().width(), self.frameGeometry().height())
         self.ui.setWindowTitle('Touch On Screen')
         self.setWindowIcon(QtGui.QIcon(MAIN_ICON))
         
@@ -190,6 +191,9 @@ class MainForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def login(self): #btn
+        print(self.frameGeometry().center())
+        login_window.move(self.x(), self.y())
+        print(login_window.frameGeometry().center())
         self.hide()
         login_window.show()
 
@@ -214,6 +218,7 @@ class LoginForm(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
         self.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint, False)
         self.ui = uic.loadUi("login.ui", self) 
+        self.setFixedSize(self.frameGeometry().width(), self.frameGeometry().height())
         self.ui.setWindowTitle('Touch On Screen')
         self.setWindowIcon(QtGui.QIcon(MAIN_ICON))
 
@@ -236,6 +241,7 @@ class LoginForm(QtWidgets.QDialog):
         recvData = sock.recv(1024).decode('utf-8')
         print(recvData)
         if(recvData == 'ok'):
+            main_window.move(self.x(), self.y())
             self.hide()
             main_window.ui.pushButton_3.setEnabled(False)
             main_window.ui.status.setText("연결을 기다리고 있습니다.")
@@ -247,11 +253,13 @@ class LoginForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def make_account(self):
+        signup_window.move(self.x(), self.y())
         self.hide()
         signup_window.show()
 
     @pyqtSlot()
     def go_main(self):
+        main_window.move(self.x(), self.y())
         self.hide()
         main_window.show()
         self.__init__()
@@ -262,6 +270,7 @@ class SignUpForm(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
         self.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint, False)
         self.ui = uic.loadUi("signup.ui", self) 
+        self.setFixedSize(self.frameGeometry().width(), self.frameGeometry().height())
         self.ui.setWindowTitle('Touch On Screen')
         self.setWindowIcon(QtGui.QIcon(MAIN_ICON))
 
@@ -274,6 +283,7 @@ class SignUpForm(QtWidgets.QDialog):
 
     @pyqtSlot()
     def go_login(self):
+        login_window.move(self.x(), self.y())
         self.hide()
         login_window.show()
 
@@ -293,6 +303,7 @@ class SignUpForm(QtWidgets.QDialog):
 
         recvData = sock.recv(1024).decode('utf-8')
         if(recvData == 'ok'):
+            main_window.move(self.x(), self.y())
             self.hide()
             main_window.show()
             self.__init__()

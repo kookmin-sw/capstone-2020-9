@@ -81,7 +81,9 @@ public class DevicelistActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (rmsg.equals("empty")) {
-                    Toast.makeText(DevicelistActivity.this, "연결된 PC가 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DevicelistActivity.this, "연결된 PC가 없습니다", Toast.LENGTH_LONG).show();
+                } if("".equals(rmsg)){
+                    Toast.makeText(DevicelistActivity.this, "다시 한번 시도해주세요", Toast.LENGTH_LONG).show();
                 } else {
                     setBtn();
                 }

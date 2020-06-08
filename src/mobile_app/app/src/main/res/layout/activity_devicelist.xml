@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#FFFFFF">
 
     <LinearLayout
@@ -15,10 +15,10 @@
         <ImageView
             android:layout_width="match_parent"
             android:scaleType="fitStart"
-            android:layout_height="105dp"
+            android:layout_height="100dp"
             android:layout_above="@id/dvl_title"
             android:layout_alignParentTop="true"
-            android:src="@drawable/tos_logo_name" />
+            android:src="@drawable/tos_name" />
 
         <TextView
             android:id="@+id/dvl_title"
@@ -34,7 +34,7 @@
         <LinearLayout
             android:id="@+id/linear1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" />
 
         <Button

@@ -4,13 +4,22 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitStart"
+        android:layout_above="@id/kyu_layout"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/tos_name" />
+
     <LinearLayout
-        android:id="@+id/register_layout"
+        android:id="@+id/kyu_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="188dp"
         android:orientation="vertical">
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -23,6 +32,7 @@
                 android:id="@+id/gesture_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/gesture_mode" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,6 +46,7 @@
                 android:id="@+id/x_coord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/x_coord" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,6 +60,7 @@
                 android:id="@+id/y_coord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/y_coord" />
         </com.google.android.material.textfield.TextInputLayout>
 

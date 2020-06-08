@@ -7,18 +7,19 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="105dp"
+        android:layout_height="0px"
+        android:layout_weight="1"
         android:layout_above="@id/grid_layout"
         android:layout_alignParentTop="true"
         android:scaleType="fitStart"
-        android:src="@drawable/tos_logo_name" />
+        android:src="@drawable/tos_name" />
 
     <GridLayout
         android:id="@+id/grid_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0px"
+        android:layout_weight="4"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:columnCount="5"
         android:orientation="horizontal"
         android:rowCount="11">
@@ -40,7 +41,7 @@
             android:layout_gravity="center|fill"
             android:layout_marginBottom="50dp"
             android:ems="10"
-            android:inputType="text|textPassword">
+            android:inputType="numberPassword">
 
             <requestFocus />
         </EditText>

@@ -24,7 +24,7 @@
   </property>
   <widget class="QPushButton" name="sign_in_btn">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -36,6 +36,9 @@
    </property>
    <property name="text">
     <string>회원가입</string>
+   </property>
+   <property name="shortcut">
+    <string/>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -247,19 +250,6 @@
     <string extracomment="pwpw"/>
    </property>
   </widget>
-  <widget class="QPushButton" name="dupli_check_btn">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>20</y>
-     <width>95</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>중복 확인</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
@@ -314,6 +304,15 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>id_box</tabstop>
+  <tabstop>pw_box</tabstop>
+  <tabstop>pw_check_box</tabstop>
+  <tabstop>name_box</tabstop>
+  <tabstop>email_box</tabstop>
+  <tabstop>sign_in_btn</tabstop>
+  <tabstop>pushButton_3</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -345,22 +344,6 @@
     <hint type="destinationlabel">
      <x>316</x>
      <y>278</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dupli_check_btn</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>id_check()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>288</x>
-     <y>36</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>313</x>
-     <y>115</y>
     </hint>
    </hints>
   </connection>

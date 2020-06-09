@@ -134,6 +134,73 @@ https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and
 
 ### 4.3 사용자 데이터셋 생성방법
 
+Mediapipe가 이미 설치된 상태에서 해야한다.
+
+* 영상데이터로 훈련시키기 위해서 데스크탑의 웹캠이 아닌 영상을 input값으로 넣어야한다
+* 한 단에 대한 hand landmark의 모든 프레임은 하나의 txt 파일로 만들어진다.
+
+1) Hand Tracking 프레임워크 설치
+
+* Mediapipe 설치 (4.1참고)
+* end_loop_calculator.h 파일 변경
+
+    cd ~/mediapipe/mediapipe/calculator/core
+    rm end_loop_calculator.h
+    
+    현재 우리 git의 파일 중 'src/AI/set_Dataset/' 에 있는 'end_loop_calculator.h' 를 같은 폴더에 삽입한다.
+    
+* demo_run_graph_main.cc 파일 변경
+
+    cd ~/mediapipe/mediapipe/examples/desktop
+    rm demo_run_graph_main.cc
+    
+    'src/AI/set_Dataset/' 에 있는 'demo_run_graph_main.cc'를 같은 폴더에 삽입한다.
+    
+* landmarks_to_render_data_calculator.cc 파일 변경
+
+    cd ~/mediapipe/mediapipe/calculators/util
+    rm landmarks_to_render_data_calculator.cc
+    
+    'src/AI/set_Dataset/' 에 있는 'landmarks_to_render_data_calculator.cc'를 같은 폴더에 삽입한다.
+
+2) 고유의 training data 만들기
+
+* 하나의 폴더마다 하나의 기능에 대한 훈련 영상을 만든다.
+* 당신의 Mediapipe 디렉토리에 우리 git 의 'src/AI/set_Dataset/' 에 있는 'build.py' 를 사용한다.
+
+Mediapipe 디렉토리에서
+
+    python build.py --input_data_path=[INPUT_PATH] --output_data_path=[OUTPUT_PATH]
+    
+를 실행한다.
+
+중요 : 폴더의 이름은 그 자체가 영상자료의 label이 되기 때문에 조심해야한다.(공백이나 _ 를 쓰면안된다. ex)Apple_pie(X) )
+
+For example : 
+
+    input_video
+        ├── Apple
+        │   ├── IMG_2733.MOV
+        │   ├── IMG_2734.MOV
+        │   ├── IMG_2735.MOV
+        │   └── IMG_2736.MOV
+        └── Happy
+            ├── IMG_2472.MOV
+            ├── IMG_2473.MOV
+            ├── IMG_2474.MOV
+            └── IMG_2475.MOV
+    
+    
+output path 는 빈 디렉토리로 정해야한다.
+
+3) RNN model 훈련
+
+* Train
+
+    python train.py --input_train_path=[INPUT_TRAIN_PATH]
+    
+    
+참고페이지 : https://github.com/rabBit64/Sign-language-recognition-with-RNN-and-Mediapipe
 
 
 ## 5. 팀 소개

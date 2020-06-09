@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
@@ -11,6 +13,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmark;
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmarkList;
 import com.google.mediapipe.components.CameraHelper;
@@ -22,8 +27,14 @@ import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.PacketGetter;
 import com.google.mediapipe.glutil.EglManager;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.List;
@@ -61,10 +72,23 @@ public class MainActivity extends AppCompatActivity {
     private ExternalTextureConverter converter;
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
+
+    private String assetTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //load label at asset/label.txt
+        try{
+            assetTxt = readText("label.txt");
+            String[] assetText = assetTxt.split(" ");
+            Toast myToast = Toast.makeText(this,assetText[3],Toast.LENGTH_SHORT);
+            myToast.show();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         Interpreter tflite = getTfliteInterpreter("model.tflite");
 
@@ -207,5 +231,17 @@ public class MainActivity extends AppCompatActivity {
         long declaredLength = fileDescriptor.getDeclaredLength();
 
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+    }
+
+
+
+    private String readText(String file) throws IOException{
+        InputStream is = getAssets().open(file);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        String text = new String(buffer);
+        return text;
     }
 }

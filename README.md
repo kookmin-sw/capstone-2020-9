@@ -136,32 +136,39 @@ https://mediapipe.readthedocs.io/en/latest/install.html#installing-on-debian-and
 
 Mediapipe가 이미 설치된 상태에서 해야한다.
 
+
 * 영상데이터로 훈련시키기 위해서 데스크탑의 웹캠이 아닌 영상을 input값으로 넣어야한다
 * 한 단에 대한 hand landmark의 모든 프레임은 하나의 txt 파일로 만들어진다.
 
+
 1) Hand Tracking 프레임워크 설치
+
 
 * Mediapipe 설치 (4.1참고)
 * end_loop_calculator.h 파일 변경
 
+
     cd ~/mediapipe/mediapipe/calculator/core
     rm end_loop_calculator.h
     
-    현재 우리 git의 파일 중 'src/AI/set_Dataset/' 에 있는 'end_loop_calculator.h' 를 같은 폴더에 삽입한다.
+    
+현재 우리 git의 파일 중 'src/AI/set_Dataset/' 에 있는 'end_loop_calculator.h' 를 같은 폴더에 삽입한다.
     
 * demo_run_graph_main.cc 파일 변경
 
     cd ~/mediapipe/mediapipe/examples/desktop
     rm demo_run_graph_main.cc
     
-    'src/AI/set_Dataset/' 에 있는 'demo_run_graph_main.cc'를 같은 폴더에 삽입한다.
+'src/AI/set_Dataset/' 에 있는 'demo_run_graph_main.cc'를 같은 폴더에 삽입한다.
     
 * landmarks_to_render_data_calculator.cc 파일 변경
 
     cd ~/mediapipe/mediapipe/calculators/util
     rm landmarks_to_render_data_calculator.cc
     
-    'src/AI/set_Dataset/' 에 있는 'landmarks_to_render_data_calculator.cc'를 같은 폴더에 삽입한다.
+'src/AI/set_Dataset/' 에 있는 'landmarks_to_render_data_calculator.cc'를 같은 폴더에 삽입한다.
+
+
 
 2) 고유의 training data 만들기
 
@@ -192,6 +199,8 @@ For example :
     
     
 output path 는 빈 디렉토리로 정해야한다.
+
+
 
 3) RNN model 훈련
 

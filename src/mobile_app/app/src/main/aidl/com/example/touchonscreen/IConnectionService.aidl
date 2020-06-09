@@ -13,6 +13,9 @@ interface IConnectionService {
     void connect();
     void disconnect();
     void send(String smsg);
-    void con_send(String ss);
-    String receive();
+    String recvMsg();
+    void con_send(String host, String ss);
+    void con_send_signup(String host, String ss);
+    void receive();
+    void send_recv(String msg);
 }

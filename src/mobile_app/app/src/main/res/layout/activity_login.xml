@@ -2,29 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="219dp"
+        android:scaleType="fitStart"
+        android:layout_height="100dp"
         android:layout_above="@id/signin_layout"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="1dp"
-        android:src="@drawable/tos_logo" />
+        android:src="@drawable/tos_name" />
 
     <LinearLayout
         android:id="@+id/signin_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp">
 
 
@@ -32,6 +33,7 @@
                 android:id="@+id/id_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:hint="@string/id" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,6 +59,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="35dp"
+            android:background="@drawable/button_state"
             android:text="@string/signin_email"
             android:theme="@style/ButtonStyle" />
 
@@ -68,6 +71,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="35dp"
+            android:background="@drawable/button_state"
             android:text="@string/register_email"
             android:theme="@style/ButtonStyle" />
 
@@ -78,6 +82,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="80dp"
+            android:background="@drawable/button_state"
             android:text="@string/non_members"
             android:theme="@style/ButtonStyle" />
     </LinearLayout>

@@ -2,15 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitStart"
+        android:layout_above="@id/register_layout"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/tos_name" />
 
     <LinearLayout
         android:id="@+id/register_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-
-
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="105dp"
         android:orientation="vertical">
 
@@ -25,6 +33,7 @@
                 android:id="@+id/id_edittext_r"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:hint="@string/id" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,6 +61,7 @@
                 android:id="@+id/name_edittext_r"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:hint="@string/name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,6 +75,7 @@
                 android:id="@+id/email_edittext_r"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,6 +88,7 @@
             android:layout_marginTop="80dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="35dp"
+            android:background="@drawable/button_state"
             android:text="@string/register_email"
             android:theme="@style/ButtonStyle" />
 

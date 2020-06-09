@@ -48,6 +48,9 @@ public class SocketManager extends Application {
     int getStatus() throws RemoteException {
         return binder.getStatus();
     }
+    String recvMsg() throws RemoteException {
+        return binder.recvMsg();
+    }
     void setSocket(String ip) throws RemoteException {
         binder.setSocket(ip);
     }
@@ -60,8 +63,17 @@ public class SocketManager extends Application {
     void send(String smsg) throws RemoteException {
         binder.send(smsg);
     }
-    String receive() throws RemoteException {
-        return binder.receive();
+    void receive() throws RemoteException {
+        binder.receive();
+    }
+    void con_send(String host, String ss) throws RemoteException {
+        binder.con_send(host, ss);
+    }
+    void con_send_signup(String host, String ss) throws RemoteException {
+        binder.con_send_signup(host, ss);
+    }
+    void send_recv(String msg) throws RemoteException {
+        binder.send_recv(msg);
     }
 
 }

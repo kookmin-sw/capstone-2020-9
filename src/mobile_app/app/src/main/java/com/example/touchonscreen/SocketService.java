@@ -22,6 +22,7 @@ public class SocketService extends Service {
     final int Time_out = 5000;
     final int STATUS_DISCONNECTED = 0;
     final int STATUS_CONNECTED = 1;
+    int flg = 0;
 
     private int status = STATUS_DISCONNECTED;
     private Socket socket = null;
@@ -30,12 +31,18 @@ public class SocketService extends Service {
     private InputStream iss = null;
     private int port = 8081;
     private String rmsgs = "";
+    Thread cThread = new Thread();
+    Thread sThread = new Thread();
+    Thread rThread = new Thread();
 
 
     IConnectionService.Stub binder = new IConnectionService.Stub() {
         @Override
         public int getStatus() throws RemoteException {
             return status;
+        }
+        public String recvMsg(){
+            return rmsgs;
         }
 
         @Override
@@ -59,13 +66,125 @@ public class SocketService extends Service {
         }
 
         @Override
-        public String receive() throws RemoteException {
-            return myReceive();
+        public void receive() throws RemoteException {
+            myReceive();
         }
 
-        public void con_send(String ss){
-            myConnect();
-            mySend(ss);
+        @Override
+        public void send_recv(String msg) throws RemoteException {
+            mySend(msg);
+            try{
+                sThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            myReceive();
+
+
+        }
+
+        public void con_send(String host, String ss)  {
+            if(flg==0){
+                flg=1;
+                mySetSocket(host);
+                myConnect();
+                try{
+                    cThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend("login");
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend(ss);
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                myReceive();
+                try{
+                    rThread.join();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                flg=1;
+                mySend("login");
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend(ss);
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                myReceive();
+                try{
+                    rThread.join();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        public void con_send_signup(String host, String ss)  {
+            if(flg==0){
+                flg=1;
+                mySetSocket(host);
+                myConnect();
+                try{
+                    cThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend("signup");
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend(ss);
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                myReceive();
+                try{
+                    rThread.join();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            else{
+                flg=1;
+                mySend("signup");
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mySend(ss);
+                try{
+                    sThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                myReceive();
+                try{
+                    rThread.join();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+
         }
     };
     public SocketService(){}
@@ -94,7 +213,7 @@ public class SocketService extends Service {
     }
     void myConnect(){
         socket = new Socket();
-        new Thread(new Runnable() {
+        cThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
@@ -110,7 +229,8 @@ public class SocketService extends Service {
                 }
 
             }
-        }).start();
+        });
+        cThread.start();
     }
 
     void myDisconnect(){
@@ -128,7 +248,7 @@ public class SocketService extends Service {
     }
 
     void mySend(final String sendmsg){
-        new Thread(new Runnable() {
+        sThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 byte[] byteArr = new byte[100];
@@ -149,10 +269,13 @@ public class SocketService extends Service {
                     Log.w("서버로 못보냄", "서버로 못보냄");
                 }
             }
-        }).start();
+        });
+        sThread.start();
+
+
     }
-    String myReceive(){
-        new Thread(new Runnable() {
+    void myReceive() {
+        rThread = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -162,13 +285,14 @@ public class SocketService extends Service {
                     int readByteCount = iss.read(byteAr);
                     rmsgs = new String(byteAr, 0, readByteCount, "UTF-8");
 
-                    Log.w("서버에서 받은 값", "" + rmsgs);
+                    //Log.w("서버에서 받은 값", "" + rmsgs);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-        }).start();
-        return rmsgs;
+        });
+        rThread.start();
+
     }
 }

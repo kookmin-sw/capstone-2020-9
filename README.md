@@ -141,7 +141,7 @@ Mediapipe가 이미 설치된 상태에서 해야한다.
 * 한 단에 대한 hand landmark의 모든 프레임은 하나의 txt 파일로 만들어진다.
 
 
-1) Hand Tracking 프레임워크 설치
+####1) Hand Tracking 프레임워크 설치
 
 
 * Mediapipe 설치 (4.1참고)
@@ -170,7 +170,7 @@ Mediapipe가 이미 설치된 상태에서 해야한다.
 
 
 
-2) 고유의 training data 만들기
+####2) 고유의 training data 만들기
 
 * 하나의 폴더마다 하나의 기능에 대한 훈련 영상을 만든다.
 * 당신의 Mediapipe 디렉토리에 우리 git 의 'src/AI/set_Dataset/' 에 있는 'build.py' 를 사용한다.
@@ -202,7 +202,7 @@ output path 는 빈 디렉토리로 정해야한다.
 
 
 
-3) RNN model 훈련
+####3) RNN model 훈련
 
 * Train
 

@@ -217,7 +217,7 @@ output path 는 빈 디렉토리로 정해야한다.
 
 'src/motion_apk'의 'TosV2.apk' 를 다운받아 휴대폰에 설치
 
-## 5. 팀 소개
+## 6. 팀 소개
 <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="160" height="200">
 
     - 정형섭(팀장)

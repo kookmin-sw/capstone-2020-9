@@ -27,8 +27,8 @@ https://youtu.be/FLWs8H1VLTo
 https://youtu.be/Y0ykC2mQFJw
 
 ### 프로젝트 구현 영상
-[![Watch the video](https://img.youtube.com/vi/w3RBwXQyVUQ/mqdefault.jpg)](https://youtu.be/w3RBwXQyVUQ)  
-https://youtu.be/w3RBwXQyVUQ
+[![Watch the video](https://img.youtube.com/vi/UXRc4hNVmkA/mqdefault.jpg)](https://youtu.be/UXRc4hNVmkA)  
+https://youtu.be/UXRc4hNVmkA
 
 ## 4. 실행 방법
 
@@ -211,11 +211,9 @@ output path 는 빈 디렉토리로 정해야한다.
     
 참고페이지 : https://github.com/rabBit64/Sign-language-recognition-with-RNN-and-Mediapipe
 
-
-
 ## 5. apk 설치방법
 
-'src/motion_apk'의 'TosV2.apk' 를 다운받아 휴대폰에 설치
+'src/Motion_APK/'의 'ToSv2.apk' 를 다운받아 휴대폰에 설치
 
 ## 6. 팀 소개
 <img src="https://user-images.githubusercontent.com/20828492/77650602-145fbd00-6faf-11ea-9f68-ad54d178baa1.jpg" width="160" height="200">

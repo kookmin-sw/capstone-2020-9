@@ -225,14 +225,14 @@ output path 는 빈 디렉토리로 정해야한다.
 
 
  
-<img src="https://user-images.githubusercontent.com/20828492/77652703-03fd1180-6fb2-11ea-95b8-fe1abd59f51f.jpg" width="160" height="200">
+
 
     - 심유정
       20153192
       beanwolf@kookmin.ac.kr
       모션인식, github관리 
    
-<img src="https://user-images.githubusercontent.com/20828492/77650563-05790a80-6faf-11ea-8932-84a15f540551.jpg" width="256" height="256">
+
 
     - 유성훈
       20153199
@@ -240,7 +240,7 @@ output path 는 빈 디렉토리로 정해야한다.
       모바일 프로그래밍 및 UI 
    
       
-<img src="https://user-images.githubusercontent.com/20828492/77650650-24779c80-6faf-11ea-9e66-68652b3252ef.jpg" width="150" height="200">
+
 
     - 이규한
       20153206
@@ -248,7 +248,7 @@ output path 는 빈 디렉토리로 정해야한다.
       모바일 프로그래밍 
    
    
-<img src="https://user-images.githubusercontent.com/20828492/77650692-335e4f00-6faf-11ea-842a-1aafd720f60c.jpg" width="160" height="200">
+
 
     - 조정근
       20153235
